@@ -3,13 +3,17 @@
 
 <head>
 
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
 
-<title>AcademeForge Certificate Generator</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>
+AcademeForge Certificate Generator
+</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 <style>
 
 *{
@@ -18,104 +22,185 @@
     box-sizing:border-box;
 }
 
+html,
 body{
-    background:#020617;
+    width:100%;
+    overflow-x:hidden;
+}
+
+body{
+
+    background:
+    radial-gradient(circle at top left,#052e16,transparent 25%),
+    radial-gradient(circle at bottom right,#172554,transparent 30%),
+    #020617;
+
     font-family:'Poppins',sans-serif;
+
     min-height:100vh;
-    padding:30px;
+
+    padding:28px;
+
     display:flex;
+
     justify-content:center;
+
     align-items:flex-start;
-    gap:30px;
+
+    gap:28px;
+
     flex-wrap:wrap;
 }
 
-/* ===================================
-   LOGIN SCREEN
-=================================== */
+/* =========================================
+   LOGIN
+========================================= */
 
 .login-screen{
+
     position:fixed;
+
     inset:0;
+
+    z-index:9999;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
     background:
     radial-gradient(circle at top left,#14532d,transparent 30%),
     radial-gradient(circle at bottom right,#1e3a8a,transparent 35%),
     #020617;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
 }
 
 .login-box{
+
     width:420px;
-    background:rgba(15,23,42,0.9);
-    backdrop-filter:blur(14px);
-    border:1px solid rgba(255,255,255,0.08);
+
+    padding:42px;
+
     border-radius:30px;
-    padding:40px;
-    box-shadow:0 25px 70px rgba(0,0,0,0.5);
+
+    background:rgba(15,23,42,0.95);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    box-shadow:
+    0 25px 80px rgba(0,0,0,0.55);
 }
 
 .login-logo{
-    width:95px;
-    height:95px;
-    border-radius:26px;
+
+    width:96px;
+    height:96px;
+
     margin:auto;
+
+    border-radius:24px;
+
     overflow:hidden;
+
     background:#ffffff;
+
     display:flex;
+
     justify-content:center;
     align-items:center;
-    border:1px solid #1e293b;
 }
 
 .login-logo img{
+
     width:100%;
     height:100%;
+
     object-fit:contain;
+
     padding:10px;
 }
 
 .login-box h1{
-    color:#ffffff;
-    font-size:34px;
-    text-align:center;
+
     margin-top:24px;
+
+    text-align:center;
+
+    color:#ffffff;
+
+    font-size:36px;
+
+    font-weight:800;
 }
 
 .login-box p{
-    color:#94a3b8;
-    text-align:center;
+
     margin-top:10px;
-    line-height:1.8;
+
+    text-align:center;
+
+    color:#94a3b8;
+
     font-size:14px;
+
+    line-height:1.8;
 }
 
 .login-box input{
+
     width:100%;
+
     margin-top:30px;
+
     background:#0f172a;
+
     border:1px solid #1e293b;
+
     padding:16px 18px;
+
     border-radius:18px;
+
     color:#ffffff;
+
     font-size:15px;
+
     outline:none;
 }
 
+.login-box input:focus{
+    border-color:#22c55e;
+}
+
 .login-box button{
+
     width:100%;
+
     margin-top:18px;
+
     border:none;
+
     padding:16px;
+
     border-radius:18px;
-    background:linear-gradient(135deg,#16a34a,#22c55e);
+
+    background:
+    linear-gradient(
+        135deg,
+        #16a34a,
+        #22c55e
+    );
+
     color:#ffffff;
+
     font-size:16px;
+
     font-weight:700;
+
     cursor:pointer;
+
     transition:0.25s;
 }
 
@@ -124,119 +209,200 @@ body{
 }
 
 .error-text{
-    color:#ef4444;
-    text-align:center;
-    margin-top:14px;
+
     display:none;
+
+    margin-top:14px;
+
+    text-align:center;
+
+    color:#ef4444;
 }
 
-/* ===================================
-   PANEL
-=================================== */
+/* =========================================
+   CONTROLS
+========================================= */
 
 .controls{
+
     width:380px;
-    background:#111827;
-    border:1px solid #1f2937;
+
+    background:
+    rgba(15,23,42,0.95);
+
+    border:1px solid rgba(255,255,255,0.06);
+
     border-radius:30px;
+
     padding:30px;
-    box-shadow:0 25px 70px rgba(0,0,0,0.45);
+
+    box-shadow:
+    0 25px 80px rgba(0,0,0,0.45);
 }
 
 .controls h1{
+
     color:#ffffff;
-    font-size:34px;
-    line-height:1.2;
+
+    font-size:38px;
+
+    line-height:1.1;
+
+    font-weight:800;
 }
 
 .controls p{
-    margin-top:12px;
+
+    margin-top:14px;
+
     color:#94a3b8;
-    line-height:1.8;
+
+    line-height:1.9;
+
     font-size:14px;
 }
 
-/* ===================================
-   SWITCH
-=================================== */
+/* =========================================
+   TYPE SWITCH
+========================================= */
 
 .type-switch{
+
     display:flex;
+
     gap:14px;
-    margin-top:28px;
+
+    margin-top:30px;
+
     margin-bottom:28px;
 }
 
 .type-btn{
+
     flex:1;
+
     border:none;
+
     padding:16px;
+
     border-radius:18px;
+
     background:#1e293b;
+
     color:#ffffff;
-    cursor:pointer;
+
     font-weight:700;
+
+    cursor:pointer;
+
     transition:0.25s;
 }
 
 .type-btn.active{
-    background:linear-gradient(135deg,#16a34a,#22c55e);
+
+    background:
+    linear-gradient(
+        135deg,
+        #16a34a,
+        #22c55e
+    );
 }
 
 .type-btn:hover{
     transform:translateY(-2px);
 }
 
-/* ===================================
+/* =========================================
    FORM
-=================================== */
+========================================= */
 
 .form-group{
     margin-bottom:18px;
 }
 
 .form-group label{
+
     display:block;
-    color:#cbd5e1;
+
     margin-bottom:8px;
+
+    color:#e2e8f0;
+
     font-size:14px;
+
     font-weight:600;
 }
 
 .form-group input{
+
     width:100%;
-    background:#0f172a;
+
+    background:#081225;
+
     border:1px solid #1e293b;
+
     padding:15px 16px;
+
     border-radius:18px;
+
     color:#ffffff;
-    outline:none;
+
     font-size:15px;
+
+    outline:none;
+
+    transition:0.2s;
 }
 
 .form-group input:focus{
+
     border-color:#22c55e;
+
+    box-shadow:
+    0 0 0 3px rgba(34,197,94,0.12);
 }
 
+/* =========================================
+   BUTTONS
+========================================= */
+
 .action-btn{
+
     width:100%;
+
     border:none;
+
     padding:16px;
+
     border-radius:18px;
+
     margin-top:15px;
-    cursor:pointer;
+
     font-size:16px;
+
     font-weight:700;
+
+    cursor:pointer;
+
     transition:0.25s;
 }
 
 .update-btn{
-    background:linear-gradient(135deg,#16a34a,#22c55e);
+
+    background:
+    linear-gradient(
+        135deg,
+        #16a34a,
+        #22c55e
+    );
+
     color:#ffffff;
 }
 
 .print-btn{
+
     background:#ffffff;
+
     color:#111827;
 }
 
@@ -244,200 +410,281 @@ body{
     transform:translateY(-2px);
 }
 
-/* ===================================
+/* =========================================
    CERTIFICATE WRAPPER
-=================================== */
+========================================= */
 
 .certificate-wrapper{
-    width:1280px;
-    border-radius:34px;
-    overflow:hidden;
-    box-shadow:0 30px 90px rgba(0,0,0,0.55);
-}
 
-/* ===================================
-   JOINING CERTIFICATE
-=================================== */
+    width:1280px;
+
+    min-height:900px;
+
+    border-radius:34px;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+    flex-shrink:0;
+
+    box-shadow:
+    0 35px 100px rgba(0,0,0,0.5);
+}
 
 .joining-style{
+
     background:
-    radial-gradient(circle at top left,rgba(34,197,94,0.12),transparent 30%),
-    radial-gradient(circle at bottom right,rgba(59,130,246,0.08),transparent 35%),
+    radial-gradient(circle at top left,rgba(34,197,94,0.08),transparent 30%),
+    radial-gradient(circle at bottom right,rgba(59,130,246,0.06),transparent 35%),
     #ffffff;
 }
-
-/* ===================================
-   EXPERIENCE CERTIFICATE
-=================================== */
 
 .experience-style{
+
     background:
-    radial-gradient(circle at top left,rgba(124,58,237,0.12),transparent 30%),
-    radial-gradient(circle at bottom right,rgba(236,72,153,0.08),transparent 35%),
+    radial-gradient(circle at top left,rgba(124,58,237,0.09),transparent 30%),
+    radial-gradient(circle at bottom right,rgba(236,72,153,0.07),transparent 35%),
     #ffffff;
 }
 
-/* ===================================
-   CERTIFICATE
-=================================== */
-
 .certificate{
+
     position:relative;
-    min-height:920px;
-    padding:70px;
+
+    width:100%;
+
+    min-height:900px;
+
+    padding:65px;
+
     overflow:hidden;
 }
 
+/* =========================================
+   BORDER
+========================================= */
+
 .border-layer{
+
     position:absolute;
-    inset:24px;
-    border-radius:24px;
-    border:2px solid #16a34a;
+
+    inset:22px;
+
+    border-radius:28px;
+
+    border:2px solid #22c55e;
 }
 
 .border-layer::before{
+
     content:'';
+
     position:absolute;
+
     inset:14px;
-    border:1px solid #d1d5db;
-    border-radius:16px;
+
+    border-radius:20px;
+
+    border:1px solid #cbd5e1;
 }
 
 .experience-style .border-layer{
     border-color:#7c3aed;
 }
 
-/* ===================================
+/* =========================================
    HEADER
-=================================== */
+========================================= */
 
 .header{
+
     position:relative;
+
     z-index:5;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:flex-start;
 }
 
 .logo-area{
+
     display:flex;
+
     align-items:center;
+
     gap:18px;
 }
 
 .logo-img-box{
-    width:95px;
-    height:95px;
-    border-radius:26px;
-    background:#ffffff;
-    border:1px solid #e5e7eb;
+
+    width:96px;
+    height:96px;
+
+    border-radius:24px;
+
     overflow:hidden;
+
+    background:#ffffff;
+
+    border:1px solid #e2e8f0;
+
     display:flex;
+
     justify-content:center;
     align-items:center;
-    box-shadow:0 12px 30px rgba(0,0,0,0.08);
+
+    box-shadow:
+    0 8px 24px rgba(0,0,0,0.06);
 }
 
 .logo-img-box img{
+
     width:100%;
     height:100%;
+
     object-fit:contain;
+
     padding:10px;
 }
 
 .brand h1{
-    font-size:52px;
+
+    font-size:58px;
+
     line-height:1;
-    color:#111827;
+
+    color:#0f172a;
+
     font-weight:800;
 }
 
 .brand p{
-    margin-top:10px;
-    color:#64748b;
-}
 
-.top-right{
-    display:flex;
-    align-items:center;
-    gap:18px;
+    margin-top:10px;
+
+    color:#64748b;
+
+    font-size:16px;
 }
 
 .msme-box{
-    width:160px;
-    height:90px;
+
+    width:170px;
+    height:92px;
+
     border-radius:18px;
-    border:1px dashed #94a3b8;
+
     overflow:hidden;
+
     background:#ffffff;
+
+    border:1px dashed #94a3b8;
 }
 
 .msme-box img{
+
     width:100%;
     height:100%;
+
     object-fit:contain;
 }
 
-/* ===================================
+/* =========================================
    CONTENT
-=================================== */
+========================================= */
 
 .content{
+
     position:relative;
+
     z-index:5;
+
     text-align:center;
-    margin-top:70px;
+
+    margin-top:52px;
 }
 
 .content-tag{
-    font-size:15px;
-    letter-spacing:5px;
-    color:#64748b;
+
+    font-size:14px;
+
+    letter-spacing:6px;
+
     font-weight:700;
+
+    color:#64748b;
 }
 
+/* =========================================
+   TITLES
+========================================= */
+
 .joining-style .content h2{
-    margin-top:20px;
+
+    margin-top:24px;
+
     font-size:82px;
+
     color:#16a34a;
+
     font-weight:800;
-    letter-spacing:4px;
+
+    line-height:1.1;
 }
 
 .experience-style .content h2{
-    margin-top:20px;
-    font-size:86px;
+
+    margin-top:24px;
+
+    font-size:68px;
+
     color:#7c3aed;
+
     font-family:'Cinzel',serif;
+
     font-weight:800;
+
+    line-height:1;
+
+    white-space:nowrap;
 }
 
 .awarded{
-    margin-top:50px;
+
+    margin-top:38px;
+
     font-size:24px;
+
     color:#64748b;
 }
 
 .student-name{
-    margin-top:28px;
-    font-size:78px;
-    line-height:1.2;
-    font-weight:700;
-}
 
-.joining-style .student-name{
-    color:#111827;
-    font-family:'Poppins',sans-serif;
+    margin-top:26px;
+
+    font-size:82px;
+
+    line-height:1.1;
+
+    font-weight:800;
+
+    color:#0f172a;
 }
 
 .experience-style .student-name{
-    color:#111827;
     font-family:'Cinzel',serif;
 }
 
 .role{
-    margin-top:22px;
-    font-size:34px;
+
+    margin-top:20px;
+
+    font-size:36px;
+
     font-weight:700;
 }
 
@@ -450,57 +697,87 @@ body{
 }
 
 .description{
+
     width:88%;
+
     margin:38px auto 0;
-    font-size:20px;
+
+    font-size:21px;
+
     line-height:2;
+
     color:#475569;
 }
 
-/* ===================================
+/* =========================================
    INFO ROW
-=================================== */
+========================================= */
 
 .info-row{
+
     margin-top:55px;
+
     display:flex;
+
     justify-content:center;
-    gap:24px;
+
+    gap:22px;
+
     flex-wrap:wrap;
 }
 
 .info-card{
-    min-width:250px;
+
+    min-width:220px;
+
     background:#ffffff;
+
     border:1px solid #e2e8f0;
+
     padding:24px;
-    border-radius:22px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.05);
+
+    border-radius:24px;
+
+    box-shadow:
+    0 10px 28px rgba(0,0,0,0.04);
 }
 
 .info-card h4{
+
     color:#64748b;
-    font-size:13px;
+
+    font-size:12px;
+
     letter-spacing:2px;
+
     text-transform:uppercase;
 }
 
 .info-card p{
+
     margin-top:14px;
-    color:#111827;
+
+    color:#0f172a;
+
     font-size:24px;
+
     font-weight:800;
 }
 
-/* ===================================
+/* =========================================
    FOOTER
-=================================== */
+========================================= */
 
 .footer{
-    margin-top:85px;
+
+    margin-top:75px;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:flex-end;
+
     gap:40px;
 }
 
@@ -509,72 +786,110 @@ body{
 }
 
 .signature-img{
+
     width:210px;
+
     object-fit:contain;
+
     margin-bottom:8px;
 }
 
 .sign-line{
+
     width:260px;
+
     height:2px;
+
     background:#111827;
+
     margin-bottom:16px;
 }
 
 .sign-name{
-    font-size:24px;
+
+    font-size:28px;
+
     font-weight:800;
+
     color:#111827;
+
+    line-height:1.1;
 }
 
 .sign-role{
-    margin-top:6px;
+
+    margin-top:8px;
+
     color:#64748b;
+
+    font-size:16px;
+
     line-height:1.8;
 }
 
-/* ===================================
-   DIGITAL SIGN
-=================================== */
+/* =========================================
+   DIGITAL STRIP
+========================================= */
 
 .digital-strip{
+
     margin-top:22px;
-    width:360px;
-    padding:14px 18px;
-    border-radius:16px;
+
+    width:370px;
+
+    padding:15px 18px;
+
+    border-radius:18px;
+
     background:#ffffff;
+
     border:1px solid #e2e8f0;
+
     display:flex;
-    align-items:flex-start;
+
     gap:12px;
 }
 
 .verify-dot{
+
     width:12px;
     height:12px;
+
     border-radius:50%;
+
     background:#22c55e;
+
     margin-top:5px;
 }
 
 .verify-content{
+
     font-size:12px;
-    color:#64748b;
+
     line-height:1.8;
+
+    color:#64748b;
 }
 
-/* ===================================
+/* =========================================
    STAMP
-=================================== */
+========================================= */
 
 .stamp-box{
-    width:210px;
-    height:210px;
+
+    width:190px;
+    height:190px;
+
     border-radius:50%;
-    border:3px dashed #16a34a;
+
     overflow:hidden;
+
     background:#ffffff;
+
+    border:3px dashed #16a34a;
+
     display:flex;
+
     justify-content:center;
     align-items:center;
 }
@@ -584,77 +899,457 @@ body{
 }
 
 .stamp-box img{
+
     width:100%;
     height:100%;
+
     object-fit:contain;
 }
 
-/* ===================================
+/* =========================================
    FOOTNOTE
-=================================== */
+========================================= */
 
 .bottom-note{
-    margin-top:48px;
+
+    margin-top:34px;
+
     text-align:center;
+
     color:#94a3b8;
+
     font-size:13px;
+
     line-height:1.9;
 }
 
-/* ===================================
-   PRINT
-=================================== */
+/* =========================================
+   PERFECT PRINT
+========================================= */
+
+@page{
+    size:A4 landscape;
+    margin:0;
+}
 
 @media print{
 
+    html,
     body{
+
+        width:297mm;
+        height:210mm;
+
         background:#ffffff;
-        padding:0;
+
+        overflow:hidden;
     }
 
-    .controls{
-        display:none;
+    body{
+        padding:0;
+        margin:0;
+        display:block;
+    }
+
+    .controls,
+    .login-screen{
+        display:none !important;
     }
 
     .certificate-wrapper{
-        width:100%;
+
+        width:297mm;
+
+        height:210mm;
+
         border-radius:0;
+
         box-shadow:none;
     }
 
     .certificate{
+
+        width:100%;
+
+        height:100%;
+
         min-height:auto;
+
+        padding:14mm;
+    }
+
+    .joining-style .content h2{
+        font-size:54px;
+    }
+
+    .experience-style .content h2{
+        font-size:46px;
+    }
+
+    .student-name{
+        font-size:52px;
+    }
+
+    .description{
+        font-size:15px;
+        line-height:1.8;
+    }
+
+    .footer{
+        margin-top:40px;
+    }
+
+    .stamp-box{
+        width:130px;
+        height:130px;
+    }
+
+    .info-card{
+        padding:14px;
+        min-width:160px;
+    }
+
+    .info-card p{
+        font-size:16px;
+    }
+}
+    /* =========================================
+   PERFECT PDF EXPORT FIX
+========================================= */
+
+@page{
+    size:A4 landscape;
+    margin:0;
+}
+
+@media print{
+
+    html,
+    body{
+
+        width:297mm !important;
+        height:210mm !important;
+
+        margin:0 !important;
+        padding:0 !important;
+
+        overflow:hidden !important;
+
+        background:#ffffff !important;
+    }
+
+    body{
+
+        display:block !important;
+    }
+
+    .controls,
+    .login-screen{
+
+        display:none !important;
+    }
+
+    .certificate-wrapper{
+
+        width:297mm !important;
+        height:210mm !important;
+
+        margin:0 !important;
+
+        border-radius:0 !important;
+
+        box-shadow:none !important;
+
+        overflow:hidden !important;
+
+        page-break-after:avoid !important;
+
+        break-after:avoid-page !important;
+    }
+
+    .certificate{
+
+        width:100% !important;
+        height:100% !important;
+
+        min-height:210mm !important;
+
+        padding:10mm 12mm !important;
+
+        overflow:hidden !important;
+    }
+
+    /* =========================================
+       BORDER
+    ========================================= */
+
+    .border-layer{
+
+        inset:8mm !important;
+    }
+
+    .border-layer::before{
+
+        inset:5mm !important;
+    }
+
+    /* =========================================
+       HEADER
+    ========================================= */
+
+    .brand h1{
+
+        font-size:34px !important;
+    }
+
+    .brand p{
+
+        font-size:11px !important;
+
+        margin-top:4px !important;
+    }
+
+    .logo-img-box{
+
+        width:56px !important;
+        height:56px !important;
+    }
+
+    .msme-box{
+
+        width:100px !important;
+        height:56px !important;
+    }
+
+    /* =========================================
+       CONTENT
+    ========================================= */
+
+    .content{
+
+        margin-top:18px !important;
+    }
+
+    .content-tag{
+
+        font-size:8px !important;
+
+        letter-spacing:4px !important;
+    }
+
+    .joining-style .content h2{
+
+        font-size:42px !important;
+
+        margin-top:12px !important;
+
+        line-height:1 !important;
+    }
+
+    .experience-style .content h2{
+
+        font-size:36px !important;
+
+        margin-top:12px !important;
+
+        line-height:1 !important;
+
+        white-space:nowrap !important;
+    }
+
+    .awarded{
+
+        margin-top:18px !important;
+
+        font-size:14px !important;
+    }
+
+    .student-name{
+
+        margin-top:14px !important;
+
+        font-size:42px !important;
+
+        line-height:1 !important;
+    }
+
+    .role{
+
+        margin-top:10px !important;
+
+        font-size:20px !important;
+    }
+
+    .description{
+
+        width:92% !important;
+
+        margin-top:18px !important;
+
+        font-size:12px !important;
+
+        line-height:1.7 !important;
+    }
+
+    /* =========================================
+       INFO ROW
+    ========================================= */
+
+    .info-row{
+
+        margin-top:22px !important;
+
+        gap:10px !important;
+    }
+
+    .info-card{
+
+        min-width:120px !important;
+
+        padding:10px 12px !important;
+
+        border-radius:14px !important;
+    }
+
+    .info-card h4{
+
+        font-size:7px !important;
+
+        letter-spacing:1.5px !important;
+    }
+
+    .info-card p{
+
+        margin-top:8px !important;
+
+        font-size:12px !important;
+    }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+
+    .footer{
+
+        margin-top:24px !important;
+
+        gap:20px !important;
+
+        align-items:flex-end !important;
+    }
+
+    .signature-img{
+
+        width:110px !important;
+
+        margin-bottom:4px !important;
+    }
+
+    .sign-line{
+
+        width:150px !important;
+
+        margin-bottom:8px !important;
+    }
+
+    .sign-name{
+
+        font-size:16px !important;
+    }
+
+    .sign-role{
+
+        font-size:10px !important;
+
+        line-height:1.5 !important;
+    }
+
+    /* =========================================
+       DIGITAL STRIP
+    ========================================= */
+
+    .digital-strip{
+
+        margin-top:10px !important;
+
+        width:240px !important;
+
+        padding:8px 10px !important;
+
+        border-radius:10px !important;
+    }
+
+    .verify-dot{
+
+        width:8px !important;
+        height:8px !important;
+    }
+
+    .verify-content{
+
+        font-size:8px !important;
+
+        line-height:1.5 !important;
+    }
+
+    /* =========================================
+       STAMP
+    ========================================= */
+
+    .stamp-box{
+
+        width:105px !important;
+        height:105px !important;
+    }
+
+    /* =========================================
+       FOOTNOTE
+    ========================================= */
+
+    .bottom-note{
+
+        margin-top:12px !important;
+
+        font-size:8px !important;
+
+        line-height:1.5 !important;
     }
 }
 
 </style>
 
+
+
 </head>
 
 <body>
 
-<!-- ===================================
+<!-- =========================================
      LOGIN
-=================================== -->
+========================================= -->
 
-<div class="login-screen" id="loginScreen">
+<div class="login-screen"
+id="loginScreen">
 
     <div class="login-box">
 
         <div class="login-logo">
 
             <img src="AF LOGO 2.jpeg"
-            alt="AcademeForge Logo">
+            alt="Logo">
 
         </div>
 
-        <h1>AcademeForge</h1>
+        <h1>
+            AcademeForge
+        </h1>
 
         <p>
             Secure Certificate Generation Portal
         </p>
 
-        <input type="password"
+        <input
+        type="password"
         id="passwordInput"
         placeholder="Enter Admin Password">
 
@@ -664,16 +1359,18 @@ body{
 
         <div class="error-text"
         id="errorText">
+
             Invalid Password
+
         </div>
 
     </div>
 
 </div>
 
-<!-- ===================================
-     CONTROLS
-=================================== -->
+<!-- =========================================
+     CONTROL PANEL
+========================================= -->
 
 <div class="controls">
 
@@ -683,22 +1380,25 @@ body{
     </h1>
 
     <p>
-        Generate professional joining and experience
-        certificates with official branding,
-        MSME support, digital verification,
-        founder signature, and organization stamp.
+        Generate professional certificates
+        with official branding and export-ready
+        A4 PDF layout.
     </p>
 
     <div class="type-switch">
 
         <button class="type-btn active"
         onclick="setCertificateType('joining',this)">
+
             JOINING
+
         </button>
 
         <button class="type-btn"
         onclick="setCertificateType('experience',this)">
+
             EXPERIENCE
+
         </button>
 
     </div>
@@ -749,7 +1449,27 @@ body{
 
         <input type="text"
         id="duration"
-        value="Flexible Volunteer • 2–4 Hours/Week">
+        value="Flexible Volunteer">
+
+    </div>
+
+    <div class="form-group">
+
+        <label>Start Date</label>
+
+        <input type="text"
+        id="startDate"
+        value="01 January 2026">
+
+    </div>
+
+    <div class="form-group">
+
+        <label>End Date</label>
+
+        <input type="text"
+        id="endDate"
+        value="31 March 2026">
 
     </div>
 
@@ -769,9 +1489,9 @@ body{
 
 </div>
 
-<!-- ===================================
+<!-- =========================================
      CERTIFICATE
-=================================== -->
+========================================= -->
 
 <div class="certificate-wrapper joining-style"
 id="certificateWrapper">
@@ -789,13 +1509,15 @@ id="certificateWrapper">
             <div class="logo-img-box">
 
                 <img src="AF LOGO 2.jpeg"
-                alt="AcademeForge Logo">
+                alt="Logo">
 
             </div>
 
             <div class="brand">
 
-                <h1>AcademeForge</h1>
+                <h1>
+                    AcademeForge
+                </h1>
 
                 <p>
                     Learning Beyond The Classroom
@@ -805,14 +1527,10 @@ id="certificateWrapper">
 
         </div>
 
-        <div class="top-right">
+        <div class="msme-box">
 
-            <div class="msme-box">
-
-                <img src="MSME-logo.png"
-                alt="MSME Logo">
-
-            </div>
+            <img src="MSME-logo.png"
+            alt="MSME">
 
         </div>
 
@@ -858,11 +1576,7 @@ id="certificateWrapper">
         <div class="description"
         id="descriptionText">
 
-            This is to officially certify that the individual
-            mentioned above has been appointed as a contributor
-            at AcademeForge and is welcomed into the organization
-            for collaborative learning, operational support,
-            ecosystem participation, and professional growth.
+            This is to officially certify that the individual mentioned above has been appointed as a contributor at AcademeForge and is welcomed into the organization for collaborative learning, operational support, ecosystem participation, and professional growth.
 
         </div>
 
@@ -900,6 +1614,30 @@ id="certificateWrapper">
 
             </div>
 
+            <div class="info-card"
+            id="startDateCard"
+            style="display:none;">
+
+                <h4>Start Date</h4>
+
+                <p id="previewStartDate">
+                    01 January 2026
+                </p>
+
+            </div>
+
+            <div class="info-card"
+            id="endDateCard"
+            style="display:none;">
+
+                <h4>End Date</h4>
+
+                <p id="previewEndDate">
+                    31 March 2026
+                </p>
+
+            </div>
+
         </div>
 
     </div>
@@ -908,18 +1646,18 @@ id="certificateWrapper">
 
     <div class="footer">
 
-        <!-- SIGN -->
-
         <div class="signature-area">
 
             <img src="devraj-sign.png"
             class="signature-img"
-            alt="Founder Signature">
+            alt="Signature">
 
             <div class="sign-line"></div>
 
             <div class="sign-name">
+
                 Devraj Kumar
+
             </div>
 
             <div class="sign-role">
@@ -928,8 +1666,6 @@ id="certificateWrapper">
                 AcademeForge
 
             </div>
-
-            <!-- DIGITAL SIGN -->
 
             <div class="digital-strip">
 
@@ -944,7 +1680,9 @@ id="certificateWrapper">
                     Devraj Kumar • Founder & CEO<br>
 
                     <span id="liveDateTime">
-                        26 May 2026 • 10:20:15 PM
+
+                        26 May 2026
+
                     </span>
 
                 </div>
@@ -953,24 +1691,18 @@ id="certificateWrapper">
 
         </div>
 
-        <!-- STAMP -->
-
         <div class="stamp-box">
 
             <img src="af-stamp.png"
-            alt="Official Stamp">
+            alt="Stamp">
 
         </div>
 
     </div>
 
-    <!-- FOOTNOTE -->
-
     <div class="bottom-note">
 
-        This is a computer generated certificate
-        issued by AcademeForge and does not
-        require a physical signature or manual verification.
+        This is a digitally generated certificate issued by AcademeForge and does not require physical verification.
 
     </div>
 
@@ -981,12 +1713,11 @@ id="certificateWrapper">
 <script>
 
 const EDGE_FUNCTION_URL =
-
 'https://afooyyydhlwngzssgqih.supabase.co/functions/v1/af-certificate-secure-api';
 
-/* ===================================
+/* =========================================
    AUTO LOGIN
-=================================== */
+========================================= */
 
 window.addEventListener(
 
@@ -995,7 +1726,6 @@ window.addEventListener(
     ()=>{
 
         const session =
-
         localStorage.getItem(
             'af_admin_session'
         );
@@ -1009,14 +1739,13 @@ window.addEventListener(
     }
 );
 
-/* ===================================
+/* =========================================
    LOGIN
-=================================== */
+========================================= */
 
 async function login(){
 
     const password =
-
     document.getElementById(
         'passwordInput'
     ).value;
@@ -1024,7 +1753,6 @@ async function login(){
     try{
 
         const response =
-
         await fetch(
 
             EDGE_FUNCTION_URL,
@@ -1040,7 +1768,6 @@ async function login(){
                 body:JSON.stringify({
 
                     action:'login',
-
                     password
 
                 })
@@ -1053,9 +1780,7 @@ async function login(){
         if(result.success){
 
             localStorage.setItem(
-
                 'af_admin_session',
-
                 'authenticated'
             );
 
@@ -1070,7 +1795,6 @@ async function login(){
                 'errorText'
             ).style.display = 'block';
         }
-
     }
 
     catch(error){
@@ -1083,9 +1807,9 @@ async function login(){
     }
 }
 
-/* ===================================
+/* =========================================
    CERTIFICATE TYPE
-=================================== */
+========================================= */
 
 let currentType = 'joining';
 
@@ -1103,34 +1827,38 @@ function setCertificateType(type,btn){
     btn.classList.add('active');
 
     const wrapper =
-
     document.getElementById(
         'certificateWrapper'
     );
 
     wrapper.classList.remove(
-
         'joining-style',
-
         'experience-style'
     );
 
     const heading =
-
     document.getElementById(
         'certificateHeading'
     );
 
     const tag =
-
     document.getElementById(
         'certificateTag'
     );
 
     const description =
-
     document.getElementById(
         'descriptionText'
+    );
+
+    const startCard =
+    document.getElementById(
+        'startDateCard'
+    );
+
+    const endCard =
+    document.getElementById(
+        'endDateCard'
     );
 
     if(type === 'joining'){
@@ -1148,6 +1876,11 @@ function setCertificateType(type,btn){
         description.innerText =
         'This is to officially certify that the individual mentioned above has been appointed as a contributor at AcademeForge and is welcomed into the organization for collaborative learning, operational support, ecosystem participation, and professional growth.';
 
+        startCard.style.display =
+        'none';
+
+        endCard.style.display =
+        'none';
     }
 
     else{
@@ -1163,44 +1896,55 @@ function setCertificateType(type,btn){
         'OFFICIAL COMPLETION CERTIFICATE';
 
         description.innerText =
-        'This is to certify that the individual mentioned above has successfully contributed to AcademeForge and demonstrated professionalism, dedication, communication, collaboration, and valuable participation throughout the engagement period.';
+        'This is to certify that the individual mentioned above successfully completed their contribution period at AcademeForge with professionalism, dedication, leadership, communication, collaboration, and meaningful ecosystem participation throughout the engagement duration.';
+
+        startCard.style.display =
+        'block';
+
+        endCard.style.display =
+        'block';
     }
 }
 
-/* ===================================
+/* =========================================
    UPDATE CERTIFICATE
-=================================== */
+========================================= */
 
 function updateCertificate(){
 
     const name =
-
     document.getElementById(
         'studentName'
     ).value;
 
     const role =
-
     document.getElementById(
         'studentRole'
     ).value;
 
     const certId =
-
     document.getElementById(
         'certificateId'
     ).value;
 
     const issueDate =
-
     document.getElementById(
         'issueDate'
     ).value;
 
     const duration =
-
     document.getElementById(
         'duration'
+    ).value;
+
+    const startDate =
+    document.getElementById(
+        'startDate'
+    ).value;
+
+    const endDate =
+    document.getElementById(
+        'endDate'
     ).value;
 
     document.getElementById(
@@ -1223,12 +1967,20 @@ function updateCertificate(){
         'previewDuration'
     ).innerText = duration;
 
+    document.getElementById(
+        'previewStartDate'
+    ).innerText = startDate;
+
+    document.getElementById(
+        'previewEndDate'
+    ).innerText = endDate;
+
     saveCertificate();
 }
 
-/* ===================================
+/* =========================================
    LIVE TIME
-=================================== */
+========================================= */
 
 function updateLiveDateTime(){
 
@@ -1237,15 +1989,10 @@ function updateLiveDateTime(){
     const formatted =
 
     now.toLocaleDateString(
-
         'en-IN',
-
         {
-
             day:'2-digit',
-
             month:'long',
-
             year:'numeric'
         }
     )
@@ -1257,15 +2004,10 @@ function updateLiveDateTime(){
     +
 
     now.toLocaleTimeString(
-
         'en-IN',
-
         {
-
             hour:'2-digit',
-
             minute:'2-digit',
-
             second:'2-digit'
         }
     );
@@ -1282,9 +2024,9 @@ setInterval(
     1000
 );
 
-/* ===================================
+/* =========================================
    SAVE CERTIFICATE
-=================================== */
+========================================= */
 
 async function saveCertificate(){
 
@@ -1318,13 +2060,22 @@ async function saveCertificate(){
         duration:
         document.getElementById(
             'duration'
+        ).value,
+
+        start_date:
+        document.getElementById(
+            'startDate'
+        ).value,
+
+        end_date:
+        document.getElementById(
+            'endDate'
         ).value
     };
 
     try{
 
         const response =
-
         await fetch(
 
             EDGE_FUNCTION_URL,
@@ -1345,7 +2096,6 @@ async function saveCertificate(){
         await response.json();
 
         console.log(result);
-
     }
 
     catch(error){
