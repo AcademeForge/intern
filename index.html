@@ -1315,7 +1315,534 @@ body{
         line-height:1.5 !important;
     }
 }
+/* =========================================
+   LOCKED PDF LAYOUT
+   EVERYTHING FIXED POSITION
+========================================= */
 
+@page{
+    size:A4 landscape;
+    margin:0;
+}
+
+@media print{
+
+    html,
+    body{
+
+        width:297mm !important;
+        height:210mm !important;
+
+        margin:0 !important;
+        padding:0 !important;
+
+        overflow:hidden !important;
+
+        background:#ffffff !important;
+
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
+    }
+
+    body{
+
+        display:block !important;
+    }
+
+    .controls,
+    .login-screen{
+
+        display:none !important;
+    }
+
+    /* =========================================
+       CERTIFICATE WRAPPER
+    ========================================= */
+
+    .certificate-wrapper{
+
+        position:relative !important;
+
+        width:297mm !important;
+        height:210mm !important;
+
+        overflow:hidden !important;
+
+        border-radius:0 !important;
+
+        box-shadow:none !important;
+
+        margin:0 !important;
+
+        page-break-after:avoid !important;
+    }
+
+    .certificate{
+
+        position:relative !important;
+
+        width:297mm !important;
+        height:210mm !important;
+
+        overflow:hidden !important;
+
+        padding:0 !important;
+
+        min-height:auto !important;
+    }
+
+    /* =========================================
+       BORDER
+    ========================================= */
+
+    .border-layer{
+
+        position:absolute !important;
+
+        inset:7mm !important;
+
+        border-radius:8mm !important;
+
+        border:0.6mm solid #22c55e !important;
+    }
+
+    .experience-style .border-layer{
+        border-color:#7c3aed !important;
+    }
+
+    .border-layer::before{
+
+        content:'' !important;
+
+        position:absolute !important;
+
+        inset:4mm !important;
+
+        border-radius:5mm !important;
+
+        border:0.3mm solid #cbd5e1 !important;
+    }
+
+    /* =========================================
+       HEADER
+    ========================================= */
+
+    .header{
+
+        position:absolute !important;
+
+        top:12mm !important;
+        left:15mm !important;
+        right:15mm !important;
+
+        display:flex !important;
+
+        justify-content:space-between !important;
+
+        align-items:flex-start !important;
+
+        z-index:10 !important;
+    }
+
+    .logo-area{
+
+        display:flex !important;
+
+        align-items:center !important;
+
+        gap:5mm !important;
+    }
+
+    .logo-img-box{
+
+        width:16mm !important;
+        height:16mm !important;
+
+        border-radius:4mm !important;
+
+        overflow:hidden !important;
+
+        border:0.3mm solid #dbeafe !important;
+    }
+
+    .logo-img-box img{
+
+        width:100% !important;
+        height:100% !important;
+
+        object-fit:contain !important;
+
+        padding:2mm !important;
+    }
+
+    .brand h1{
+
+        font-size:16mm !important;
+
+        line-height:1 !important;
+
+        font-weight:800 !important;
+
+        color:#0f172a !important;
+    }
+
+    .brand p{
+
+        margin-top:1.5mm !important;
+
+        font-size:3.4mm !important;
+
+        color:#64748b !important;
+    }
+
+    .msme-box{
+
+        width:28mm !important;
+        height:15mm !important;
+
+        border-radius:3mm !important;
+
+        overflow:hidden !important;
+
+        border:0.3mm dashed #94a3b8 !important;
+    }
+
+    .msme-box img{
+
+        width:100% !important;
+        height:100% !important;
+
+        object-fit:contain !important;
+    }
+
+    /* =========================================
+       CONTENT
+    ========================================= */
+
+    .content{
+
+        position:absolute !important;
+
+        top:48mm !important;
+        left:14mm !important;
+        right:14mm !important;
+
+        text-align:center !important;
+
+        z-index:10 !important;
+    }
+
+    .content-tag{
+
+        font-size:2.5mm !important;
+
+        letter-spacing:1.4mm !important;
+
+        font-weight:700 !important;
+
+        color:#64748b !important;
+    }
+
+    .joining-style .content h2{
+
+        margin-top:4mm !important;
+
+        font-size:18mm !important;
+
+        line-height:1 !important;
+
+        font-weight:800 !important;
+
+        color:#16a34a !important;
+    }
+
+    .experience-style .content h2{
+
+        margin-top:4mm !important;
+
+        font-size:14mm !important;
+
+        line-height:1 !important;
+
+        font-weight:800 !important;
+
+        white-space:nowrap !important;
+
+        color:#7c3aed !important;
+    }
+
+    .awarded{
+
+        margin-top:6mm !important;
+
+        font-size:4.4mm !important;
+
+        color:#64748b !important;
+    }
+
+    .student-name{
+
+        margin-top:5mm !important;
+
+        font-size:18mm !important;
+
+        line-height:1 !important;
+
+        font-weight:800 !important;
+
+        color:#0f172a !important;
+    }
+
+    .role{
+
+        margin-top:3mm !important;
+
+        font-size:7mm !important;
+
+        font-weight:700 !important;
+    }
+
+    .joining-style .role{
+        color:#16a34a !important;
+    }
+
+    .experience-style .role{
+        color:#7c3aed !important;
+    }
+
+    .description{
+
+        width:240mm !important;
+
+        margin:7mm auto 0 !important;
+
+        font-size:3.5mm !important;
+
+        line-height:1.9 !important;
+
+        color:#475569 !important;
+    }
+
+    /* =========================================
+       INFO ROW
+    ========================================= */
+
+    .info-row{
+
+        position:absolute !important;
+
+        top:132mm !important;
+
+        left:0 !important;
+        right:0 !important;
+
+        display:flex !important;
+
+        justify-content:center !important;
+
+        gap:4mm !important;
+
+        z-index:10 !important;
+    }
+
+    .info-card{
+
+        width:42mm !important;
+
+        min-width:auto !important;
+
+        padding:4mm !important;
+
+        border-radius:4mm !important;
+
+        background:#ffffff !important;
+
+        border:0.3mm solid #e2e8f0 !important;
+
+        box-shadow:none !important;
+    }
+
+    .info-card h4{
+
+        font-size:1.8mm !important;
+
+        letter-spacing:0.6mm !important;
+
+        text-transform:uppercase !important;
+
+        color:#64748b !important;
+    }
+
+    .info-card p{
+
+        margin-top:2.5mm !important;
+
+        font-size:3.6mm !important;
+
+        font-weight:800 !important;
+
+        color:#111827 !important;
+    }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+
+    .footer{
+
+        position:absolute !important;
+
+        left:15mm !important;
+        right:15mm !important;
+        bottom:16mm !important;
+
+        display:flex !important;
+
+        justify-content:space-between !important;
+
+        align-items:flex-end !important;
+
+        z-index:10 !important;
+    }
+
+    .signature-area{
+
+        width:120mm !important;
+    }
+
+    .signature-img{
+
+        width:30mm !important;
+
+        margin-bottom:1mm !important;
+    }
+
+    .sign-line{
+
+        width:50mm !important;
+
+        height:0.4mm !important;
+
+        background:#111827 !important;
+
+        margin-bottom:2mm !important;
+    }
+
+    .sign-name{
+
+        font-size:5mm !important;
+
+        font-weight:800 !important;
+
+        color:#111827 !important;
+    }
+
+    .sign-role{
+
+        margin-top:1mm !important;
+
+        font-size:2.8mm !important;
+
+        line-height:1.6 !important;
+
+        color:#64748b !important;
+    }
+
+    /* =========================================
+       DIGITAL STRIP
+    ========================================= */
+
+    .digital-strip{
+
+        margin-top:4mm !important;
+
+        width:70mm !important;
+
+        padding:3mm 4mm !important;
+
+        border-radius:3mm !important;
+
+        border:0.3mm solid #e2e8f0 !important;
+
+        background:#ffffff !important;
+
+        display:flex !important;
+
+        gap:2mm !important;
+    }
+
+    .verify-dot{
+
+        width:2.2mm !important;
+        height:2.2mm !important;
+
+        border-radius:50% !important;
+
+        margin-top:1mm !important;
+
+        background:#22c55e !important;
+    }
+
+    .verify-content{
+
+        font-size:2mm !important;
+
+        line-height:1.5 !important;
+
+        color:#64748b !important;
+    }
+
+    /* =========================================
+       STAMP
+    ========================================= */
+
+    .stamp-box{
+
+        width:32mm !important;
+        height:32mm !important;
+
+        border-radius:50% !important;
+
+        overflow:hidden !important;
+
+        border:0.7mm dashed #22c55e !important;
+
+        background:#ffffff !important;
+    }
+
+    .experience-style .stamp-box{
+        border-color:#7c3aed !important;
+    }
+
+    .stamp-box img{
+
+        width:100% !important;
+        height:100% !important;
+
+        object-fit:contain !important;
+    }
+
+    /* =========================================
+       FOOTNOTE
+    ========================================= */
+
+    .bottom-note{
+
+        position:absolute !important;
+
+        left:0 !important;
+        right:0 !important;
+        bottom:5mm !important;
+
+        text-align:center !important;
+
+        font-size:2mm !important;
+
+        color:#94a3b8 !important;
+
+        line-height:1.4 !important;
+    }
+}
 </style>
 
 
