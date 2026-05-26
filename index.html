@@ -27,9 +27,17 @@ rel="stylesheet"
     box-sizing:border-box;
 }
 
+:root{
+
+    --a4-width:1400px;
+    --a4-height:990px;
+}
+
 html,
 body{
+
     width:100%;
+
     overflow-x:hidden;
 }
 
@@ -89,7 +97,7 @@ body{
 
     border-radius:30px;
 
-    background:rgba(15,23,42,0.95);
+    background:rgba(15,23,42,0.96);
 
     border:1px solid rgba(255,255,255,0.08);
 
@@ -176,6 +184,7 @@ body{
 }
 
 .login-box input:focus{
+
     border-color:#22c55e;
 }
 
@@ -233,7 +242,7 @@ body{
     width:380px;
 
     background:
-    rgba(15,23,42,0.95);
+    rgba(15,23,42,0.96);
 
     border:1px solid rgba(255,255,255,0.06);
 
@@ -402,14 +411,16 @@ body{
 }
 
 /* =========================================
-   CERTIFICATE
+   CERTIFICATE WRAPPER
 ========================================= */
 
 .certificate-wrapper{
 
-    width:1280px;
+    width:var(--a4-width);
 
-    min-height:900px;
+    height:var(--a4-height);
+
+    aspect-ratio:297 / 210;
 
     border-radius:34px;
 
@@ -445,9 +456,9 @@ body{
 
     width:100%;
 
-    min-height:900px;
+    height:100%;
 
-    padding:65px;
+    padding:64px;
 
     display:flex;
 
@@ -464,7 +475,7 @@ body{
 
     position:absolute;
 
-    inset:22px;
+    inset:20px;
 
     border-radius:28px;
 
@@ -477,11 +488,11 @@ body{
 
     position:absolute;
 
-    inset:14px;
+    inset:12px;
 
     border-radius:20px;
 
-    border:1px solid #cbd5e1;
+    border:1px solid #d4dce7;
 }
 
 .experience-style .border-layer{
@@ -600,7 +611,7 @@ body{
 
     text-align:center;
 
-    margin-top:52px;
+    margin-top:34px;
 
     flex:1;
 
@@ -632,7 +643,7 @@ body{
 
     font-weight:800;
 
-    line-height:1.1;
+    line-height:1.05;
 }
 
 .experience-style .content h2{
@@ -654,7 +665,7 @@ body{
 
 .awarded{
 
-    margin-top:38px;
+    margin-top:34px;
 
     font-size:24px;
 
@@ -663,7 +674,7 @@ body{
 
 .student-name{
 
-    margin-top:26px;
+    margin-top:22px;
 
     font-size:82px;
 
@@ -682,7 +693,7 @@ body{
 
 .role{
 
-    margin-top:20px;
+    margin-top:16px;
 
     font-size:36px;
 
@@ -699,13 +710,13 @@ body{
 
 .description{
 
-    width:88%;
+    width:90%;
 
-    margin:38px auto 0;
+    margin:30px auto 0;
 
     font-size:21px;
 
-    line-height:2;
+    line-height:1.9;
 
     color:#475569;
 }
@@ -716,13 +727,13 @@ body{
 
 .info-row{
 
-    margin-top:55px;
+    margin-top:42px;
 
     display:flex;
 
     justify-content:center;
 
-    gap:22px;
+    gap:18px;
 
     flex-wrap:wrap;
 }
@@ -735,7 +746,7 @@ body{
 
     border:1px solid #e2e8f0;
 
-    padding:24px;
+    padding:22px;
 
     border-radius:24px;
 
@@ -756,11 +767,11 @@ body{
 
 .info-card p{
 
-    margin-top:14px;
+    margin-top:12px;
 
     color:#0f172a;
 
-    font-size:24px;
+    font-size:22px;
 
     font-weight:800;
 }
@@ -771,7 +782,7 @@ body{
 
 .footer{
 
-    margin-top:75px;
+    margin-top:42px;
 
     display:flex;
 
@@ -788,7 +799,7 @@ body{
 
 .signature-img{
 
-    width:210px;
+    width:170px;
 
     object-fit:contain;
 
@@ -797,13 +808,13 @@ body{
 
 .sign-line{
 
-    width:260px;
+    width:240px;
 
     height:2px;
 
     background:#111827;
 
-    margin-bottom:16px;
+    margin-bottom:14px;
 }
 
 .sign-name{
@@ -817,7 +828,7 @@ body{
 
 .sign-role{
 
-    margin-top:8px;
+    margin-top:6px;
 
     color:#64748b;
 
@@ -828,11 +839,11 @@ body{
 
 .digital-strip{
 
-    margin-top:22px;
+    margin-top:20px;
 
-    width:370px;
+    width:360px;
 
-    padding:15px 18px;
+    padding:14px 18px;
 
     border-radius:18px;
 
@@ -868,8 +879,8 @@ body{
 
 .stamp-box{
 
-    width:190px;
-    height:190px;
+    width:170px;
+    height:170px;
 
     border-radius:50%;
 
@@ -899,7 +910,7 @@ body{
 
 .bottom-note{
 
-    margin-top:34px;
+    margin-top:18px;
 
     text-align:center;
 
@@ -907,11 +918,11 @@ body{
 
     font-size:13px;
 
-    line-height:1.9;
+    line-height:1.8;
 }
 
 /* =========================================
-   PERFECT PDF + PRINT
+   PRINT
 ========================================= */
 
 @page{
@@ -935,17 +946,19 @@ body{
         margin:0 !important;
         padding:0 !important;
 
-        overflow:hidden !important;
-
         background:#ffffff !important;
+
+        overflow:hidden !important;
     }
 
     body{
+
         display:block !important;
     }
 
     .controls,
     .login-screen{
+
         display:none !important;
     }
 
@@ -954,13 +967,13 @@ body{
         width:297mm !important;
         height:210mm !important;
 
-        margin:0 auto !important;
+        margin:0 !important;
 
         border-radius:0 !important;
 
-        overflow:hidden !important;
-
         box-shadow:none !important;
+
+        overflow:hidden !important;
     }
 
     .certificate{
@@ -968,209 +981,203 @@ body{
         width:100% !important;
         height:100% !important;
 
-        min-height:auto !important;
-
         padding:12mm !important;
     }
 
     .border-layer{
 
-        inset:7mm !important;
+        inset:6mm !important;
 
-        border-radius:18px !important;
+        border-radius:6mm !important;
     }
 
     .border-layer::before{
 
-        inset:10px !important;
+        inset:3mm !important;
 
-        border-radius:12px !important;
+        border-radius:4mm !important;
     }
 
     .logo-img-box{
 
-        width:58px !important;
-        height:58px !important;
+        width:16mm !important;
+        height:16mm !important;
+
+        border-radius:4mm !important;
     }
 
     .brand h1{
 
-        font-size:36px !important;
+        font-size:16mm !important;
     }
 
     .brand p{
 
-        font-size:11px !important;
+        font-size:3.2mm !important;
 
-        margin-top:4px !important;
+        margin-top:1mm !important;
     }
 
     .msme-box{
 
-        width:110px !important;
-        height:58px !important;
+        width:28mm !important;
+        height:15mm !important;
     }
 
     .content{
 
-        margin-top:10px !important;
+        margin-top:4mm !important;
     }
 
     .content-tag{
 
-        font-size:8px !important;
+        font-size:2.4mm !important;
 
-        letter-spacing:3px !important;
+        letter-spacing:1mm !important;
     }
 
     .joining-style .content h2{
 
-        margin-top:10px !important;
+        margin-top:4mm !important;
 
-        font-size:44px !important;
+        font-size:17mm !important;
     }
 
     .experience-style .content h2{
 
-        margin-top:10px !important;
+        margin-top:4mm !important;
 
-        font-size:38px !important;
-
-        white-space:normal !important;
+        font-size:14mm !important;
     }
 
     .awarded{
 
-        margin-top:16px !important;
+        margin-top:5mm !important;
 
-        font-size:14px !important;
+        font-size:4.5mm !important;
     }
 
     .student-name{
 
-        margin-top:14px !important;
+        margin-top:4mm !important;
 
-        font-size:48px !important;
+        font-size:17mm !important;
 
-        line-height:1.1 !important;
+        line-height:1.05 !important;
     }
 
     .role{
 
-        margin-top:10px !important;
+        margin-top:3mm !important;
 
-        font-size:22px !important;
+        font-size:7mm !important;
     }
 
     .description{
 
         width:92% !important;
 
-        margin-top:18px !important;
+        margin-top:5mm !important;
 
-        font-size:13px !important;
+        font-size:3.5mm !important;
 
-        line-height:1.7 !important;
+        line-height:1.8 !important;
     }
 
     .info-row{
 
-        margin-top:22px !important;
+        margin-top:6mm !important;
 
-        gap:10px !important;
+        gap:3mm !important;
     }
 
     .info-card{
 
-        min-width:130px !important;
+        min-width:40mm !important;
 
-        padding:10px 12px !important;
+        padding:4mm !important;
 
-        border-radius:14px !important;
+        border-radius:4mm !important;
 
         box-shadow:none !important;
     }
 
     .info-card h4{
 
-        font-size:7px !important;
-
-        letter-spacing:1px !important;
+        font-size:1.8mm !important;
     }
 
     .info-card p{
 
-        margin-top:7px !important;
+        margin-top:2mm !important;
 
-        font-size:13px !important;
+        font-size:3.8mm !important;
     }
 
     .footer{
 
-        margin-top:16px !important;
-
-        gap:20px !important;
+        margin-top:6mm !important;
     }
 
     .signature-img{
 
-        width:110px !important;
+        width:28mm !important;
     }
 
     .sign-line{
 
-        width:150px !important;
+        width:45mm !important;
 
-        margin-bottom:8px !important;
+        margin-bottom:2mm !important;
     }
 
     .sign-name{
 
-        font-size:16px !important;
+        font-size:5mm !important;
     }
 
     .sign-role{
 
-        font-size:10px !important;
+        font-size:2.8mm !important;
 
         line-height:1.5 !important;
     }
 
     .digital-strip{
 
-        width:240px !important;
+        width:70mm !important;
 
-        padding:8px 10px !important;
+        margin-top:3mm !important;
 
-        border-radius:10px !important;
+        padding:3mm !important;
+
+        border-radius:3mm !important;
     }
 
     .verify-dot{
 
-        width:8px !important;
-        height:8px !important;
+        width:2mm !important;
+        height:2mm !important;
     }
 
     .verify-content{
 
-        font-size:8px !important;
+        font-size:2mm !important;
 
         line-height:1.5 !important;
     }
 
     .stamp-box{
 
-        width:105px !important;
-        height:105px !important;
+        width:32mm !important;
+        height:32mm !important;
     }
 
     .bottom-note{
 
-        margin-top:10px !important;
+        margin-top:2mm !important;
 
-        font-size:8px !important;
-
-        line-height:1.5 !important;
+        font-size:2mm !important;
     }
 }
 
@@ -1179,6 +1186,8 @@ body{
 </head>
 
 <body>
+
+<!-- LOGIN -->
 
 <div
 class="login-screen"
@@ -1225,6 +1234,8 @@ id="loginScreen"
 
 </div>
 
+<!-- CONTROLS -->
+
 <div class="controls">
 
     <h1>
@@ -1234,7 +1245,7 @@ id="loginScreen"
 
     <p>
         Generate professional certificates
-        with export-ready perfect PDF scaling.
+        with exact screen-to-PDF rendering.
     </p>
 
     <div class="type-switch">
@@ -1256,73 +1267,101 @@ id="loginScreen"
     </div>
 
     <div class="form-group">
-        <label>Full Name</label>
+
+        <label>
+            Full Name
+        </label>
 
         <input
         type="text"
         id="studentName"
         value="Devraj Kumar"
         />
+
     </div>
 
     <div class="form-group">
-        <label>Role / Position</label>
+
+        <label>
+            Role / Position
+        </label>
 
         <input
         type="text"
         id="studentRole"
         value="Founder & CEO"
         />
+
     </div>
 
     <div class="form-group">
-        <label>Certificate ID</label>
+
+        <label>
+            Certificate ID
+        </label>
 
         <input
         type="text"
         id="certificateId"
         value="AF-CERT-2026-1001"
         />
+
     </div>
 
     <div class="form-group">
-        <label>Issue Date</label>
+
+        <label>
+            Issue Date
+        </label>
 
         <input
         type="text"
         id="issueDate"
         value="26 May 2026"
         />
+
     </div>
 
     <div class="form-group">
-        <label>Duration / Work Type</label>
+
+        <label>
+            Duration / Work Type
+        </label>
 
         <input
         type="text"
         id="duration"
         value="Flexible Volunteer"
         />
+
     </div>
 
     <div class="form-group">
-        <label>Start Date</label>
+
+        <label>
+            Start Date
+        </label>
 
         <input
         type="text"
         id="startDate"
         value="01 January 2026"
         />
+
     </div>
 
     <div class="form-group">
-        <label>End Date</label>
+
+        <label>
+            End Date
+        </label>
 
         <input
         type="text"
         id="endDate"
         value="31 March 2026"
         />
+
     </div>
 
     <button
@@ -1341,6 +1380,8 @@ id="loginScreen"
 
 </div>
 
+<!-- CERTIFICATE -->
+
 <div
 class="certificate-wrapper joining-style"
 id="certificateWrapper"
@@ -1349,6 +1390,8 @@ id="certificateWrapper"
 <div class="certificate">
 
     <div class="border-layer"></div>
+
+    <!-- HEADER -->
 
     <div class="header">
 
@@ -1387,6 +1430,8 @@ id="certificateWrapper"
         </div>
 
     </div>
+
+    <!-- CONTENT -->
 
     <div class="content">
 
@@ -1499,6 +1544,8 @@ id="certificateWrapper"
         </div>
 
     </div>
+
+    <!-- FOOTER -->
 
     <div class="footer">
 
@@ -1753,68 +1800,61 @@ function setCertificateType(type,btn){
 
 function updateCertificate(){
 
-    const name =
+    document.getElementById(
+        'previewName'
+    ).innerText =
+
     document.getElementById(
         'studentName'
     ).value;
 
-    const role =
+    document.getElementById(
+        'previewRole'
+    ).innerText =
+
     document.getElementById(
         'studentRole'
     ).value;
 
-    const certId =
+    document.getElementById(
+        'previewId'
+    ).innerText =
+
     document.getElementById(
         'certificateId'
     ).value;
 
-    const issueDate =
+    document.getElementById(
+        'previewDate'
+    ).innerText =
+
     document.getElementById(
         'issueDate'
     ).value;
 
-    const duration =
+    document.getElementById(
+        'previewDuration'
+    ).innerText =
+
     document.getElementById(
         'duration'
     ).value;
 
-    const startDate =
+    document.getElementById(
+        'previewStartDate'
+    ).innerText =
+
     document.getElementById(
         'startDate'
     ).value;
 
-    const endDate =
+    document.getElementById(
+        'previewEndDate'
+    ).innerText =
+
     document.getElementById(
         'endDate'
     ).value;
-
-    document.getElementById(
-        'previewName'
-    ).innerText = name;
-
-    document.getElementById(
-        'previewRole'
-    ).innerText = role;
-
-    document.getElementById(
-        'previewId'
-    ).innerText = certId;
-
-    document.getElementById(
-        'previewDate'
-    ).innerText = issueDate;
-
-    document.getElementById(
-        'previewDuration'
-    ).innerText = duration;
-
-    document.getElementById(
-        'previewStartDate'
-    ).innerText = startDate;
-
-    document.getElementById(
-        'previewEndDate'
-    ).innerText = endDate;
 
     saveCertificate();
 }
@@ -1908,7 +1948,6 @@ async function saveCertificate(){
 
     try{
 
-        const response =
         await fetch(
 
             EDGE_FUNCTION_URL,
@@ -1924,11 +1963,6 @@ async function saveCertificate(){
                 body:JSON.stringify(payload)
             }
         );
-
-        const result =
-        await response.json();
-
-        console.log(result);
     }
 
     catch(error){
