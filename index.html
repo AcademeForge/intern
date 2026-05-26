@@ -3,7 +3,7 @@
 
 <head>
 
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 
 <meta
 name="viewport"
@@ -27,17 +27,9 @@ rel="stylesheet"
     box-sizing:border-box;
 }
 
-:root{
-
-    --a4-width:1400px;
-    --a4-height:990px;
-}
-
 html,
 body{
-
     width:100%;
-
     overflow-x:hidden;
 }
 
@@ -97,7 +89,7 @@ body{
 
     border-radius:30px;
 
-    background:rgba(15,23,42,0.96);
+    background:rgba(15,23,42,0.95);
 
     border:1px solid rgba(255,255,255,0.08);
 
@@ -184,7 +176,6 @@ body{
 }
 
 .login-box input:focus{
-
     border-color:#22c55e;
 }
 
@@ -242,7 +233,7 @@ body{
     width:380px;
 
     background:
-    rgba(15,23,42,0.96);
+    rgba(15,23,42,0.95);
 
     border:1px solid rgba(255,255,255,0.06);
 
@@ -411,14 +402,14 @@ body{
 }
 
 /* =========================================
-   CERTIFICATE WRAPPER
+   CERTIFICATE
 ========================================= */
 
 .certificate-wrapper{
 
-    width:var(--a4-width);
+    width:1280px;
 
-    height:var(--a4-height);
+    height:905px;
 
     aspect-ratio:297 / 210;
 
@@ -458,7 +449,7 @@ body{
 
     height:100%;
 
-    padding:64px;
+    padding:65px;
 
     display:flex;
 
@@ -467,15 +458,11 @@ body{
     justify-content:space-between;
 }
 
-/* =========================================
-   BORDER
-========================================= */
-
 .border-layer{
 
     position:absolute;
 
-    inset:20px;
+    inset:22px;
 
     border-radius:28px;
 
@@ -488,11 +475,11 @@ body{
 
     position:absolute;
 
-    inset:12px;
+    inset:14px;
 
     border-radius:20px;
 
-    border:1px solid #d4dce7;
+    border:1px solid #cbd5e1;
 }
 
 .experience-style .border-layer{
@@ -611,7 +598,7 @@ body{
 
     text-align:center;
 
-    margin-top:34px;
+    margin-top:42px;
 
     flex:1;
 
@@ -665,7 +652,7 @@ body{
 
 .awarded{
 
-    margin-top:34px;
+    margin-top:32px;
 
     font-size:24px;
 
@@ -674,7 +661,7 @@ body{
 
 .student-name{
 
-    margin-top:22px;
+    margin-top:24px;
 
     font-size:82px;
 
@@ -693,7 +680,7 @@ body{
 
 .role{
 
-    margin-top:16px;
+    margin-top:18px;
 
     font-size:36px;
 
@@ -710,11 +697,11 @@ body{
 
 .description{
 
-    width:90%;
+    width:88%;
 
-    margin:30px auto 0;
+    margin:32px auto 0;
 
-    font-size:21px;
+    font-size:20px;
 
     line-height:1.9;
 
@@ -733,7 +720,7 @@ body{
 
     justify-content:center;
 
-    gap:18px;
+    gap:20px;
 
     flex-wrap:wrap;
 }
@@ -782,7 +769,7 @@ body{
 
 .footer{
 
-    margin-top:42px;
+    margin-top:48px;
 
     display:flex;
 
@@ -879,8 +866,8 @@ body{
 
 .stamp-box{
 
-    width:170px;
-    height:170px;
+    width:165px;
+    height:165px;
 
     border-radius:50%;
 
@@ -910,7 +897,7 @@ body{
 
 .bottom-note{
 
-    margin-top:18px;
+    margin-top:16px;
 
     text-align:center;
 
@@ -922,7 +909,7 @@ body{
 }
 
 /* =========================================
-   PRINT
+   PERFECT PRINT
 ========================================= */
 
 @page{
@@ -971,9 +958,9 @@ body{
 
         border-radius:0 !important;
 
-        box-shadow:none !important;
-
         overflow:hidden !important;
+
+        box-shadow:none !important;
     }
 
     .certificate{
@@ -982,28 +969,24 @@ body{
         height:100% !important;
 
         padding:12mm !important;
+
+        overflow:hidden !important;
     }
 
     .border-layer{
 
         inset:6mm !important;
-
-        border-radius:6mm !important;
     }
 
     .border-layer::before{
 
         inset:3mm !important;
-
-        border-radius:4mm !important;
     }
 
     .logo-img-box{
 
         width:16mm !important;
         height:16mm !important;
-
-        border-radius:4mm !important;
     }
 
     .brand h1{
@@ -1031,7 +1014,7 @@ body{
 
     .content-tag{
 
-        font-size:2.4mm !important;
+        font-size:2.5mm !important;
 
         letter-spacing:1mm !important;
     }
@@ -1048,6 +1031,8 @@ body{
         margin-top:4mm !important;
 
         font-size:14mm !important;
+
+        white-space:normal !important;
     }
 
     .awarded{
@@ -1127,8 +1112,6 @@ body{
     .sign-line{
 
         width:45mm !important;
-
-        margin-bottom:2mm !important;
     }
 
     .sign-name{
@@ -1150,8 +1133,6 @@ body{
         margin-top:3mm !important;
 
         padding:3mm !important;
-
-        border-radius:3mm !important;
     }
 
     .verify-dot{
@@ -1180,7 +1161,6 @@ body{
         font-size:2mm !important;
     }
 }
-
 </style>
 
 </head>
