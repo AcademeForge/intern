@@ -14,7 +14,6 @@ AcademeForge Certificate Generator
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
 rel="stylesheet">
-
 <style>
 
 *{
@@ -31,13 +30,16 @@ body{
 
 body{
 
-    background:#020617;
+    background:
+    radial-gradient(circle at top left,#052e16,transparent 25%),
+    radial-gradient(circle at bottom right,#172554,transparent 30%),
+    #020617;
 
     font-family:'Poppins',sans-serif;
 
     min-height:100vh;
 
-    padding:24px;
+    padding:28px;
 
     display:flex;
 
@@ -45,7 +47,7 @@ body{
 
     align-items:flex-start;
 
-    gap:24px;
+    gap:28px;
 
     flex-wrap:wrap;
 }
@@ -78,24 +80,24 @@ body{
 
     width:420px;
 
-    padding:40px;
+    padding:42px;
 
-    border-radius:28px;
+    border-radius:30px;
 
-    background:rgba(15,23,42,0.92);
+    background:rgba(15,23,42,0.95);
 
     border:1px solid rgba(255,255,255,0.08);
 
     backdrop-filter:blur(18px);
 
     box-shadow:
-    0 25px 80px rgba(0,0,0,0.5);
+    0 25px 80px rgba(0,0,0,0.55);
 }
 
 .login-logo{
 
-    width:92px;
-    height:92px;
+    width:96px;
+    height:96px;
 
     margin:auto;
 
@@ -129,7 +131,7 @@ body{
 
     color:#ffffff;
 
-    font-size:34px;
+    font-size:36px;
 
     font-weight:800;
 }
@@ -218,18 +220,19 @@ body{
 }
 
 /* =========================================
-   CONTROL PANEL
+   CONTROLS
 ========================================= */
 
 .controls{
 
     width:380px;
 
-    background:#111827;
+    background:
+    rgba(15,23,42,0.95);
 
-    border:1px solid #1f2937;
+    border:1px solid rgba(255,255,255,0.06);
 
-    border-radius:28px;
+    border-radius:30px;
 
     padding:30px;
 
@@ -241,18 +244,20 @@ body{
 
     color:#ffffff;
 
-    font-size:34px;
+    font-size:38px;
 
-    line-height:1.2;
+    line-height:1.1;
+
+    font-weight:800;
 }
 
 .controls p{
 
-    margin-top:12px;
+    margin-top:14px;
 
     color:#94a3b8;
 
-    line-height:1.8;
+    line-height:1.9;
 
     font-size:14px;
 }
@@ -267,7 +272,7 @@ body{
 
     gap:14px;
 
-    margin-top:28px;
+    margin-top:30px;
 
     margin-bottom:28px;
 }
@@ -321,7 +326,7 @@ body{
 
     margin-bottom:8px;
 
-    color:#cbd5e1;
+    color:#e2e8f0;
 
     font-size:14px;
 
@@ -332,7 +337,7 @@ body{
 
     width:100%;
 
-    background:#0f172a;
+    background:#081225;
 
     border:1px solid #1e293b;
 
@@ -345,11 +350,21 @@ body{
     font-size:15px;
 
     outline:none;
+
+    transition:0.2s;
 }
 
 .form-group input:focus{
+
     border-color:#22c55e;
+
+    box-shadow:
+    0 0 0 3px rgba(34,197,94,0.12);
 }
+
+/* =========================================
+   BUTTONS
+========================================= */
 
 .action-btn{
 
@@ -396,40 +411,40 @@ body{
 }
 
 /* =========================================
-   CERTIFICATE
+   CERTIFICATE WRAPPER
 ========================================= */
 
 .certificate-wrapper{
 
-    width:1123px;
+    width:1280px;
 
-    height:794px;
+    min-height:900px;
 
-    border-radius:28px;
+    border-radius:34px;
 
     overflow:hidden;
 
     background:#ffffff;
 
-    box-shadow:
-    0 25px 90px rgba(0,0,0,0.5);
-
     flex-shrink:0;
+
+    box-shadow:
+    0 35px 100px rgba(0,0,0,0.5);
 }
 
 .joining-style{
 
     background:
-    radial-gradient(circle at top left,rgba(34,197,94,0.12),transparent 30%),
-    radial-gradient(circle at bottom right,rgba(59,130,246,0.08),transparent 35%),
+    radial-gradient(circle at top left,rgba(34,197,94,0.08),transparent 30%),
+    radial-gradient(circle at bottom right,rgba(59,130,246,0.06),transparent 35%),
     #ffffff;
 }
 
 .experience-style{
 
     background:
-    radial-gradient(circle at top left,rgba(124,58,237,0.12),transparent 30%),
-    radial-gradient(circle at bottom right,rgba(236,72,153,0.08),transparent 35%),
+    radial-gradient(circle at top left,rgba(124,58,237,0.09),transparent 30%),
+    radial-gradient(circle at bottom right,rgba(236,72,153,0.07),transparent 35%),
     #ffffff;
 }
 
@@ -438,9 +453,10 @@ body{
     position:relative;
 
     width:100%;
-    height:100%;
 
-    padding:42px;
+    min-height:900px;
+
+    padding:65px;
 
     overflow:hidden;
 }
@@ -453,11 +469,11 @@ body{
 
     position:absolute;
 
-    inset:18px;
+    inset:22px;
 
-    border-radius:24px;
+    border-radius:28px;
 
-    border:2px solid #16a34a;
+    border:2px solid #22c55e;
 }
 
 .border-layer::before{
@@ -466,9 +482,9 @@ body{
 
     position:absolute;
 
-    inset:12px;
+    inset:14px;
 
-    border-radius:16px;
+    border-radius:20px;
 
     border:1px solid #cbd5e1;
 }
@@ -491,7 +507,7 @@ body{
 
     justify-content:space-between;
 
-    align-items:center;
+    align-items:flex-start;
 }
 
 .logo-area{
@@ -500,15 +516,15 @@ body{
 
     align-items:center;
 
-    gap:16px;
+    gap:18px;
 }
 
 .logo-img-box{
 
-    width:78px;
-    height:78px;
+    width:96px;
+    height:96px;
 
-    border-radius:22px;
+    border-radius:24px;
 
     overflow:hidden;
 
@@ -520,6 +536,9 @@ body{
 
     justify-content:center;
     align-items:center;
+
+    box-shadow:
+    0 8px 24px rgba(0,0,0,0.06);
 }
 
 .logo-img-box img{
@@ -529,41 +548,41 @@ body{
 
     object-fit:contain;
 
-    padding:8px;
+    padding:10px;
 }
 
 .brand h1{
 
-    font-size:42px;
+    font-size:58px;
 
     line-height:1;
 
-    color:#111827;
+    color:#0f172a;
 
     font-weight:800;
 }
 
 .brand p{
 
-    margin-top:6px;
+    margin-top:10px;
 
     color:#64748b;
 
-    font-size:14px;
+    font-size:16px;
 }
 
 .msme-box{
 
-    width:130px;
-    height:70px;
+    width:170px;
+    height:92px;
 
-    border-radius:14px;
+    border-radius:18px;
 
     overflow:hidden;
 
-    border:1px dashed #94a3b8;
-
     background:#ffffff;
+
+    border:1px dashed #94a3b8;
 }
 
 .msme-box img{
@@ -586,25 +605,29 @@ body{
 
     text-align:center;
 
-    margin-top:26px;
+    margin-top:52px;
 }
 
 .content-tag{
 
-    font-size:12px;
+    font-size:14px;
 
-    letter-spacing:4px;
+    letter-spacing:6px;
 
     font-weight:700;
 
     color:#64748b;
 }
 
+/* =========================================
+   TITLES
+========================================= */
+
 .joining-style .content h2{
 
-    margin-top:16px;
+    margin-top:24px;
 
-    font-size:58px;
+    font-size:82px;
 
     color:#16a34a;
 
@@ -615,9 +638,9 @@ body{
 
 .experience-style .content h2{
 
-    margin-top:16px;
+    margin-top:24px;
 
-    font-size:54px;
+    font-size:68px;
 
     color:#7c3aed;
 
@@ -632,24 +655,24 @@ body{
 
 .awarded{
 
-    margin-top:22px;
+    margin-top:38px;
 
-    font-size:18px;
+    font-size:24px;
 
     color:#64748b;
 }
 
 .student-name{
 
-    margin-top:20px;
+    margin-top:26px;
 
-    font-size:58px;
+    font-size:82px;
 
     line-height:1.1;
 
     font-weight:800;
 
-    color:#111827;
+    color:#0f172a;
 }
 
 .experience-style .student-name{
@@ -658,9 +681,9 @@ body{
 
 .role{
 
-    margin-top:14px;
+    margin-top:20px;
 
-    font-size:26px;
+    font-size:36px;
 
     font-weight:700;
 }
@@ -675,13 +698,13 @@ body{
 
 .description{
 
-    width:90%;
+    width:88%;
 
-    margin:22px auto 0;
+    margin:38px auto 0;
 
-    font-size:16px;
+    font-size:21px;
 
-    line-height:1.8;
+    line-height:2;
 
     color:#475569;
 }
@@ -692,38 +715,38 @@ body{
 
 .info-row{
 
-    margin-top:30px;
+    margin-top:55px;
 
     display:flex;
 
     justify-content:center;
 
-    gap:16px;
+    gap:22px;
 
     flex-wrap:wrap;
 }
 
 .info-card{
 
-    min-width:180px;
+    min-width:220px;
 
     background:#ffffff;
 
     border:1px solid #e2e8f0;
 
-    padding:18px;
+    padding:24px;
 
-    border-radius:18px;
+    border-radius:24px;
 
     box-shadow:
-    0 6px 20px rgba(0,0,0,0.04);
+    0 10px 28px rgba(0,0,0,0.04);
 }
 
 .info-card h4{
 
     color:#64748b;
 
-    font-size:11px;
+    font-size:12px;
 
     letter-spacing:2px;
 
@@ -732,11 +755,11 @@ body{
 
 .info-card p{
 
-    margin-top:10px;
+    margin-top:14px;
 
-    color:#111827;
+    color:#0f172a;
 
-    font-size:18px;
+    font-size:24px;
 
     font-weight:800;
 }
@@ -747,7 +770,7 @@ body{
 
 .footer{
 
-    margin-top:36px;
+    margin-top:75px;
 
     display:flex;
 
@@ -755,7 +778,7 @@ body{
 
     align-items:flex-end;
 
-    gap:30px;
+    gap:40px;
 }
 
 .signature-area{
@@ -764,57 +787,59 @@ body{
 
 .signature-img{
 
-    width:160px;
+    width:210px;
 
     object-fit:contain;
 
-    margin-bottom:4px;
+    margin-bottom:8px;
 }
 
 .sign-line{
 
-    width:220px;
+    width:260px;
 
     height:2px;
 
     background:#111827;
 
-    margin-bottom:12px;
+    margin-bottom:16px;
 }
 
 .sign-name{
 
-    font-size:20px;
+    font-size:28px;
 
     font-weight:800;
 
     color:#111827;
+
+    line-height:1.1;
 }
 
 .sign-role{
 
-    margin-top:4px;
+    margin-top:8px;
 
     color:#64748b;
 
-    font-size:13px;
+    font-size:16px;
 
-    line-height:1.7;
+    line-height:1.8;
 }
 
 /* =========================================
-   DIGITAL
+   DIGITAL STRIP
 ========================================= */
 
 .digital-strip{
 
-    margin-top:16px;
+    margin-top:22px;
 
-    width:320px;
+    width:370px;
 
-    padding:12px 14px;
+    padding:15px 18px;
 
-    border-radius:14px;
+    border-radius:18px;
 
     background:#ffffff;
 
@@ -822,26 +847,26 @@ body{
 
     display:flex;
 
-    gap:10px;
+    gap:12px;
 }
 
 .verify-dot{
 
-    width:10px;
-    height:10px;
+    width:12px;
+    height:12px;
 
     border-radius:50%;
 
     background:#22c55e;
 
-    margin-top:4px;
+    margin-top:5px;
 }
 
 .verify-content{
 
-    font-size:11px;
+    font-size:12px;
 
-    line-height:1.7;
+    line-height:1.8;
 
     color:#64748b;
 }
@@ -852,8 +877,8 @@ body{
 
 .stamp-box{
 
-    width:150px;
-    height:150px;
+    width:190px;
+    height:190px;
 
     border-radius:50%;
 
@@ -887,19 +912,19 @@ body{
 
 .bottom-note{
 
-    margin-top:22px;
+    margin-top:34px;
 
     text-align:center;
 
     color:#94a3b8;
 
-    font-size:11px;
+    font-size:13px;
 
-    line-height:1.7;
+    line-height:1.9;
 }
 
 /* =========================================
-   PRINT
+   PERFECT PRINT
 ========================================= */
 
 @page{
@@ -934,25 +959,64 @@ body{
     .certificate-wrapper{
 
         width:297mm;
+
         height:210mm;
 
         border-radius:0;
 
         box-shadow:none;
-
-        page-break-after:avoid;
     }
 
     .certificate{
 
         width:100%;
+
         height:100%;
 
-        padding:12mm;
+        min-height:auto;
+
+        padding:14mm;
+    }
+
+    .joining-style .content h2{
+        font-size:54px;
+    }
+
+    .experience-style .content h2{
+        font-size:46px;
+    }
+
+    .student-name{
+        font-size:52px;
+    }
+
+    .description{
+        font-size:15px;
+        line-height:1.8;
+    }
+
+    .footer{
+        margin-top:40px;
+    }
+
+    .stamp-box{
+        width:130px;
+        height:130px;
+    }
+
+    .info-card{
+        padding:14px;
+        min-width:160px;
+    }
+
+    .info-card p{
+        font-size:16px;
     }
 }
 
 </style>
+
+
 
 </head>
 
