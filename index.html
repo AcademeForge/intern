@@ -3,17 +3,22 @@
 
 <head>
 
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
 
 <title>
 AcademeForge Certificate Generator
 </title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+<link
+href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet"
+/>
+
 <style>
 
 *{
@@ -262,10 +267,6 @@ body{
     font-size:14px;
 }
 
-/* =========================================
-   TYPE SWITCH
-========================================= */
-
 .type-switch{
 
     display:flex;
@@ -312,10 +313,6 @@ body{
     transform:translateY(-2px);
 }
 
-/* =========================================
-   FORM
-========================================= */
-
 .form-group{
     margin-bottom:18px;
 }
@@ -350,8 +347,6 @@ body{
     font-size:15px;
 
     outline:none;
-
-    transition:0.2s;
 }
 
 .form-group input:focus{
@@ -361,10 +356,6 @@ body{
     box-shadow:
     0 0 0 3px rgba(34,197,94,0.12);
 }
-
-/* =========================================
-   BUTTONS
-========================================= */
 
 .action-btn{
 
@@ -411,7 +402,7 @@ body{
 }
 
 /* =========================================
-   CERTIFICATE WRAPPER
+   CERTIFICATE
 ========================================= */
 
 .certificate-wrapper{
@@ -458,7 +449,11 @@ body{
 
     padding:65px;
 
-    overflow:hidden;
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
 }
 
 /* =========================================
@@ -606,6 +601,14 @@ body{
     text-align:center;
 
     margin-top:52px;
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
 }
 
 .content-tag{
@@ -618,10 +621,6 @@ body{
 
     color:#64748b;
 }
-
-/* =========================================
-   TITLES
-========================================= */
 
 .joining-style .content h2{
 
@@ -650,7 +649,7 @@ body{
 
     line-height:1;
 
-    white-space:nowrap;
+    white-space:normal;
 }
 
 .awarded{
@@ -673,6 +672,8 @@ body{
     font-weight:800;
 
     color:#0f172a;
+
+    word-break:break-word;
 }
 
 .experience-style .student-name{
@@ -812,8 +813,6 @@ body{
     font-weight:800;
 
     color:#111827;
-
-    line-height:1.1;
 }
 
 .sign-role{
@@ -826,10 +825,6 @@ body{
 
     line-height:1.8;
 }
-
-/* =========================================
-   DIGITAL STRIP
-========================================= */
 
 .digital-strip{
 
@@ -871,10 +866,6 @@ body{
     color:#64748b;
 }
 
-/* =========================================
-   STAMP
-========================================= */
-
 .stamp-box{
 
     width:190px;
@@ -906,10 +897,6 @@ body{
     object-fit:contain;
 }
 
-/* =========================================
-   FOOTNOTE
-========================================= */
-
 .bottom-note{
 
     margin-top:34px;
@@ -924,7 +911,7 @@ body{
 }
 
 /* =========================================
-   PERFECT PRINT
+   PERFECT PDF + PRINT
 ========================================= */
 
 @page{
@@ -934,95 +921,10 @@ body{
 
 @media print{
 
-    html,
-    body{
-
-        width:297mm;
-        height:210mm;
-
-        background:#ffffff;
-
-        overflow:hidden;
+    *{
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
     }
-
-    body{
-        padding:0;
-        margin:0;
-        display:block;
-    }
-
-    .controls,
-    .login-screen{
-        display:none !important;
-    }
-
-    .certificate-wrapper{
-
-        width:297mm;
-
-        height:210mm;
-
-        border-radius:0;
-
-        box-shadow:none;
-    }
-
-    .certificate{
-
-        width:100%;
-
-        height:100%;
-
-        min-height:auto;
-
-        padding:14mm;
-    }
-
-    .joining-style .content h2{
-        font-size:54px;
-    }
-
-    .experience-style .content h2{
-        font-size:46px;
-    }
-
-    .student-name{
-        font-size:52px;
-    }
-
-    .description{
-        font-size:15px;
-        line-height:1.8;
-    }
-
-    .footer{
-        margin-top:40px;
-    }
-
-    .stamp-box{
-        width:130px;
-        height:130px;
-    }
-
-    .info-card{
-        padding:14px;
-        min-width:160px;
-    }
-
-    .info-card p{
-        font-size:16px;
-    }
-}
-    /* =========================================
-   PERFECT PDF EXPORT FIX
-========================================= */
-
-@page{
-    size:A4 landscape;
-    margin:0;
-}
-
-@media print{
 
     html,
     body{
@@ -1039,13 +941,11 @@ body{
     }
 
     body{
-
         display:block !important;
     }
 
     .controls,
     .login-screen{
-
         display:none !important;
     }
 
@@ -1054,17 +954,13 @@ body{
         width:297mm !important;
         height:210mm !important;
 
-        margin:0 !important;
+        margin:0 auto !important;
 
         border-radius:0 !important;
 
-        box-shadow:none !important;
-
         overflow:hidden !important;
 
-        page-break-after:avoid !important;
-
-        break-after:avoid-page !important;
+        box-shadow:none !important;
     }
 
     .certificate{
@@ -1072,34 +968,34 @@ body{
         width:100% !important;
         height:100% !important;
 
-        min-height:210mm !important;
+        min-height:auto !important;
 
-        padding:10mm 12mm !important;
-
-        overflow:hidden !important;
+        padding:12mm !important;
     }
-
-    /* =========================================
-       BORDER
-    ========================================= */
 
     .border-layer{
 
-        inset:8mm !important;
+        inset:7mm !important;
+
+        border-radius:18px !important;
     }
 
     .border-layer::before{
 
-        inset:5mm !important;
+        inset:10px !important;
+
+        border-radius:12px !important;
     }
 
-    /* =========================================
-       HEADER
-    ========================================= */
+    .logo-img-box{
+
+        width:58px !important;
+        height:58px !important;
+    }
 
     .brand h1{
 
-        font-size:34px !important;
+        font-size:36px !important;
     }
 
     .brand p{
@@ -1109,57 +1005,43 @@ body{
         margin-top:4px !important;
     }
 
-    .logo-img-box{
-
-        width:56px !important;
-        height:56px !important;
-    }
-
     .msme-box{
 
-        width:100px !important;
-        height:56px !important;
+        width:110px !important;
+        height:58px !important;
     }
-
-    /* =========================================
-       CONTENT
-    ========================================= */
 
     .content{
 
-        margin-top:18px !important;
+        margin-top:10px !important;
     }
 
     .content-tag{
 
         font-size:8px !important;
 
-        letter-spacing:4px !important;
+        letter-spacing:3px !important;
     }
 
     .joining-style .content h2{
 
-        font-size:42px !important;
+        margin-top:10px !important;
 
-        margin-top:12px !important;
-
-        line-height:1 !important;
+        font-size:44px !important;
     }
 
     .experience-style .content h2{
 
-        font-size:36px !important;
+        margin-top:10px !important;
 
-        margin-top:12px !important;
+        font-size:38px !important;
 
-        line-height:1 !important;
-
-        white-space:nowrap !important;
+        white-space:normal !important;
     }
 
     .awarded{
 
-        margin-top:18px !important;
+        margin-top:16px !important;
 
         font-size:14px !important;
     }
@@ -1168,16 +1050,16 @@ body{
 
         margin-top:14px !important;
 
-        font-size:42px !important;
+        font-size:48px !important;
 
-        line-height:1 !important;
+        line-height:1.1 !important;
     }
 
     .role{
 
         margin-top:10px !important;
 
-        font-size:20px !important;
+        font-size:22px !important;
     }
 
     .description{
@@ -1186,14 +1068,10 @@ body{
 
         margin-top:18px !important;
 
-        font-size:12px !important;
+        font-size:13px !important;
 
         line-height:1.7 !important;
     }
-
-    /* =========================================
-       INFO ROW
-    ========================================= */
 
     .info-row{
 
@@ -1204,45 +1082,39 @@ body{
 
     .info-card{
 
-        min-width:120px !important;
+        min-width:130px !important;
 
         padding:10px 12px !important;
 
         border-radius:14px !important;
+
+        box-shadow:none !important;
     }
 
     .info-card h4{
 
         font-size:7px !important;
 
-        letter-spacing:1.5px !important;
+        letter-spacing:1px !important;
     }
 
     .info-card p{
 
-        margin-top:8px !important;
+        margin-top:7px !important;
 
-        font-size:12px !important;
+        font-size:13px !important;
     }
-
-    /* =========================================
-       FOOTER
-    ========================================= */
 
     .footer{
 
-        margin-top:24px !important;
+        margin-top:16px !important;
 
         gap:20px !important;
-
-        align-items:flex-end !important;
     }
 
     .signature-img{
 
         width:110px !important;
-
-        margin-bottom:4px !important;
     }
 
     .sign-line{
@@ -1264,13 +1136,7 @@ body{
         line-height:1.5 !important;
     }
 
-    /* =========================================
-       DIGITAL STRIP
-    ========================================= */
-
     .digital-strip{
-
-        margin-top:10px !important;
 
         width:240px !important;
 
@@ -1292,578 +1158,41 @@ body{
         line-height:1.5 !important;
     }
 
-    /* =========================================
-       STAMP
-    ========================================= */
-
     .stamp-box{
 
         width:105px !important;
         height:105px !important;
     }
 
-    /* =========================================
-       FOOTNOTE
-    ========================================= */
-
     .bottom-note{
 
-        margin-top:12px !important;
+        margin-top:10px !important;
 
         font-size:8px !important;
 
         line-height:1.5 !important;
     }
 }
-/* =========================================
-   LOCKED PDF LAYOUT
-   EVERYTHING FIXED POSITION
-========================================= */
 
-@page{
-    size:A4 landscape;
-    margin:0;
-}
-
-@media print{
-
-    html,
-    body{
-
-        width:297mm !important;
-        height:210mm !important;
-
-        margin:0 !important;
-        padding:0 !important;
-
-        overflow:hidden !important;
-
-        background:#ffffff !important;
-
-        -webkit-print-color-adjust:exact !important;
-        print-color-adjust:exact !important;
-    }
-
-    body{
-
-        display:block !important;
-    }
-
-    .controls,
-    .login-screen{
-
-        display:none !important;
-    }
-
-    /* =========================================
-       CERTIFICATE WRAPPER
-    ========================================= */
-
-    .certificate-wrapper{
-
-        position:relative !important;
-
-        width:297mm !important;
-        height:210mm !important;
-
-        overflow:hidden !important;
-
-        border-radius:0 !important;
-
-        box-shadow:none !important;
-
-        margin:0 !important;
-
-        page-break-after:avoid !important;
-    }
-
-    .certificate{
-
-        position:relative !important;
-
-        width:297mm !important;
-        height:210mm !important;
-
-        overflow:hidden !important;
-
-        padding:0 !important;
-
-        min-height:auto !important;
-    }
-
-    /* =========================================
-       BORDER
-    ========================================= */
-
-    .border-layer{
-
-        position:absolute !important;
-
-        inset:7mm !important;
-
-        border-radius:8mm !important;
-
-        border:0.6mm solid #22c55e !important;
-    }
-
-    .experience-style .border-layer{
-        border-color:#7c3aed !important;
-    }
-
-    .border-layer::before{
-
-        content:'' !important;
-
-        position:absolute !important;
-
-        inset:4mm !important;
-
-        border-radius:5mm !important;
-
-        border:0.3mm solid #cbd5e1 !important;
-    }
-
-    /* =========================================
-       HEADER
-    ========================================= */
-
-    .header{
-
-        position:absolute !important;
-
-        top:12mm !important;
-        left:15mm !important;
-        right:15mm !important;
-
-        display:flex !important;
-
-        justify-content:space-between !important;
-
-        align-items:flex-start !important;
-
-        z-index:10 !important;
-    }
-
-    .logo-area{
-
-        display:flex !important;
-
-        align-items:center !important;
-
-        gap:5mm !important;
-    }
-
-    .logo-img-box{
-
-        width:16mm !important;
-        height:16mm !important;
-
-        border-radius:4mm !important;
-
-        overflow:hidden !important;
-
-        border:0.3mm solid #dbeafe !important;
-    }
-
-    .logo-img-box img{
-
-        width:100% !important;
-        height:100% !important;
-
-        object-fit:contain !important;
-
-        padding:2mm !important;
-    }
-
-    .brand h1{
-
-        font-size:16mm !important;
-
-        line-height:1 !important;
-
-        font-weight:800 !important;
-
-        color:#0f172a !important;
-    }
-
-    .brand p{
-
-        margin-top:1.5mm !important;
-
-        font-size:3.4mm !important;
-
-        color:#64748b !important;
-    }
-
-    .msme-box{
-
-        width:28mm !important;
-        height:15mm !important;
-
-        border-radius:3mm !important;
-
-        overflow:hidden !important;
-
-        border:0.3mm dashed #94a3b8 !important;
-    }
-
-    .msme-box img{
-
-        width:100% !important;
-        height:100% !important;
-
-        object-fit:contain !important;
-    }
-
-    /* =========================================
-       CONTENT
-    ========================================= */
-
-    .content{
-
-        position:absolute !important;
-
-        top:48mm !important;
-        left:14mm !important;
-        right:14mm !important;
-
-        text-align:center !important;
-
-        z-index:10 !important;
-    }
-
-    .content-tag{
-
-        font-size:2.5mm !important;
-
-        letter-spacing:1.4mm !important;
-
-        font-weight:700 !important;
-
-        color:#64748b !important;
-    }
-
-    .joining-style .content h2{
-
-        margin-top:4mm !important;
-
-        font-size:18mm !important;
-
-        line-height:1 !important;
-
-        font-weight:800 !important;
-
-        color:#16a34a !important;
-    }
-
-    .experience-style .content h2{
-
-        margin-top:4mm !important;
-
-        font-size:14mm !important;
-
-        line-height:1 !important;
-
-        font-weight:800 !important;
-
-        white-space:nowrap !important;
-
-        color:#7c3aed !important;
-    }
-
-    .awarded{
-
-        margin-top:6mm !important;
-
-        font-size:4.4mm !important;
-
-        color:#64748b !important;
-    }
-
-    .student-name{
-
-        margin-top:5mm !important;
-
-        font-size:18mm !important;
-
-        line-height:1 !important;
-
-        font-weight:800 !important;
-
-        color:#0f172a !important;
-    }
-
-    .role{
-
-        margin-top:3mm !important;
-
-        font-size:7mm !important;
-
-        font-weight:700 !important;
-    }
-
-    .joining-style .role{
-        color:#16a34a !important;
-    }
-
-    .experience-style .role{
-        color:#7c3aed !important;
-    }
-
-    .description{
-
-        width:240mm !important;
-
-        margin:7mm auto 0 !important;
-
-        font-size:3.5mm !important;
-
-        line-height:1.9 !important;
-
-        color:#475569 !important;
-    }
-
-    /* =========================================
-       INFO ROW
-    ========================================= */
-
-    .info-row{
-
-        position:absolute !important;
-
-        top:132mm !important;
-
-        left:0 !important;
-        right:0 !important;
-
-        display:flex !important;
-
-        justify-content:center !important;
-
-        gap:4mm !important;
-
-        z-index:10 !important;
-    }
-
-    .info-card{
-
-        width:42mm !important;
-
-        min-width:auto !important;
-
-        padding:4mm !important;
-
-        border-radius:4mm !important;
-
-        background:#ffffff !important;
-
-        border:0.3mm solid #e2e8f0 !important;
-
-        box-shadow:none !important;
-    }
-
-    .info-card h4{
-
-        font-size:1.8mm !important;
-
-        letter-spacing:0.6mm !important;
-
-        text-transform:uppercase !important;
-
-        color:#64748b !important;
-    }
-
-    .info-card p{
-
-        margin-top:2.5mm !important;
-
-        font-size:3.6mm !important;
-
-        font-weight:800 !important;
-
-        color:#111827 !important;
-    }
-
-    /* =========================================
-       FOOTER
-    ========================================= */
-
-    .footer{
-
-        position:absolute !important;
-
-        left:15mm !important;
-        right:15mm !important;
-        bottom:16mm !important;
-
-        display:flex !important;
-
-        justify-content:space-between !important;
-
-        align-items:flex-end !important;
-
-        z-index:10 !important;
-    }
-
-    .signature-area{
-
-        width:120mm !important;
-    }
-
-    .signature-img{
-
-        width:30mm !important;
-
-        margin-bottom:1mm !important;
-    }
-
-    .sign-line{
-
-        width:50mm !important;
-
-        height:0.4mm !important;
-
-        background:#111827 !important;
-
-        margin-bottom:2mm !important;
-    }
-
-    .sign-name{
-
-        font-size:5mm !important;
-
-        font-weight:800 !important;
-
-        color:#111827 !important;
-    }
-
-    .sign-role{
-
-        margin-top:1mm !important;
-
-        font-size:2.8mm !important;
-
-        line-height:1.6 !important;
-
-        color:#64748b !important;
-    }
-
-    /* =========================================
-       DIGITAL STRIP
-    ========================================= */
-
-    .digital-strip{
-
-        margin-top:4mm !important;
-
-        width:70mm !important;
-
-        padding:3mm 4mm !important;
-
-        border-radius:3mm !important;
-
-        border:0.3mm solid #e2e8f0 !important;
-
-        background:#ffffff !important;
-
-        display:flex !important;
-
-        gap:2mm !important;
-    }
-
-    .verify-dot{
-
-        width:2.2mm !important;
-        height:2.2mm !important;
-
-        border-radius:50% !important;
-
-        margin-top:1mm !important;
-
-        background:#22c55e !important;
-    }
-
-    .verify-content{
-
-        font-size:2mm !important;
-
-        line-height:1.5 !important;
-
-        color:#64748b !important;
-    }
-
-    /* =========================================
-       STAMP
-    ========================================= */
-
-    .stamp-box{
-
-        width:32mm !important;
-        height:32mm !important;
-
-        border-radius:50% !important;
-
-        overflow:hidden !important;
-
-        border:0.7mm dashed #22c55e !important;
-
-        background:#ffffff !important;
-    }
-
-    .experience-style .stamp-box{
-        border-color:#7c3aed !important;
-    }
-
-    .stamp-box img{
-
-        width:100% !important;
-        height:100% !important;
-
-        object-fit:contain !important;
-    }
-
-    /* =========================================
-       FOOTNOTE
-    ========================================= */
-
-    .bottom-note{
-
-        position:absolute !important;
-
-        left:0 !important;
-        right:0 !important;
-        bottom:5mm !important;
-
-        text-align:center !important;
-
-        font-size:2mm !important;
-
-        color:#94a3b8 !important;
-
-        line-height:1.4 !important;
-    }
-}
 </style>
-
-
 
 </head>
 
 <body>
 
-<!-- =========================================
-     LOGIN
-========================================= -->
-
-<div class="login-screen"
-id="loginScreen">
+<div
+class="login-screen"
+id="loginScreen"
+>
 
     <div class="login-box">
 
         <div class="login-logo">
 
-            <img src="AF LOGO 2.jpeg"
-            alt="Logo">
+            <img
+            src="AF LOGO 2.jpeg"
+            alt="Logo"
+            />
 
         </div>
 
@@ -1878,26 +1207,23 @@ id="loginScreen">
         <input
         type="password"
         id="passwordInput"
-        placeholder="Enter Admin Password">
+        placeholder="Enter Admin Password"
+        />
 
         <button onclick="login()">
             Access Dashboard
         </button>
 
-        <div class="error-text"
-        id="errorText">
-
+        <div
+        class="error-text"
+        id="errorText"
+        >
             Invalid Password
-
         </div>
 
     </div>
 
 </div>
-
-<!-- =========================================
-     CONTROL PANEL
-========================================= -->
 
 <div class="controls">
 
@@ -1908,126 +1234,121 @@ id="loginScreen">
 
     <p>
         Generate professional certificates
-        with official branding and export-ready
-        A4 PDF layout.
+        with export-ready perfect PDF scaling.
     </p>
 
     <div class="type-switch">
 
-        <button class="type-btn active"
-        onclick="setCertificateType('joining',this)">
-
+        <button
+        class="type-btn active"
+        onclick="setCertificateType('joining',this)"
+        >
             JOINING
-
         </button>
 
-        <button class="type-btn"
-        onclick="setCertificateType('experience',this)">
-
+        <button
+        class="type-btn"
+        onclick="setCertificateType('experience',this)"
+        >
             EXPERIENCE
-
         </button>
 
     </div>
 
     <div class="form-group">
-
         <label>Full Name</label>
 
-        <input type="text"
+        <input
+        type="text"
         id="studentName"
-        value="Devraj Kumar">
-
+        value="Devraj Kumar"
+        />
     </div>
 
     <div class="form-group">
-
         <label>Role / Position</label>
 
-        <input type="text"
+        <input
+        type="text"
         id="studentRole"
-        value="Founder & CEO">
-
+        value="Founder & CEO"
+        />
     </div>
 
     <div class="form-group">
-
         <label>Certificate ID</label>
 
-        <input type="text"
+        <input
+        type="text"
         id="certificateId"
-        value="AF-CERT-2026-1001">
-
+        value="AF-CERT-2026-1001"
+        />
     </div>
 
     <div class="form-group">
-
         <label>Issue Date</label>
 
-        <input type="text"
+        <input
+        type="text"
         id="issueDate"
-        value="26 May 2026">
-
+        value="26 May 2026"
+        />
     </div>
 
     <div class="form-group">
-
         <label>Duration / Work Type</label>
 
-        <input type="text"
+        <input
+        type="text"
         id="duration"
-        value="Flexible Volunteer">
-
+        value="Flexible Volunteer"
+        />
     </div>
 
     <div class="form-group">
-
         <label>Start Date</label>
 
-        <input type="text"
+        <input
+        type="text"
         id="startDate"
-        value="01 January 2026">
-
+        value="01 January 2026"
+        />
     </div>
 
     <div class="form-group">
-
         <label>End Date</label>
 
-        <input type="text"
+        <input
+        type="text"
         id="endDate"
-        value="31 March 2026">
-
+        value="31 March 2026"
+        />
     </div>
 
-    <button class="action-btn update-btn"
-    onclick="updateCertificate()">
-
+    <button
+    class="action-btn update-btn"
+    onclick="updateCertificate()"
+    >
         Update Certificate
-
     </button>
 
-    <button class="action-btn print-btn"
-    onclick="window.print()">
-
+    <button
+    class="action-btn print-btn"
+    onclick="window.print()"
+    >
         Download / Print PDF
-
     </button>
 
 </div>
 
-<!-- =========================================
-     CERTIFICATE
-========================================= -->
-
-<div class="certificate-wrapper joining-style"
-id="certificateWrapper">
+<div
+class="certificate-wrapper joining-style"
+id="certificateWrapper"
+>
 
 <div class="certificate">
 
     <div class="border-layer"></div>
-
-    <!-- HEADER -->
 
     <div class="header">
 
@@ -2035,8 +1356,10 @@ id="certificateWrapper">
 
             <div class="logo-img-box">
 
-                <img src="AF LOGO 2.jpeg"
-                alt="Logo">
+                <img
+                src="AF LOGO 2.jpeg"
+                alt="Logo"
+                />
 
             </div>
 
@@ -2056,64 +1379,60 @@ id="certificateWrapper">
 
         <div class="msme-box">
 
-            <img src="MSME-logo.png"
-            alt="MSME">
+            <img
+            src="MSME-logo.png"
+            alt="MSME"
+            />
 
         </div>
 
     </div>
 
-    <!-- CONTENT -->
-
     <div class="content">
 
-        <div class="content-tag"
-        id="certificateTag">
-
+        <div
+        class="content-tag"
+        id="certificateTag"
+        >
             OFFICIAL APPOINTMENT CERTIFICATE
-
         </div>
 
         <h2 id="certificateHeading">
-
             JOINING CERTIFICATE
-
         </h2>
 
         <div class="awarded">
-
             This certificate is proudly presented to
-
         </div>
 
-        <div class="student-name"
-        id="previewName">
-
+        <div
+        class="student-name"
+        id="previewName"
+        >
             Devraj Kumar
-
         </div>
 
-        <div class="role"
-        id="previewRole">
-
+        <div
+        class="role"
+        id="previewRole"
+        >
             Founder & CEO
-
         </div>
 
-        <div class="description"
-        id="descriptionText">
-
+        <div
+        class="description"
+        id="descriptionText"
+        >
             This is to officially certify that the individual mentioned above has been appointed as a contributor at AcademeForge and is welcomed into the organization for collaborative learning, operational support, ecosystem participation, and professional growth.
-
         </div>
-
-        <!-- INFO -->
 
         <div class="info-row">
 
             <div class="info-card">
 
-                <h4>Certificate ID</h4>
+                <h4>
+                    Certificate ID
+                </h4>
 
                 <p id="previewId">
                     AF-CERT-2026-1001
@@ -2123,7 +1442,9 @@ id="certificateWrapper">
 
             <div class="info-card">
 
-                <h4>Issue Date</h4>
+                <h4>
+                    Issue Date
+                </h4>
 
                 <p id="previewDate">
                     26 May 2026
@@ -2133,7 +1454,9 @@ id="certificateWrapper">
 
             <div class="info-card">
 
-                <h4>Work Type</h4>
+                <h4>
+                    Work Type
+                </h4>
 
                 <p id="previewDuration">
                     Flexible Volunteer
@@ -2141,11 +1464,15 @@ id="certificateWrapper">
 
             </div>
 
-            <div class="info-card"
+            <div
+            class="info-card"
             id="startDateCard"
-            style="display:none;">
+            style="display:none;"
+            >
 
-                <h4>Start Date</h4>
+                <h4>
+                    Start Date
+                </h4>
 
                 <p id="previewStartDate">
                     01 January 2026
@@ -2153,11 +1480,15 @@ id="certificateWrapper">
 
             </div>
 
-            <div class="info-card"
+            <div
+            class="info-card"
             id="endDateCard"
-            style="display:none;">
+            style="display:none;"
+            >
 
-                <h4>End Date</h4>
+                <h4>
+                    End Date
+                </h4>
 
                 <p id="previewEndDate">
                     31 March 2026
@@ -2169,29 +1500,25 @@ id="certificateWrapper">
 
     </div>
 
-    <!-- FOOTER -->
-
     <div class="footer">
 
         <div class="signature-area">
 
-            <img src="devraj-sign.png"
+            <img
+            src="devraj-sign.png"
             class="signature-img"
-            alt="Signature">
+            alt="Signature"
+            />
 
             <div class="sign-line"></div>
 
             <div class="sign-name">
-
                 Devraj Kumar
-
             </div>
 
             <div class="sign-role">
-
                 Founder & CEO<br>
                 AcademeForge
-
             </div>
 
             <div class="digital-strip">
@@ -2202,14 +1529,16 @@ id="certificateWrapper">
 
                     <strong>
                         Digitally Signed
-                    </strong><br>
+                    </strong>
 
-                    Devraj Kumar • Founder & CEO<br>
+                    <br>
+
+                    Devraj Kumar • Founder & CEO
+
+                    <br>
 
                     <span id="liveDateTime">
-
                         26 May 2026
-
                     </span>
 
                 </div>
@@ -2220,8 +1549,10 @@ id="certificateWrapper">
 
         <div class="stamp-box">
 
-            <img src="af-stamp.png"
-            alt="Stamp">
+            <img
+            src="af-stamp.png"
+            alt="Stamp"
+            />
 
         </div>
 
@@ -2242,10 +1573,6 @@ id="certificateWrapper">
 const EDGE_FUNCTION_URL =
 'https://afooyyydhlwngzssgqih.supabase.co/functions/v1/af-certificate-secure-api';
 
-/* =========================================
-   AUTO LOGIN
-========================================= */
-
 window.addEventListener(
 
     'load',
@@ -2265,10 +1592,6 @@ window.addEventListener(
         }
     }
 );
-
-/* =========================================
-   LOGIN
-========================================= */
 
 async function login(){
 
@@ -2296,7 +1619,6 @@ async function login(){
 
                     action:'login',
                     password
-
                 })
             }
         );
@@ -2333,10 +1655,6 @@ async function login(){
         ).style.display = 'block';
     }
 }
-
-/* =========================================
-   CERTIFICATE TYPE
-========================================= */
 
 let currentType = 'joining';
 
@@ -2433,10 +1751,6 @@ function setCertificateType(type,btn){
     }
 }
 
-/* =========================================
-   UPDATE CERTIFICATE
-========================================= */
-
 function updateCertificate(){
 
     const name =
@@ -2505,10 +1819,6 @@ function updateCertificate(){
     saveCertificate();
 }
 
-/* =========================================
-   LIVE TIME
-========================================= */
-
 function updateLiveDateTime(){
 
     const now = new Date();
@@ -2550,10 +1860,6 @@ setInterval(
     updateLiveDateTime,
     1000
 );
-
-/* =========================================
-   SAVE CERTIFICATE
-========================================= */
 
 async function saveCertificate(){
 
