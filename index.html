@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 <title>AcademeForge Certificate Generator</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -19,34 +22,77 @@ body{
     background:#0b1120;
     font-family:'Poppins',sans-serif;
     min-height:100vh;
-    padding:40px;
+    padding:35px;
     display:flex;
+    gap:28px;
+    flex-wrap:wrap;
     justify-content:center;
     align-items:flex-start;
-    gap:30px;
-    flex-wrap:wrap;
 }
 
 /* =========================
-   CONTROL PANEL
+   SIDEBAR
 ========================= */
 
 .controls{
-    width:360px;
+    width:370px;
     background:#111827;
     border:1px solid #1f2937;
-    border-radius:24px;
+    border-radius:28px;
     padding:30px;
     position:sticky;
     top:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.35);
+    box-shadow:0 20px 50px rgba(0,0,0,0.4);
 }
 
-.controls h2{
+.controls h1{
     color:#ffffff;
-    font-size:28px;
-    margin-bottom:25px;
+    font-size:32px;
+    line-height:1.2;
+    margin-bottom:8px;
 }
+
+.controls p{
+    color:#94a3b8;
+    margin-bottom:30px;
+    line-height:1.8;
+    font-size:14px;
+}
+
+/* =========================
+   TYPE SWITCH
+========================= */
+
+.type-switch{
+    display:flex;
+    gap:12px;
+    margin-bottom:28px;
+}
+
+.type-btn{
+    flex:1;
+    padding:16px;
+    border:none;
+    border-radius:16px;
+    background:#1e293b;
+    color:#ffffff;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.25s;
+    font-size:14px;
+}
+
+.type-btn.active{
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+}
+
+.type-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* =========================
+   FORM
+========================= */
 
 .form-group{
     margin-bottom:18px;
@@ -54,7 +100,7 @@ body{
 
 .form-group label{
     display:block;
-    color:#9ca3af;
+    color:#cbd5e1;
     margin-bottom:8px;
     font-size:14px;
     font-weight:600;
@@ -65,8 +111,8 @@ body{
     background:#0f172a;
     border:1px solid #1f2937;
     color:#ffffff;
-    padding:14px 16px;
-    border-radius:14px;
+    padding:15px 16px;
+    border-radius:16px;
     outline:none;
     font-size:15px;
 }
@@ -75,23 +121,30 @@ body{
     border-color:#22c55e;
 }
 
-button{
+.action-btn{
     width:100%;
-    margin-top:15px;
-    background:linear-gradient(135deg,#16a34a,#22c55e);
-    color:#ffffff;
     border:none;
     padding:16px;
-    border-radius:16px;
+    border-radius:18px;
+    margin-top:14px;
+    cursor:pointer;
     font-size:16px;
     font-weight:700;
-    cursor:pointer;
     transition:0.25s;
 }
 
-button:hover{
+.update-btn{
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+    color:#ffffff;
+}
+
+.print-btn{
+    background:#ffffff;
+    color:#111827;
+}
+
+.action-btn:hover{
     transform:translateY(-2px);
-    opacity:0.95;
 }
 
 /* =========================
@@ -99,23 +152,49 @@ button:hover{
 ========================= */
 
 .certificate-wrapper{
-    width:1200px;
+    width:1250px;
     background:#ffffff;
-    position:relative;
+    border-radius:30px;
     overflow:hidden;
-    border-radius:26px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.45);
+    box-shadow:0 25px 70px rgba(0,0,0,0.45);
 }
 
 .certificate{
     position:relative;
-    width:100%;
-    min-height:850px;
-    padding:70px;
+    min-height:880px;
+    padding:65px;
+    overflow:hidden;
+
     background:
-    radial-gradient(circle at top left,rgba(34,197,94,0.06),transparent 30%),
-    radial-gradient(circle at bottom right,rgba(59,130,246,0.05),transparent 30%),
+    radial-gradient(circle at top left,rgba(34,197,94,0.08),transparent 30%),
+    radial-gradient(circle at bottom right,rgba(59,130,246,0.06),transparent 35%),
     #ffffff;
+}
+
+/* =========================
+   DECOR
+========================= */
+
+.circle{
+    position:absolute;
+    border-radius:50%;
+    opacity:0.08;
+}
+
+.circle-1{
+    width:260px;
+    height:260px;
+    background:#22c55e;
+    top:-120px;
+    left:-120px;
+}
+
+.circle-2{
+    width:240px;
+    height:240px;
+    background:#2563eb;
+    bottom:-110px;
+    right:-110px;
 }
 
 /* =========================
@@ -124,8 +203,8 @@ button:hover{
 
 .border-layer{
     position:absolute;
-    inset:20px;
-    border:3px solid #16a34a;
+    inset:22px;
+    border:2px solid #16a34a;
     border-radius:22px;
 }
 
@@ -134,7 +213,7 @@ button:hover{
     position:absolute;
     inset:14px;
     border:1px solid #d1d5db;
-    border-radius:16px;
+    border-radius:14px;
 }
 
 /* =========================
@@ -149,49 +228,55 @@ button:hover{
     align-items:flex-start;
 }
 
-.logo-box{
+.logo-area{
     display:flex;
-    gap:18px;
     align-items:center;
+    gap:18px;
 }
 
 .logo{
-    width:80px;
-    height:80px;
-    border-radius:22px;
+    width:82px;
+    height:82px;
+    border-radius:24px;
     background:linear-gradient(135deg,#16a34a,#22c55e);
     display:flex;
     justify-content:center;
     align-items:center;
     color:#ffffff;
-    font-size:34px;
+    font-size:36px;
     font-weight:800;
-    box-shadow:0 10px 25px rgba(34,197,94,0.25);
+    box-shadow:0 12px 30px rgba(34,197,94,0.25);
 }
 
 .brand h1{
-    font-size:44px;
-    font-weight:800;
-    color:#111827;
+    font-size:48px;
     line-height:1;
+    color:#111827;
+    font-weight:800;
 }
 
 .brand p{
     margin-top:10px;
-    color:#4b5563;
+    color:#64748b;
     font-size:16px;
 }
 
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
 .msme-box{
-    width:150px;
-    height:90px;
-    border:2px dashed #9ca3af;
-    border-radius:14px;
+    width:145px;
+    height:88px;
+    border-radius:16px;
+    border:1px dashed #94a3b8;
     display:flex;
     justify-content:center;
     align-items:center;
     overflow:hidden;
-    background:#f9fafb;
+    background:#f8fafc;
 }
 
 .msme-box img{
@@ -207,88 +292,88 @@ button:hover{
 .content{
     position:relative;
     z-index:5;
-    margin-top:70px;
+    margin-top:65px;
     text-align:center;
 }
 
-.content .small{
-    font-size:18px;
-    color:#6b7280;
+.content-tag{
+    color:#64748b;
+    font-size:15px;
+    font-weight:700;
     letter-spacing:5px;
-    font-weight:600;
 }
 
 .content h2{
     margin-top:18px;
-    font-size:74px;
+    font-size:78px;
     line-height:1;
     color:#16a34a;
     font-family:'Cinzel',serif;
     font-weight:800;
 }
 
-.content .awarded{
-    margin-top:55px;
-    font-size:22px;
-    color:#4b5563;
+.awarded{
+    margin-top:50px;
+    font-size:24px;
+    color:#64748b;
 }
 
 .student-name{
-    margin-top:28px;
-    font-size:72px;
+    margin-top:24px;
+    font-size:76px;
+    line-height:1.2;
+    color:#111827;
     font-family:'Cinzel',serif;
     font-weight:700;
-    color:#111827;
-    line-height:1.2;
 }
 
 .role{
-    margin-top:28px;
+    margin-top:22px;
     font-size:34px;
     color:#16a34a;
     font-weight:700;
 }
 
 .description{
-    width:90%;
-    margin:35px auto 0;
-    font-size:19px;
+    width:88%;
+    margin:36px auto 0;
+    color:#475569;
     line-height:2;
-    color:#374151;
+    font-size:20px;
 }
 
 /* =========================
-   INFO ROW
+   INFO BOXES
 ========================= */
 
 .info-row{
     margin-top:50px;
     display:flex;
     justify-content:center;
-    gap:25px;
+    gap:22px;
     flex-wrap:wrap;
 }
 
 .info-card{
-    min-width:230px;
-    padding:20px 26px;
-    border-radius:18px;
-    background:#f9fafb;
-    border:1px solid #e5e7eb;
+    min-width:240px;
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    padding:24px;
+    border-radius:20px;
 }
 
 .info-card h4{
-    color:#6b7280;
+    color:#64748b;
     font-size:13px;
     letter-spacing:2px;
     text-transform:uppercase;
 }
 
 .info-card p{
-    margin-top:12px;
-    font-size:22px;
-    font-weight:700;
+    margin-top:14px;
     color:#111827;
+    font-size:24px;
+    font-weight:800;
 }
 
 /* =========================
@@ -300,24 +385,24 @@ button:hover{
     display:flex;
     justify-content:space-between;
     align-items:flex-end;
-    gap:30px;
+    gap:40px;
 }
 
-.signature-section{
+.signature-area{
     flex:1;
 }
 
 .signature-img{
-    width:200px;
+    width:190px;
     object-fit:contain;
-    margin-bottom:8px;
+    margin-bottom:6px;
 }
 
 .sign-line{
-    width:260px;
+    width:250px;
     height:2px;
     background:#111827;
-    margin-bottom:16px;
+    margin-bottom:14px;
 }
 
 .sign-name{
@@ -327,35 +412,48 @@ button:hover{
 }
 
 .sign-role{
+    margin-top:5px;
+    color:#64748b;
+    line-height:1.8;
+}
+
+/* =========================
+   DIGITAL VERIFY
+========================= */
+
+.digital-strip{
+    margin-top:22px;
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    width:330px;
+    padding:14px 16px;
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+}
+
+.verify-dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#22c55e;
     margin-top:6px;
-    color:#6b7280;
+}
+
+.verify-content{
+    color:#64748b;
+    font-size:12px;
     line-height:1.8;
 }
 
-.digital-sign{
-    margin-top:18px;
-    padding:18px;
-    width:340px;
-    background:#f0fdf4;
-    border:1px solid #bbf7d0;
-    border-radius:16px;
-}
-
-.digital-sign h5{
-    color:#15803d;
-    font-size:15px;
-    margin-bottom:10px;
-}
-
-.digital-sign p{
-    color:#166534;
-    font-size:14px;
-    line-height:1.8;
-}
+/* =========================
+   STAMP
+========================= */
 
 .stamp-box{
-    width:180px;
-    height:180px;
+    width:190px;
+    height:190px;
     border-radius:50%;
     border:3px dashed #16a34a;
     display:flex;
@@ -372,26 +470,15 @@ button:hover{
 }
 
 /* =========================
-   DECORATION
+   FOOT NOTE
 ========================= */
 
-.corner{
-    position:absolute;
-    width:220px;
-    height:220px;
-    background:linear-gradient(135deg,#16a34a,#22c55e);
-    opacity:0.08;
-    border-radius:50%;
-}
-
-.corner-1{
-    top:-80px;
-    left:-80px;
-}
-
-.corner-2{
-    bottom:-80px;
-    right:-80px;
+.bottom-note{
+    margin-top:45px;
+    text-align:center;
+    color:#94a3b8;
+    font-size:13px;
+    line-height:1.9;
 }
 
 /* =========================
@@ -411,8 +498,8 @@ button:hover{
 
     .certificate-wrapper{
         width:100%;
-        box-shadow:none;
         border-radius:0;
+        box-shadow:none;
     }
 
     .certificate{
@@ -421,6 +508,7 @@ button:hover{
 }
 
 </style>
+
 </head>
 
 <body>
@@ -431,38 +519,70 @@ button:hover{
 
 <div class="controls">
 
-    <h2>Certificate Generator</h2>
+    <h1>AcademeForge<br>Certificate Generator</h1>
 
-    <div class="form-group">
-        <label>Student Name</label>
-        <input type="text" id="studentName" value="Palak Kumari Jha">
+    <p>
+        Generate professional JOINING and LEAVING certificates
+        with MSME logo, founder signature, digital verification,
+        and official company stamp.
+    </p>
+
+    <div class="type-switch">
+
+        <button class="type-btn active"
+        onclick="setCertificateType('joining',this)">
+            JOINING
+        </button>
+
+        <button class="type-btn"
+        onclick="setCertificateType('leaving',this)">
+            LEAVING
+        </button>
+
     </div>
 
     <div class="form-group">
-        <label>Role / Achievement</label>
-        <input type="text" id="studentRole" value="Community Manager">
+        <label>Full Name</label>
+        <input type="text"
+        id="studentName"
+        value="Palak Kumari Jha">
+    </div>
+
+    <div class="form-group">
+        <label>Role / Position</label>
+        <input type="text"
+        id="studentRole"
+        value="Community Manager">
     </div>
 
     <div class="form-group">
         <label>Certificate ID</label>
-        <input type="text" id="certificateId" value="AF-CM-2026-1021">
+        <input type="text"
+        id="certificateId"
+        value="AF-CERT-2026-1021">
     </div>
 
     <div class="form-group">
         <label>Issue Date</label>
-        <input type="text" id="issueDate" value="26 May 2026">
+        <input type="text"
+        id="issueDate"
+        value="26 May 2026">
     </div>
 
     <div class="form-group">
-        <label>Duration</label>
-        <input type="text" id="duration" value="2–4 Hours / Week">
+        <label>Duration / Work Type</label>
+        <input type="text"
+        id="duration"
+        value="Flexible Volunteer • 2–4 Hours/Week">
     </div>
 
-    <button onclick="updateCertificate()">
+    <button class="action-btn update-btn"
+    onclick="updateCertificate()">
         Update Certificate
     </button>
 
-    <button onclick="window.print()">
+    <button class="action-btn print-btn"
+    onclick="window.print()">
         Download / Print PDF
     </button>
 
@@ -476,8 +596,8 @@ button:hover{
 
 <div class="certificate">
 
-    <div class="corner corner-1"></div>
-    <div class="corner corner-2"></div>
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
 
     <div class="border-layer"></div>
 
@@ -485,23 +605,32 @@ button:hover{
 
     <div class="header">
 
-        <div class="logo-box">
+        <div class="logo-area">
 
             <div class="logo">
                 AF
             </div>
 
             <div class="brand">
+
                 <h1>AcademeForge</h1>
-                <p>Learning Beyond The Classroom</p>
+
+                <p>
+                    Learning Beyond The Classroom
+                </p>
+
             </div>
 
         </div>
 
-        <!-- MSME LOGO PLACE -->
+        <div class="top-right">
 
-        <div class="msme-box">
-            <img src="msme-logo.png" alt="MSME Logo">
+            <!-- MSME LOGO -->
+
+            <div class="msme-box">
+                <img src="msme-logo.png" alt="MSME Logo">
+            </div>
+
         </div>
 
     </div>
@@ -510,48 +639,74 @@ button:hover{
 
     <div class="content">
 
-        <div class="small">
-            CERTIFICATE OF RECOGNITION
+        <div class="content-tag"
+        id="certificateTag">
+            OFFICIAL APPOINTMENT CERTIFICATE
         </div>
 
-        <h2>CERTIFICATE</h2>
+        <h2 id="certificateHeading">
+            JOINING CERTIFICATE
+        </h2>
 
         <div class="awarded">
             This certificate is proudly presented to
         </div>
 
-        <div class="student-name" id="previewName">
+        <div class="student-name"
+        id="previewName">
             Palak Kumari Jha
         </div>
 
-        <div class="role" id="previewRole">
+        <div class="role"
+        id="previewRole">
             Community Manager
         </div>
 
-        <div class="description">
-            In recognition of valuable contribution, dedication, and active participation
-            within the AcademeForge community ecosystem as a volunteer contributor.
-            Your commitment toward collaborative growth, communication, and community
-            engagement is sincerely appreciated and acknowledged.
+        <div class="description"
+        id="descriptionText">
+
+            This is to officially certify that the
+            individual mentioned above has been
+            appointed as a volunteer contributor at
+            AcademeForge and is welcomed into the
+            organization for collaborative learning,
+            community contribution, operational support,
+            and ecosystem participation.
+
         </div>
 
-        <!-- INFO -->
+        <!-- INFO ROW -->
 
         <div class="info-row">
 
             <div class="info-card">
+
                 <h4>Certificate ID</h4>
-                <p id="previewId">AF-CM-2026-1021</p>
+
+                <p id="previewId">
+                    AF-CERT-2026-1021
+                </p>
+
             </div>
 
             <div class="info-card">
+
                 <h4>Issue Date</h4>
-                <p id="previewDate">26 May 2026</p>
+
+                <p id="previewDate">
+                    26 May 2026
+                </p>
+
             </div>
 
             <div class="info-card">
-                <h4>Contribution</h4>
-                <p id="previewDuration">2–4 Hours / Week</p>
+
+                <h4>Work Type</h4>
+
+                <p id="previewDuration">
+                    Flexible Volunteer
+                </p>
+
             </div>
 
         </div>
@@ -562,11 +717,9 @@ button:hover{
 
     <div class="footer">
 
-        <!-- DIGITAL SIGNATURE -->
+        <!-- SIGNATURE -->
 
-        <div class="signature-section">
-
-            <!-- FOUNDER SIGNATURE IMAGE -->
+        <div class="signature-area">
 
             <img src="devraj-sign.png"
             class="signature-img"
@@ -583,20 +736,26 @@ button:hover{
                 AcademeForge
             </div>
 
-            <!-- DIGITAL SIGN -->
+            <!-- DIGITAL VERIFY -->
 
-            <div class="digital-sign">
+            <div class="digital-strip">
 
-                <h5>
-                    Digitally Signed Certificate
-                </h5>
+                <div class="verify-dot"></div>
 
-                <p>
-                    Signed by: Devraj Kumar<br>
-                    Organization: AcademeForge<br>
-                    Signature Type: SHA256 RSA Digital Signature<br>
-                    Timestamp: <span id="digitalTime"></span>
-                </p>
+                <div class="verify-content">
+
+                    <strong>
+                        Digitally Verified
+                    </strong><br>
+
+                    Signed by Devraj Kumar<br>
+
+                    Verification ID:
+                    <span id="verifyId">
+                        AF-VERIFY-2026
+                    </span>
+
+                </div>
 
             </div>
 
@@ -605,8 +764,19 @@ button:hover{
         <!-- STAMP -->
 
         <div class="stamp-box">
-            <img src="af-stamp.png" alt="Official Stamp">
+            <img src="af-stamp.png"
+            alt="Official Stamp">
         </div>
+
+    </div>
+
+    <!-- FOOT NOTE -->
+
+    <div class="bottom-note">
+
+        This is a computer generated certificate issued
+        by AcademeForge and does not require a physical
+        signature or manual verification.
 
     </div>
 
@@ -616,40 +786,106 @@ button:hover{
 
 <script>
 
+let currentType = 'joining';
+
+function setCertificateType(type,btn){
+
+    currentType = type;
+
+    document.querySelectorAll('.type-btn')
+    .forEach(button=>{
+        button.classList.remove('active');
+    });
+
+    btn.classList.add('active');
+
+    const heading =
+    document.getElementById('certificateHeading');
+
+    const tag =
+    document.getElementById('certificateTag');
+
+    const description =
+    document.getElementById('descriptionText');
+
+    if(type === 'joining'){
+
+        heading.innerText =
+        'JOINING CERTIFICATE';
+
+        tag.innerText =
+        'OFFICIAL APPOINTMENT CERTIFICATE';
+
+        description.innerText =
+        'This is to officially certify that the individual mentioned above has been appointed as a volunteer contributor at AcademeForge and is welcomed into the organization for collaborative learning, community contribution, operational support, and ecosystem participation.';
+
+    }
+
+    else{
+
+        heading.innerText =
+        'EXPERIENCE CERTIFICATE';
+
+        tag.innerText =
+        'OFFICIAL COMPLETION CERTIFICATE';
+
+        description.innerText =
+        'This is to certify that the individual mentioned above has successfully contributed to AcademeForge and demonstrated professionalism, dedication, teamwork, communication, and valuable participation throughout the engagement period.';
+
+    }
+
+    generateVerificationId();
+}
+
 function updateCertificate(){
 
-    const name = document.getElementById('studentName').value;
-    const role = document.getElementById('studentRole').value;
-    const certId = document.getElementById('certificateId').value;
-    const issueDate = document.getElementById('issueDate').value;
-    const duration = document.getElementById('duration').value;
+    const name =
+    document.getElementById('studentName').value;
 
-    document.getElementById('previewName').innerText = name;
-    document.getElementById('previewRole').innerText = role;
-    document.getElementById('previewId').innerText = certId;
-    document.getElementById('previewDate').innerText = issueDate;
-    document.getElementById('previewDuration').innerText = duration;
+    const role =
+    document.getElementById('studentRole').value;
+
+    const certId =
+    document.getElementById('certificateId').value;
+
+    const issueDate =
+    document.getElementById('issueDate').value;
+
+    const duration =
+    document.getElementById('duration').value;
+
+    document.getElementById('previewName')
+    .innerText = name;
+
+    document.getElementById('previewRole')
+    .innerText = role;
+
+    document.getElementById('previewId')
+    .innerText = certId;
+
+    document.getElementById('previewDate')
+    .innerText = issueDate;
+
+    document.getElementById('previewDuration')
+    .innerText = duration;
+
+    generateVerificationId();
 }
 
-function updateDigitalTime(){
+function generateVerificationId(){
 
-    const now = new Date();
+    const randomId =
+    'AF-' +
+    Math.random()
+    .toString(36)
+    .substring(2,8)
+    .toUpperCase();
 
-    const formatted =
-        now.toLocaleDateString('en-IN',{
-            day:'2-digit',
-            month:'long',
-            year:'numeric'
-        })
-        +
-        ' | '
-        +
-        now.toLocaleTimeString('en-IN');
-
-    document.getElementById('digitalTime').innerText = formatted;
+    document.getElementById('verifyId')
+    .innerText = randomId;
 }
 
-updateDigitalTime();
+generateVerificationId();
 
 </script>
 
