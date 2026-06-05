@@ -991,130 +991,159 @@ tr:hover td{background:var(--bg4);}
      <!-----------------------  JAVA SCRIPT STARTS --------------------------------------->
 
   
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
 
 <script>
 
 
-  /* NEW BACKEND - new student system ke liye */
-const STUDENT_SUPABASE_URL = "https://afooyyydhlwngzssgqih.supabase.co";
-
-const STUDENT_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmb295eXlkaGx3bmd6c3NncWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDQxMjgsImV4cCI6MjA5NDIyMDEyOH0.KG0XO0oP_2MpewHoIwTtbrKg5FkyOYRUtVzLH1MSJiE";
-
-const studentDb = supabase.createClient(
-  STUDENT_SUPABASE_URL,
-  STUDENT_SUPABASE_ANON_KEY
-);
-  
-const websiteLink = "https://academeforge.in";
+/* =============================================
+   CONSTANTS
+============================================= */
+const EDGE_URL = 'https://afooyyydhlwngzssgqih.supabase.co/functions/v1/af-certificate-api';
 
 /* =============================================
    STATE
 ============================================= */
-
-const EDGE_URL = 'https://afooyyydhlwngzssgqih.supabase.co/functions/v1/af-certificate-api';
-   
 let currentType = 'internship-cert';
-let documentHistory = JSON.parse(localStorage.getItem('af_doc_history') || '[]');
-let docCounters = JSON.parse(localStorage.getItem('af_doc_counters') || '{}');
+let documentHistory = [];
+let docCounters = {};
 let isDark = true;
+let _liveTimerHandle = null;
+
+function loadLocalState() {
+  try {
+    documentHistory = JSON.parse(localStorage.getItem('af_doc_history') || '[]');
+    if (!Array.isArray(documentHistory)) documentHistory = [];
+  } catch (e) {
+    console.warn('[AF] Could not parse af_doc_history from localStorage:', e);
+    documentHistory = [];
+  }
+  try {
+    docCounters = JSON.parse(localStorage.getItem('af_doc_counters') || '{}');
+    if (typeof docCounters !== 'object' || Array.isArray(docCounters)) docCounters = {};
+  } catch (e) {
+    console.warn('[AF] Could not parse af_doc_counters from localStorage:', e);
+    docCounters = {};
+  }
+}
 
 /* =============================================
    DOC TYPE CONFIG
 ============================================= */
 const DOC_TYPES = {
-  // LETTERS
-  'offer-letter':       { label:'Offer Letter',         prefix:'AF-OFFER',   cat:'letter', template:'letter', heading:'OFFER LETTER',             tag:'OFFICIAL OFFER LETTER',          style:'joining' },
-  'internship-offer':   { label:'Internship Offer',     prefix:'AF-INTN',    cat:'letter', template:'letter', heading:'INTERNSHIP OFFER LETTER',   tag:'OFFICIAL INTERNSHIP OFFER',      style:'joining' },
-  'joining-letter':     { label:'Joining Letter',       prefix:'AF-JOIN',    cat:'letter', template:'letter', heading:'JOINING CONFIRMATION',      tag:'OFFICIAL JOINING LETTER',        style:'joining' },
-  'volunteer-letter':   { label:'Volunteer Letter',     prefix:'AF-VOL',     cat:'letter', template:'letter', heading:'VOLUNTEER ACCEPTANCE',      tag:'VOLUNTEER ENGAGEMENT LETTER',    style:'joining' },
-  'freelance-letter':   { label:'Freelance Letter',     prefix:'AF-FREE',    cat:'letter', template:'letter', heading:'FREELANCE ENGAGEMENT',      tag:'PROJECT ENGAGEMENT LETTER',      style:'joining' },
-  'appreciation-letter':{ label:'Appreciation Letter',  prefix:'AF-APPR',    cat:'letter', template:'letter', heading:'APPRECIATION LETTER',       tag:'LETTER OF APPRECIATION',         style:'appreciation' },
-  'promotion-letter':   { label:'Promotion Letter',     prefix:'AF-PROMO',   cat:'letter', template:'letter', heading:'PROMOTION LETTER',          tag:'OFFICIAL PROMOTION LETTER',      style:'joining' },
-  'warning-letter':     { label:'Warning Letter',       prefix:'AF-WARN',    cat:'letter', template:'letter', heading:'WARNING LETTER',            tag:'FORMAL WARNING NOTICE',          style:'warning' },
-  'experience-letter':  { label:'Experience Letter',    prefix:'AF-EXP',     cat:'letter', template:'letter', heading:'EXPERIENCE LETTER',         tag:'OFFICIAL EXPERIENCE LETTER',     style:'experience' },
-  'relieving-letter':   { label:'Relieving Letter',     prefix:'AF-REL',     cat:'letter', template:'letter', heading:'RELIEVING LETTER',          tag:'OFFICIAL RELIEVING LETTER',      style:'experience' },
-  'lor':                { label:'Letter of Recommendation', prefix:'AF-LOR', cat:'letter', template:'letter', heading:'LETTER OF RECOMMENDATION',  tag:'OFFICIAL RECOMMENDATION',        style:'joining' },
-  // CERTS
-  'internship-cert':    { label:'Internship Certificate',  prefix:'AF-CERT', cat:'cert',   template:'cert',   heading:'INTERNSHIP CERTIFICATE',    tag:'OFFICIAL COMPLETION CERTIFICATE',style:'joining' },
-  'experience-cert':    { label:'Experience Certificate',  prefix:'AF-EXP',  cat:'cert',   template:'cert',   heading:'EXPERIENCE CERTIFICATE',    tag:'OFFICIAL COMPLETION CERTIFICATE',style:'experience' },
-  'volunteer-cert':     { label:'Volunteer Certificate',   prefix:'AF-VOL',  cat:'cert',   template:'cert',   heading:'VOLUNTEER CERTIFICATE',     tag:'VOLUNTEER COMPLETION CERTIFICATE',style:'joining' },
-  'appreciation-cert':  { label:'Appreciation Certificate',prefix:'AF-CERT', cat:'cert',   template:'cert',   heading:'CERTIFICATE OF APPRECIATION',tag:'CERTIFICATE OF APPRECIATION',   style:'appreciation' },
-  'excellence-cert':    { label:'Excellence Certificate',  prefix:'AF-CERT', cat:'cert',   template:'cert',   heading:'CERTIFICATE OF EXCELLENCE', tag:'CERTIFICATE OF EXCELLENCE',      style:'appreciation' },
-  'leadership-cert':    { label:'Leadership Certificate',  prefix:'AF-LEAD', cat:'cert',   template:'cert',   heading:'LEADERSHIP CERTIFICATE',    tag:'OFFICIAL LEADERSHIP AWARD',      style:'experience' },
-  'campus-cert':        { label:'Campus Ambassador Certificate', prefix:'AF-CA', cat:'cert', template:'cert', heading:'CAMPUS AMBASSADOR',         tag:'OFFICIAL CAMPUS AMBASSADOR CERT',style:'joining' },
-  'training-cert':      { label:'Training Certificate',   prefix:'AF-TRAIN', cat:'cert',   template:'cert',   heading:'TRAINING CERTIFICATE',     tag:'TRAINING COMPLETION CERTIFICATE',style:'joining' },
-  'project-cert':       { label:'Project Certificate',    prefix:'AF-PROJ',  cat:'cert',   template:'cert',   heading:'PROJECT COMPLETION',       tag:'PROJECT COMPLETION CERTIFICATE', style:'joining' },
+  'offer-letter':        { label:'Offer Letter',                  prefix:'AF-OFFER',  cat:'letter', template:'letter', heading:'OFFER LETTER',              tag:'OFFICIAL OFFER LETTER',           style:'joining' },
+  'internship-offer':    { label:'Internship Offer',              prefix:'AF-INTN',   cat:'letter', template:'letter', heading:'INTERNSHIP OFFER LETTER',    tag:'OFFICIAL INTERNSHIP OFFER',       style:'joining' },
+  'joining-letter':      { label:'Joining Letter',                prefix:'AF-JOIN',   cat:'letter', template:'letter', heading:'JOINING CONFIRMATION',       tag:'OFFICIAL JOINING LETTER',         style:'joining' },
+  'volunteer-letter':    { label:'Volunteer Letter',              prefix:'AF-VOL',    cat:'letter', template:'letter', heading:'VOLUNTEER ACCEPTANCE',       tag:'VOLUNTEER ENGAGEMENT LETTER',     style:'joining' },
+  'freelance-letter':    { label:'Freelance Letter',              prefix:'AF-FREE',   cat:'letter', template:'letter', heading:'FREELANCE ENGAGEMENT',       tag:'PROJECT ENGAGEMENT LETTER',       style:'joining' },
+  'appreciation-letter': { label:'Appreciation Letter',           prefix:'AF-APPR',   cat:'letter', template:'letter', heading:'APPRECIATION LETTER',        tag:'LETTER OF APPRECIATION',          style:'appreciation' },
+  'promotion-letter':    { label:'Promotion Letter',              prefix:'AF-PROMO',  cat:'letter', template:'letter', heading:'PROMOTION LETTER',           tag:'OFFICIAL PROMOTION LETTER',       style:'joining' },
+  'warning-letter':      { label:'Warning Letter',                prefix:'AF-WARN',   cat:'letter', template:'letter', heading:'WARNING LETTER',             tag:'FORMAL WARNING NOTICE',           style:'warning' },
+  'experience-letter':   { label:'Experience Letter',             prefix:'AF-EXP',    cat:'letter', template:'letter', heading:'EXPERIENCE LETTER',          tag:'OFFICIAL EXPERIENCE LETTER',      style:'experience' },
+  'relieving-letter':    { label:'Relieving Letter',              prefix:'AF-REL',    cat:'letter', template:'letter', heading:'RELIEVING LETTER',           tag:'OFFICIAL RELIEVING LETTER',       style:'experience' },
+  'lor':                 { label:'Letter of Recommendation',      prefix:'AF-LOR',    cat:'letter', template:'letter', heading:'LETTER OF RECOMMENDATION',   tag:'OFFICIAL RECOMMENDATION',         style:'joining' },
+  'internship-cert':     { label:'Internship Certificate',        prefix:'AF-CERT',   cat:'cert',   template:'cert',   heading:'INTERNSHIP CERTIFICATE',     tag:'OFFICIAL COMPLETION CERTIFICATE', style:'joining' },
+  'experience-cert':     { label:'Experience Certificate',        prefix:'AF-EXP',    cat:'cert',   template:'cert',   heading:'EXPERIENCE CERTIFICATE',     tag:'OFFICIAL COMPLETION CERTIFICATE', style:'experience' },
+  'volunteer-cert':      { label:'Volunteer Certificate',         prefix:'AF-VOL',    cat:'cert',   template:'cert',   heading:'VOLUNTEER CERTIFICATE',      tag:'VOLUNTEER COMPLETION CERTIFICATE',style:'joining' },
+  'appreciation-cert':   { label:'Appreciation Certificate',      prefix:'AF-CERT',   cat:'cert',   template:'cert',   heading:'CERTIFICATE OF APPRECIATION',tag:'CERTIFICATE OF APPRECIATION',     style:'appreciation' },
+  'excellence-cert':     { label:'Excellence Certificate',        prefix:'AF-CERT',   cat:'cert',   template:'cert',   heading:'CERTIFICATE OF EXCELLENCE',  tag:'CERTIFICATE OF EXCELLENCE',       style:'appreciation' },
+  'leadership-cert':     { label:'Leadership Certificate',        prefix:'AF-LEAD',   cat:'cert',   template:'cert',   heading:'LEADERSHIP CERTIFICATE',     tag:'OFFICIAL LEADERSHIP AWARD',       style:'experience' },
+  'campus-cert':         { label:'Campus Ambassador Certificate', prefix:'AF-CA',     cat:'cert',   template:'cert',   heading:'CAMPUS AMBASSADOR',          tag:'OFFICIAL CAMPUS AMBASSADOR CERT', style:'joining' },
+  'training-cert':       { label:'Training Certificate',          prefix:'AF-TRAIN',  cat:'cert',   template:'cert',   heading:'TRAINING CERTIFICATE',       tag:'TRAINING COMPLETION CERTIFICATE', style:'joining' },
+  'project-cert':        { label:'Project Certificate',           prefix:'AF-PROJ',   cat:'cert',   template:'cert',   heading:'PROJECT COMPLETION',         tag:'PROJECT COMPLETION CERTIFICATE',  style:'joining' },
 };
 
-/* Descriptions for each type */
 const DOC_DESCRIPTIONS = {
-  'offer-letter': (d) => `We are pleased to offer you the position of <strong>${d.role}</strong> at AcademeForge. After careful consideration of your profile, skills, and experience, we are confident that you will be a valuable addition to our growing team. This offer is subject to the completion of onboarding formalities.`,
-  'internship-offer': (d) => `We are delighted to offer you an internship opportunity at AcademeForge as <strong>${d.role}</strong>. This internship will provide you with hands-on experience, mentorship, and exposure to real-world projects.${d.stipend ? ` Stipend: <strong>${d.stipend}</strong>.` : ''} We look forward to your contribution.`,
-  'joining-letter': (d) => `This is to confirm that <strong>${d.name}</strong> has successfully completed all onboarding formalities and has officially joined AcademeForge as <strong>${d.role}</strong>${d.dept ? ' in the ' + d.dept + ' department' : ''}. We warmly welcome you to our team and wish you a successful journey ahead.`,
-  'volunteer-letter': (d) => `We are pleased to confirm the acceptance of <strong>${d.name}</strong> as a Volunteer at AcademeForge in the capacity of <strong>${d.role}</strong>. Your commitment to our mission and your willingness to contribute is truly appreciated. We look forward to a meaningful collaboration.`,
-  'freelance-letter': (d) => `This letter confirms the engagement of <strong>${d.name}</strong> as a Freelance Contributor with AcademeForge for the role of <strong>${d.role}</strong>. The engagement is project-based and governed by the mutually agreed scope of work, timeline, and deliverables.`,
+  'offer-letter':        (d) => `We are pleased to offer you the position of <strong>${d.role}</strong> at AcademeForge. After careful consideration of your profile, skills, and experience, we are confident that you will be a valuable addition to our growing team. This offer is subject to the completion of onboarding formalities.`,
+  'internship-offer':    (d) => `We are delighted to offer you an internship opportunity at AcademeForge as <strong>${d.role}</strong>. This internship will provide you with hands-on experience, mentorship, and exposure to real-world projects.${d.stipend ? ` Stipend: <strong>${d.stipend}</strong>.` : ''} We look forward to your contribution.`,
+  'joining-letter':      (d) => `This is to confirm that <strong>${d.name}</strong> has successfully completed all onboarding formalities and has officially joined AcademeForge as <strong>${d.role}</strong>${d.dept ? ' in the ' + d.dept + ' department' : ''}. We warmly welcome you to our team and wish you a successful journey ahead.`,
+  'volunteer-letter':    (d) => `We are pleased to confirm the acceptance of <strong>${d.name}</strong> as a Volunteer at AcademeForge in the capacity of <strong>${d.role}</strong>. Your commitment to our mission and your willingness to contribute is truly appreciated. We look forward to a meaningful collaboration.`,
+  'freelance-letter':    (d) => `This letter confirms the engagement of <strong>${d.name}</strong> as a Freelance Contributor with AcademeForge for the role of <strong>${d.role}</strong>. The engagement is project-based and governed by the mutually agreed scope of work, timeline, and deliverables.`,
   'appreciation-letter': (d) => `It is with great pleasure that we extend this letter of appreciation to <strong>${d.name}</strong> for their exceptional performance and outstanding contribution in the role of <strong>${d.role}</strong>. Your dedication, professionalism, and positive attitude have made a significant impact on our team and organization.`,
-  'promotion-letter': (d) => `We are pleased to inform you that based on your consistent performance, dedication, and growing expertise, you have been promoted to the position of <strong>${d.role}</strong> at AcademeForge. This promotion reflects our confidence in your abilities and your potential for continued growth.`,
-  'warning-letter': (d) => `This formal warning is being issued to <strong>${d.name}</strong> regarding a reported policy violation or performance concern. We urge you to take immediate corrective action. This letter serves as an official notice, and future incidents may result in further disciplinary action.`,
-  'experience-letter': (d) => `This is to certify that <strong>${d.name}</strong> has worked with AcademeForge as <strong>${d.role}</strong>${d.dept ? ' in the ' + d.dept + ' department' : ''}. During their tenure, they have demonstrated professionalism, responsibility, and commitment. We appreciate their contributions and wish them the best in future endeavors.`,
-  'relieving-letter': (d) => `This letter confirms that <strong>${d.name}</strong>, who served as <strong>${d.role}</strong>, has been formally relieved from their duties at AcademeForge. They have fulfilled all obligations and cleared all pending responsibilities. We wish them great success in their future endeavors.`,
-  'lor': (d) => `It is my privilege to recommend <strong>${d.name}</strong>, who has served as <strong>${d.role}</strong> at AcademeForge. During their engagement, ${d.name.split(' ')[0]} consistently demonstrated exceptional aptitude, intellectual curiosity, strong communication skills, and the ability to deliver results under pressure. I wholeheartedly endorse them for any future opportunity.`,
-  // Certs
-  'internship-cert': () => `This is to certify that the individual mentioned above has successfully completed their internship at AcademeForge with dedication, professionalism, and a strong commitment to learning and collaborative growth.`,
-  'experience-cert': () => `This is to certify that the individual mentioned above has successfully completed their engagement at AcademeForge and has demonstrated professionalism, leadership, communication, and meaningful ecosystem participation throughout the tenure.`,
-  'volunteer-cert': () => `This is to certify that the individual mentioned above has voluntarily contributed their time, skills, and efforts to AcademeForge, making a meaningful impact on our ecosystem and community.`,
-  'appreciation-cert': () => `This certificate is proudly presented in recognition of outstanding dedication, exceptional work quality, and meaningful contributions that have made a positive difference at AcademeForge.`,
-  'excellence-cert': () => `This certificate is awarded in recognition of extraordinary performance, consistent excellence, and a relentless commitment to exceeding expectations at AcademeForge.`,
-  'leadership-cert': () => `This certificate is presented to recognize exceptional leadership, team management, and mentorship demonstrated during the engagement period at AcademeForge.`,
-  'campus-cert': () => `This certificate recognizes the outstanding role played as a Campus Ambassador for AcademeForge, representing our brand with integrity, passion, and professionalism.`,
-  'training-cert': () => `This is to certify that the individual mentioned above has successfully completed the designated training program at AcademeForge with full participation, learning, and engagement.`,
-  'project-cert': () => `This certificate is awarded for the successful planning, execution, and delivery of an assigned project at AcademeForge, demonstrating technical skill, teamwork, and professionalism.`,
+  'promotion-letter':    (d) => `We are pleased to inform you that based on your consistent performance, dedication, and growing expertise, you have been promoted to the position of <strong>${d.role}</strong> at AcademeForge. This promotion reflects our confidence in your abilities and your potential for continued growth.`,
+  'warning-letter':      (d) => `This formal warning is being issued to <strong>${d.name}</strong> regarding a reported policy violation or performance concern. We urge you to take immediate corrective action. This letter serves as an official notice, and future incidents may result in further disciplinary action.`,
+  'experience-letter':   (d) => `This is to certify that <strong>${d.name}</strong> has worked with AcademeForge as <strong>${d.role}</strong>${d.dept ? ' in the ' + d.dept + ' department' : ''}. During their tenure, they have demonstrated professionalism, responsibility, and commitment. We appreciate their contributions and wish them the best in future endeavors.`,
+  'relieving-letter':    (d) => `This letter confirms that <strong>${d.name}</strong>, who served as <strong>${d.role}</strong>, has been formally relieved from their duties at AcademeForge. They have fulfilled all obligations and cleared all pending responsibilities. We wish them great success in their future endeavors.`,
+  'lor':                 (d) => `It is my privilege to recommend <strong>${d.name}</strong>, who has served as <strong>${d.role}</strong> at AcademeForge. During their engagement, ${(d.name || '').split(' ')[0] || d.name} consistently demonstrated exceptional aptitude, intellectual curiosity, strong communication skills, and the ability to deliver results under pressure. I wholeheartedly endorse them for any future opportunity.`,
+  'internship-cert':     () => `This is to certify that the individual mentioned above has successfully completed their internship at AcademeForge with dedication, professionalism, and a strong commitment to learning and collaborative growth.`,
+  'experience-cert':     () => `This is to certify that the individual mentioned above has successfully completed their engagement at AcademeForge and has demonstrated professionalism, leadership, communication, and meaningful ecosystem participation throughout the tenure.`,
+  'volunteer-cert':      () => `This is to certify that the individual mentioned above has voluntarily contributed their time, skills, and efforts to AcademeForge, making a meaningful impact on our ecosystem and community.`,
+  'appreciation-cert':   () => `This certificate is proudly presented in recognition of outstanding dedication, exceptional work quality, and meaningful contributions that have made a positive difference at AcademeForge.`,
+  'excellence-cert':     () => `This certificate is awarded in recognition of extraordinary performance, consistent excellence, and a relentless commitment to exceeding expectations at AcademeForge.`,
+  'leadership-cert':     () => `This certificate is presented to recognize exceptional leadership, team management, and mentorship demonstrated during the engagement period at AcademeForge.`,
+  'campus-cert':         () => `This certificate recognizes the outstanding role played as a Campus Ambassador for AcademeForge, representing our brand with integrity, passion, and professionalism.`,
+  'training-cert':       () => `This is to certify that the individual mentioned above has successfully completed the designated training program at AcademeForge with full participation, learning, and engagement.`,
+  'project-cert':        () => `This certificate is awarded for the successful planning, execution, and delivery of an assigned project at AcademeForge, demonstrating technical skill, teamwork, and professionalism.`,
 };
+
+/* =============================================
+   API HELPERS
+============================================= */
+async function apiCall(body) {
+  console.log('[AF-API] Request:', body.action, body);
+  const response = await fetch(EDGE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  console.log('[AF-API] Response:', body.action, response.status, data);
+  return { ok: response.ok, status: response.status, data };
+}
 
 /* =============================================
    LOGIN
 ============================================= */
 window.addEventListener('load', () => {
+  loadLocalState();
   const session = localStorage.getItem('af_admin_session');
   if (session === 'authenticated') {
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
+    const loginScreen = document.getElementById('loginScreen');
+    const app = document.getElementById('app');
+    if (loginScreen) loginScreen.style.display = 'none';
+    if (app) app.style.display = 'block';
     initApp();
   }
-  // Theme
   const savedTheme = localStorage.getItem('af_theme') || 'dark';
   setTheme(savedTheme);
 });
 
 async function login() {
-  const password = document.getElementById('passwordInput').value;
+  const passwordEl = document.getElementById('passwordInput');
+  const errorEl = document.getElementById('errorText');
+  if (!passwordEl || !errorEl) return;
+
+  const password = passwordEl.value.trim();
+  if (!password) {
+    errorEl.style.display = 'block';
+    errorEl.textContent = '❌ Please enter a password.';
+    return;
+  }
+
+  errorEl.style.display = 'none';
+  const btn = document.querySelector('.login-box button');
+  if (btn) { btn.disabled = true; btn.textContent = 'Authenticating…'; }
+
   try {
-    const response = await fetch(EDGE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'login', password })
-    });
-    const result = await response.json();
-    if (result.success) {
+    const { ok, data } = await apiCall({ action: 'login', password });
+    if (ok && data.success) {
+      console.log('[AF] Login successful');
       localStorage.setItem('af_admin_session', 'authenticated');
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('app').style.display = 'block';
+      const loginScreen = document.getElementById('loginScreen');
+      const app = document.getElementById('app');
+      if (loginScreen) loginScreen.style.display = 'none';
+      if (app) app.style.display = 'block';
       initApp();
     } else {
-      document.getElementById('errorText').style.display = 'block';
+      console.warn('[AF] Login failed:', data.message);
+      errorEl.style.display = 'block';
+      errorEl.textContent = '❌ ' + (data.message || 'Invalid Password. Please try again.');
     }
-  } catch {
-    // Fallback for demo if edge function unavailable
-    if (password === 'academeforge2026' || password === 'admin') {
-      localStorage.setItem('af_admin_session', 'authenticated');
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('app').style.display = 'block';
-      initApp();
-    } else {
-      document.getElementById('errorText').style.display = 'block';
-    }
+  } catch (e) {
+    console.error('[AF] Login network error:', e);
+    errorEl.style.display = 'block';
+    errorEl.textContent = '❌ Network error. Please check your connection and try again.';
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Access Dashboard'; }
   }
 }
 
@@ -1127,14 +1156,18 @@ function logout() {
    INIT
 ============================================= */
 function initApp() {
-  updateStats();
-  renderHistory();
-  buildDocTypeGrid();
+  console.log('[AF] Initialising app');
+  loadLocalState();
+  buildDocTypeGrid();          // must run before setDocType
   setDocType('internship-cert');
   prefillDefaults();
   liveUpdate();
+  updateStats();
+  renderHistory();
+
+  if (_liveTimerHandle) clearInterval(_liveTimerHandle);
   updateLiveDateTime();
-  setInterval(updateLiveDateTime, 1000);
+  _liveTimerHandle = setInterval(updateLiveDateTime, 1000);
 }
 
 /* =============================================
@@ -1144,17 +1177,15 @@ function showPage(pageId, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const target = document.getElementById('page-' + pageId);
   if (target) target.classList.add('active');
+  else console.warn('[AF] showPage: page not found:', pageId);
 
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if (btn) btn.classList.add('active');
 
-  const titles = {
-    dashboard: 'Dashboard',
-    generator: 'Generate Document',
-    history: 'Document History',
-    verify: 'Verify Document'
-  };
-  document.getElementById('topbarTitle').textContent = titles[pageId] || pageId;
+  const titles = { dashboard: 'Dashboard', generator: 'Generate Document', history: 'Document History', verify: 'Verify Document' };
+  const titleEl = document.getElementById('topbarTitle');
+  if (titleEl) titleEl.textContent = titles[pageId] || pageId;
+
   closeSidebar();
 }
 
@@ -1164,32 +1195,40 @@ function showPageAndSetType(pageId, type, btn) {
   prefillDefaults();
   liveUpdate();
   const cfg = DOC_TYPES[type];
-  if (cfg) document.getElementById('generatorTitle').textContent = 'Generate: ' + cfg.label;
+  const genTitle = document.getElementById('generatorTitle');
+  if (cfg && genTitle) genTitle.textContent = 'Generate: ' + cfg.label;
 }
 
 /* =============================================
    SIDEBAR TOGGLE
 ============================================= */
 function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('sidebarOverlay').classList.toggle('open');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (sidebar) sidebar.classList.toggle('open');
+  if (overlay) overlay.classList.toggle('open');
 }
+
 function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (sidebar) sidebar.classList.remove('open');
+  if (overlay) overlay.classList.remove('open');
 }
 
 /* =============================================
    THEME
 ============================================= */
 function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme');
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
   setTheme(current === 'dark' ? 'light' : 'dark');
 }
+
 function setTheme(theme) {
   isDark = theme === 'dark';
   document.documentElement.setAttribute('data-theme', theme);
-  document.getElementById('themeIcon').textContent = isDark ? '🌙' : '☀️';
+  const themeIcon = document.getElementById('themeIcon');
+  if (themeIcon) themeIcon.textContent = isDark ? '🌙' : '☀️';
   localStorage.setItem('af_theme', theme);
 }
 
@@ -1198,26 +1237,26 @@ function setTheme(theme) {
 ============================================= */
 function buildDocTypeGrid() {
   const grid = document.getElementById('docTypeGrid');
+  if (!grid) return;
   grid.innerHTML = '';
-  const categories = [
-    { label: '📋 Letters', types: Object.entries(DOC_TYPES).filter(([,v]) => v.cat === 'letter').map(([k,v]) => ({k,l:v.label})) },
-    { label: '🎖️ Certificates', types: Object.entries(DOC_TYPES).filter(([,v]) => v.cat === 'cert').map(([k,v]) => ({k,l:v.label})) },
-  ];
-  // Show all types as buttons
   Object.entries(DOC_TYPES).forEach(([key, cfg]) => {
     const btn = document.createElement('button');
     btn.className = 'doc-type-btn' + (key === currentType ? ' active' : '');
     btn.textContent = cfg.label;
-    btn.onclick = () => {
+    btn.id = 'dtbtn-' + key;
+    btn.addEventListener('click', () => {
       setDocType(key);
       liveUpdate();
-    };
-    btn.id = 'dtbtn-' + key;
+    });
     grid.appendChild(btn);
   });
 }
 
 function setDocType(type) {
+  if (!DOC_TYPES[type]) {
+    console.warn('[AF] setDocType: unknown type:', type);
+    return;
+  }
   currentType = type;
   document.querySelectorAll('.doc-type-btn').forEach(b => b.classList.remove('active'));
   const btn = document.getElementById('dtbtn-' + type);
@@ -1226,10 +1265,9 @@ function setDocType(type) {
     btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   }
   generateAutoId(type);
-  // Show/hide stipend
-  const cfg = DOC_TYPES[type];
-  const showStipend = ['offer-letter','internship-offer','freelance-letter'].includes(type);
-  document.getElementById('stipendGroup').style.display = showStipend ? 'block' : 'none';
+  const showStipend = ['offer-letter', 'internship-offer', 'freelance-letter'].includes(type);
+  const stipendGroup = document.getElementById('stipendGroup');
+  if (stipendGroup) stipendGroup.style.display = showStipend ? 'block' : 'none';
 }
 
 /* =============================================
@@ -1237,29 +1275,35 @@ function setDocType(type) {
 ============================================= */
 function generateAutoId(type) {
   const cfg = DOC_TYPES[type];
-  if (!cfg) return;
+  if (!cfg) return '';
   const year = new Date().getFullYear();
   const key = cfg.prefix + '-' + year;
-  if (!docCounters[key]) docCounters[key] = 0;
-  const next = (docCounters[key] + 1).toString().padStart(4, '0');
+  const next = ((docCounters[key] || 0) + 1).toString().padStart(4, '0');
   const id = `${cfg.prefix}-${year}-${next}`;
-  document.getElementById('autoIdValue').textContent = id;
+  const el = document.getElementById('autoIdValue');
+  if (el) el.textContent = id;
+  console.log('[AF] Auto-ID generated:', id);
   return id;
 }
 
-function getAutoId(type) {
-  return document.getElementById('autoIdValue').textContent;
+function getAutoId() {
+  const el = document.getElementById('autoIdValue');
+  return el ? el.textContent.trim() : generateAutoId(currentType);
 }
 
 /* =============================================
-   PREFILL
+   PREFILL DEFAULTS
 ============================================= */
 function prefillDefaults() {
   const today = new Date();
   const fmt = (d) => d.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
-  if (!document.getElementById('f-date').value) {
-    document.getElementById('f-date').value = fmt(today);
-  }
+  const dateEl = document.getElementById('f-date');
+  if (dateEl && !dateEl.value) dateEl.value = fmt(today);
+  // Ensure these never return undefined
+  const startEl = document.getElementById('f-start');
+  const endEl = document.getElementById('f-end');
+  if (startEl && !startEl.value) startEl.value = '';
+  if (endEl && !endEl.value) endEl.value = '';
 }
 
 /* =============================================
@@ -1269,29 +1313,29 @@ function liveUpdate() {
   const data = getFormData();
   const cfg = DOC_TYPES[currentType];
   if (!cfg) return;
-  let html = '';
-  if (cfg.template === 'cert') {
-    html = buildCertHTML(data, cfg);
-  } else {
-    html = buildLetterHTML(data, cfg);
-  }
-  document.getElementById('previewWrap').innerHTML = html;
+  const html = cfg.template === 'cert' ? buildCertHTML(data, cfg) : buildLetterHTML(data, cfg);
+  const wrap = document.getElementById('previewWrap');
+  if (wrap) wrap.innerHTML = html;
 }
 
 function getFormData() {
+  const val = (id, fallback = '') => {
+    const el = document.getElementById(id);
+    return (el && el.value.trim()) ? el.value.trim() : fallback;
+  };
   return {
-    name: document.getElementById('f-name').value || 'Devraj Kumar',
-    role: document.getElementById('f-role').value || 'Founder & CEO',
-    dept: document.getElementById('f-dept').value || '',
-    start: document.getElementById('f-start').value || '01 January 2026',
-    end: document.getElementById('f-end').value || '31 March 2026',
-    date: document.getElementById('f-date').value || '05 June 2026',
-    duration: document.getElementById('f-duration').value || 'Flexible Volunteer',
-    stipend: document.getElementById('f-stipend').value || '',
-    desc: document.getElementById('f-desc').value || '',
-    signname: document.getElementById('f-signname').value || 'Devraj Kumar',
-    signrole: document.getElementById('f-signrole').value || 'Founder & CEO, AcademeForge',
-    id: getAutoId(currentType),
+    name:     val('f-name',     'Devraj Kumar'),
+    role:     val('f-role',     'Founder & CEO'),
+    dept:     val('f-dept',     ''),
+    start:    val('f-start',    ''),
+    end:      val('f-end',      ''),
+    date:     val('f-date',     new Date().toLocaleDateString('en-IN', { day:'2-digit', month:'long', year:'numeric' })),
+    duration: val('f-duration', 'Flexible Volunteer'),
+    stipend:  val('f-stipend',  ''),
+    desc:     val('f-desc',     ''),
+    signname: val('f-signname', 'Devraj Kumar'),
+    signrole: val('f-signrole', 'Founder & CEO, AcademeForge'),
+    id:       getAutoId(),
   };
 }
 
@@ -1301,8 +1345,8 @@ function getFormData() {
 function buildCertHTML(data, cfg) {
   const descFn = DOC_DESCRIPTIONS[currentType] || (() => '');
   const desc = data.desc || descFn(data);
-  const styleClass = cfg.style + '-style';
-  const showDates = ['experience-cert','relieving-letter'].includes(currentType);
+  const styleClass = (cfg.style || 'joining') + '-style';
+  const showDates = ['experience-cert', 'relieving-letter'].includes(currentType);
 
   return `<div class="cert-doc ${styleClass}">
   <div class="cert-border"></div>
@@ -1321,8 +1365,8 @@ function buildCertHTML(data, cfg) {
     </div>
   </div>
   <div class="cert-content">
-    <div class="cert-tag">${cfg.tag}</div>
-    <div class="cert-heading">${cfg.heading}</div>
+    <div class="cert-tag">${cfg.tag || ''}</div>
+    <div class="cert-heading">${cfg.heading || ''}</div>
     <div class="cert-awarded">This certificate is proudly presented to</div>
     <div class="cert-name">${data.name}</div>
     <div class="cert-role">${data.role}${data.dept ? ' · ' + data.dept : ''}</div>
@@ -1331,8 +1375,8 @@ function buildCertHTML(data, cfg) {
       <div class="cert-info-card"><h4>Certificate ID</h4><p>${data.id}</p></div>
       <div class="cert-info-card"><h4>Issue Date</h4><p>${data.date}</p></div>
       <div class="cert-info-card"><h4>Work Type</h4><p>${data.duration}</p></div>
-      ${showDates ? `<div class="cert-info-card"><h4>Start Date</h4><p>${data.start}</p></div>
-      <div class="cert-info-card"><h4>End Date</h4><p>${data.end}</p></div>` : ''}
+      ${showDates && data.start ? `<div class="cert-info-card"><h4>Start Date</h4><p>${data.start}</p></div>` : ''}
+      ${showDates && data.end   ? `<div class="cert-info-card"><h4>End Date</h4><p>${data.end}</p></div>`   : ''}
     </div>
   </div>
   <div class="cert-footer">
@@ -1360,8 +1404,10 @@ function buildCertHTML(data, cfg) {
 function buildLetterHTML(data, cfg) {
   const descFn = DOC_DESCRIPTIONS[currentType] || (() => '');
   const bodyDesc = data.desc || descFn(data);
-  const accentColor = cfg.style === 'experience' ? '#7c3aed' : cfg.style === 'appreciation' ? '#d97706' : cfg.style === 'warning' ? '#ef4444' : '#16a34a';
-  const showDates = !['offer-letter','internship-offer','joining-letter','volunteer-letter','freelance-letter','appreciation-letter','promotion-letter','warning-letter'].includes(currentType);
+  const accentMap = { experience: '#7c3aed', appreciation: '#d97706', warning: '#ef4444' };
+  const accentColor = accentMap[cfg.style] || '#16a34a';
+  const showEndDate = !['offer-letter','internship-offer','joining-letter','volunteer-letter','freelance-letter','appreciation-letter','promotion-letter','warning-letter'].includes(currentType);
+
   return `<div class="letter-doc">
   <div class="letter-watermark">ACADEMEFORGE</div>
   <div class="letter-header">
@@ -1383,8 +1429,8 @@ function buildLetterHTML(data, cfg) {
   </div>
   <div class="letter-divider" style="background:linear-gradient(90deg,${accentColor},transparent);"></div>
   <div class="letter-subject">
-    <p>${cfg.tag}</p>
-    <h3>${cfg.heading} — ${data.name}</h3>
+    <p>${cfg.tag || ''}</p>
+    <h3>${cfg.heading || ''} — ${data.name}</h3>
   </div>
   <div class="letter-body">
     <p>Dear <span class="letter-highlight">${data.name}</span>,</p>
@@ -1395,8 +1441,8 @@ function buildLetterHTML(data, cfg) {
     <div class="letter-detail-item"><h4>Document ID</h4><p>${data.id}</p></div>
     <div class="letter-detail-item"><h4>Role / Position</h4><p>${data.role}</p></div>
     <div class="letter-detail-item"><h4>Work Type</h4><p>${data.duration}</p></div>
-    <div class="letter-detail-item"><h4>Start Date</h4><p>${data.start}</p></div>
-    ${showDates ? `<div class="letter-detail-item"><h4>End Date</h4><p>${data.end}</p></div>` : ''}
+    ${data.start ? `<div class="letter-detail-item"><h4>Start Date</h4><p>${data.start}</p></div>` : ''}
+    ${showEndDate && data.end ? `<div class="letter-detail-item"><h4>End Date</h4><p>${data.end}</p></div>` : ''}
     <div class="letter-detail-item"><h4>Issue Date</h4><p>${data.date}</p></div>
     ${data.stipend ? `<div class="letter-detail-item"><h4>Stipend / CTC</h4><p>${data.stipend}</p></div>` : ''}
   </div>
@@ -1427,79 +1473,130 @@ function buildLetterHTML(data, cfg) {
 }
 
 /* =============================================
-   GENERATE & SAVE
+   GENERATE & SAVE  (async — waits for API)
 ============================================= */
-function generateDocument() {
+async function generateDocument() {
   const data = getFormData();
   const cfg = DOC_TYPES[currentType];
-  if (!data.name || !data.role) {
-    alert('Please fill in Full Name and Role fields.');
+
+  // Validation
+  if (!data.name || data.name === 'Devraj Kumar' && !document.getElementById('f-name').value.trim()) {
+    alert('⚠️ Please enter the recipient\'s Full Name.');
     return;
   }
+  const rawName = document.getElementById('f-name')?.value.trim();
+  const rawRole = document.getElementById('f-role')?.value.trim();
+  if (!rawName) { alert('⚠️ Full Name is required.'); return; }
+  if (!rawRole) { alert('⚠️ Role / Position is required.'); return; }
 
-  // Increment counter
-  const year = new Date().getFullYear();
-  const key = cfg.prefix + '-' + year;
-  if (!docCounters[key]) docCounters[key] = 0;
-  docCounters[key]++;
-  localStorage.setItem('af_doc_counters', JSON.stringify(docCounters));
+  const certId = getAutoId();
+  console.log('[AF] Generating document:', currentType, certId, rawName);
 
   const record = {
-    id: data.id,
-    name: data.name,
-    role: data.role,
-    dept: data.dept,
-    type: cfg.label,
-    cat: cfg.cat,
-    docKey: currentType,
-    date: data.date,
-    start: data.start,
-    end: data.end,
-    duration: data.duration,
-    stipend: data.stipend,
-    signname: data.signname,
-    signrole: data.signrole,
-    desc: data.desc,
+    action:           'save-certificate',
+    certificate_id:   certId,
+    full_name:        rawName,
+    role:             rawRole,
+    department:       data.dept || '',
+    certificate_type: cfg.label,
+    category:         cfg.cat,
+    doc_key:          currentType,
+    issue_date:       data.date,
+    start_date:       data.start || '',
+    end_date:         data.end || '',
+    work_type:        data.duration,
+    stipend:          data.stipend || '',
+    signatory_name:   data.signname,
+    signatory_role:   data.signrole,
+    description:      data.desc || '',
+  };
+
+  // Disable button during save
+  const genBtn = document.querySelector('#page-generator .btn-primary');
+  if (genBtn) { genBtn.disabled = true; genBtn.textContent = '⏳ Saving…'; }
+
+  let savedToBackend = false;
+  try {
+    const { ok, data: resData } = await apiCall(record);
+    if (ok && resData.success) {
+      savedToBackend = true;
+      console.log('[AF] Backend save success:', certId);
+    } else {
+      console.error('[AF] Backend save failed:', resData);
+      const proceed = confirm(`⚠️ Backend save failed: ${resData.message || 'Unknown error'}.\n\nSave to local history only?`);
+      if (!proceed) {
+        if (genBtn) { genBtn.disabled = false; genBtn.textContent = '⚡ Generate & Save Document'; }
+        return;
+      }
+    }
+  } catch (e) {
+    console.error('[AF] Backend save network error:', e);
+    const proceed = confirm('⚠️ Network error — could not reach server.\n\nSave to local history only?');
+    if (!proceed) {
+      if (genBtn) { genBtn.disabled = false; genBtn.textContent = '⚡ Generate & Save Document'; }
+      return;
+    }
+  }
+
+  // Increment counter only after successful save decision
+  const year = new Date().getFullYear();
+  const counterKey = cfg.prefix + '-' + year;
+  docCounters[counterKey] = (docCounters[counterKey] || 0) + 1;
+  localStorage.setItem('af_doc_counters', JSON.stringify(docCounters));
+
+  // Build local history record
+  const localRecord = {
+    id:        certId,
+    name:      rawName,
+    role:      rawRole,
+    dept:      data.dept || '',
+    type:      cfg.label,
+    cat:       cfg.cat,
+    docKey:    currentType,
+    date:      data.date,
+    start:     data.start || '',
+    end:       data.end || '',
+    duration:  data.duration,
+    stipend:   data.stipend || '',
+    signname:  data.signname,
+    signrole:  data.signrole,
+    desc:      data.desc || '',
     createdAt: new Date().toISOString(),
   };
 
-  documentHistory.unshift(record);
+  documentHistory.unshift(localRecord);
   localStorage.setItem('af_doc_history', JSON.stringify(documentHistory));
 
   updateStats();
   renderHistory();
-  updateHistoryBadge();
 
-  // Generate next ID
+  // Generate next ID for next document
   generateAutoId(currentType);
 
-  // Try saving to Supabase
-  try {
-    fetch(EDGE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'save-certificate', ...record })
-    }).catch(() => {});
-  } catch (_) {}
+  if (genBtn) { genBtn.disabled = false; genBtn.textContent = '⚡ Generate & Save Document'; }
 
-  alert(`✅ Document saved!\nID: ${data.id}\nRecipient: ${data.name}`);
+  const backendNote = savedToBackend ? '\n✅ Saved to server.' : '\n⚠️ Saved locally only.';
+  alert(`✅ Document generated!\nID: ${certId}\nRecipient: ${rawName}${backendNote}`);
 }
 
 /* =============================================
    HISTORY
 ============================================= */
 function renderHistory() {
-  const search = (document.getElementById('historySearch')?.value || '').toLowerCase();
-  const filter = document.getElementById('historyFilter')?.value || 'all';
+  const searchEl = document.getElementById('historySearch');
+  const filterEl = document.getElementById('historyFilter');
   const tbody = document.getElementById('historyTableBody');
   const empty = document.getElementById('historyEmpty');
   if (!tbody) return;
 
+  const search = (searchEl?.value || '').toLowerCase();
+  const filter = filterEl?.value || 'all';
+
   const filtered = documentHistory.filter(r => {
     const matchSearch = !search ||
-      r.name?.toLowerCase().includes(search) ||
-      r.id?.toLowerCase().includes(search) ||
-      r.type?.toLowerCase().includes(search);
+      (r.name || '').toLowerCase().includes(search) ||
+      (r.id || '').toLowerCase().includes(search) ||
+      (r.type || '').toLowerCase().includes(search);
     const matchFilter = filter === 'all' || r.cat === filter;
     return matchSearch && matchFilter;
   });
@@ -1511,100 +1608,221 @@ function renderHistory() {
   }
   if (empty) empty.style.display = 'none';
 
-  tbody.innerHTML = filtered.map((r, idx) => `
+  // Use original index in documentHistory for load/delete actions (fix: filtered idx mismatch)
+  tbody.innerHTML = filtered.map(r => {
+    const origIdx = documentHistory.indexOf(r);
+    const dateLabel = r.date || (r.createdAt ? new Date(r.createdAt).toLocaleDateString('en-IN') : '—');
+    return `
     <tr>
-      <td><code style="font-size:12px;color:var(--green);">${r.id}</code></td>
-      <td><strong>${r.name}</strong>${r.role ? `<br><span style="font-size:11px;color:var(--text3);">${r.role}</span>` : ''}</td>
-      <td><span class="doc-type-tag tag-${r.cat}">${r.type}</span></td>
-      <td style="font-size:12px;color:var(--text2);">${r.date || new Date(r.createdAt).toLocaleDateString('en-IN')}</td>
+      <td><code style="font-size:12px;color:var(--green);">${r.id || '—'}</code></td>
+      <td><strong>${r.name || '—'}</strong>${r.role ? `<br><span style="font-size:11px;color:var(--text3);">${r.role}</span>` : ''}</td>
+      <td><span class="doc-type-tag tag-${r.cat || 'cert'}">${r.type || '—'}</span></td>
+      <td style="font-size:12px;color:var(--text2);">${dateLabel}</td>
       <td>
-        <button class="table-action-btn" onclick="loadDoc(${documentHistory.indexOf(r)})">📂 Load</button>
-        <button class="table-action-btn danger" onclick="deleteDoc(${documentHistory.indexOf(r)})">🗑️</button>
+        <button class="table-action-btn" data-action="load" data-idx="${origIdx}">📂 Load</button>
+        <button class="table-action-btn danger" data-action="delete" data-idx="${origIdx}">🗑️</button>
       </td>
-    </tr>
-  `).join('');
+    </tr>`;
+  }).join('');
+
+  // Event delegation for load/delete (avoids inline onclick with potentially wrong index)
+  tbody.querySelectorAll('button[data-action]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.getAttribute('data-idx'), 10);
+      if (btn.getAttribute('data-action') === 'load') loadDoc(idx);
+      else deleteDoc(idx);
+    });
+  });
+
   updateHistoryBadge();
 }
 
 function loadDoc(idx) {
   const r = documentHistory[idx];
-  if (!r) return;
+  if (!r) { console.warn('[AF] loadDoc: record not found at index', idx); return; }
+  console.log('[AF] Loading doc:', r.id);
+
+  // Rebuild grid first to ensure buttons exist for the loaded type
+  buildDocTypeGrid();
+
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.value = val || '';
+  };
+
   currentType = r.docKey || 'internship-cert';
-  document.getElementById('f-name').value = r.name || '';
-  document.getElementById('f-role').value = r.role || '';
-  document.getElementById('f-dept').value = r.dept || '';
-  document.getElementById('f-start').value = r.start || '';
-  document.getElementById('f-end').value = r.end || '';
-  document.getElementById('f-date').value = r.date || '';
-  document.getElementById('f-duration').value = r.duration || '';
-  document.getElementById('f-stipend').value = r.stipend || '';
-  document.getElementById('f-signname').value = r.signname || 'Devraj Kumar';
-  document.getElementById('f-signrole').value = r.signrole || 'Founder & CEO, AcademeForge';
-  document.getElementById('f-desc').value = r.desc || '';
-  document.getElementById('autoIdValue').textContent = r.id || '';
+  set('f-name',     r.name);
+  set('f-role',     r.role);
+  set('f-dept',     r.dept);
+  set('f-start',    r.start);
+  set('f-end',      r.end);
+  set('f-date',     r.date);
+  set('f-duration', r.duration);
+  set('f-stipend',  r.stipend);
+  set('f-signname', r.signname || 'Devraj Kumar');
+  set('f-signrole', r.signrole || 'Founder & CEO, AcademeForge');
+  set('f-desc',     r.desc);
+
+  const autoIdEl = document.getElementById('autoIdValue');
+  if (autoIdEl) autoIdEl.textContent = r.id || '';
+
   setDocType(currentType);
   liveUpdate();
   showPage('generator', null);
-  document.getElementById('generatorTitle').textContent = 'Loaded: ' + r.type;
+
+  const genTitle = document.getElementById('generatorTitle');
+  if (genTitle) genTitle.textContent = 'Loaded: ' + (r.type || currentType);
 }
 
-function deleteDoc(idx) {
-  if (!confirm('Delete this document from history?')) return;
+async function deleteDoc(idx) {
+  const r = documentHistory[idx];
+  if (!r) return;
+  if (!confirm(`Delete document ${r.id} for ${r.name}?`)) return;
+
+  console.log('[AF] Deleting doc:', r.id);
+
+  // Remove from local first for immediate UI feedback
   documentHistory.splice(idx, 1);
   localStorage.setItem('af_doc_history', JSON.stringify(documentHistory));
   renderHistory();
   updateStats();
+
+  // Then attempt API delete
+  try {
+    const { ok, data } = await apiCall({ action: 'delete-certificate', certificate_id: r.id });
+    if (!ok || !data.success) {
+      console.warn('[AF] API delete failed (local already removed):', data.message);
+    } else {
+      console.log('[AF] API delete success:', r.id);
+    }
+  } catch (e) {
+    console.error('[AF] API delete network error (local already removed):', e);
+  }
 }
 
-function clearHistory() {
+async function clearHistory() {
   if (!confirm('Clear ALL document history? This cannot be undone.')) return;
+  console.log('[AF] Clearing all history. Count:', documentHistory.length);
+
+  // Clear locally immediately
+  const ids = documentHistory.map(r => r.id).filter(Boolean);
   documentHistory = [];
   localStorage.setItem('af_doc_history', JSON.stringify(documentHistory));
   renderHistory();
   updateStats();
+
+  // Best-effort delete from backend
+  for (const id of ids) {
+    try {
+      await apiCall({ action: 'delete-certificate', certificate_id: id });
+    } catch (e) {
+      console.warn('[AF] clearHistory: API delete failed for', id, e);
+    }
+  }
 }
 
 function updateHistoryBadge() {
-  document.getElementById('historyBadge').textContent = documentHistory.length;
+  const badge = document.getElementById('historyBadge');
+  if (badge) badge.textContent = documentHistory.length;
 }
 
 /* =============================================
    STATS
 ============================================= */
 function updateStats() {
-  document.getElementById('stat-total').textContent = documentHistory.length;
-  document.getElementById('stat-letters').textContent = documentHistory.filter(d => d.cat === 'letter').length;
-  document.getElementById('stat-certs').textContent = documentHistory.filter(d => d.cat === 'cert').length;
-  const unique = new Set(documentHistory.map(d => d.name?.toLowerCase())).size;
-  document.getElementById('stat-people').textContent = unique;
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+  set('stat-total',   documentHistory.length);
+  set('stat-letters', documentHistory.filter(d => d.cat === 'letter').length);
+  set('stat-certs',   documentHistory.filter(d => d.cat === 'cert').length);
+  const unique = new Set(documentHistory.map(d => (d.name || '').toLowerCase().trim()).filter(Boolean)).size;
+  set('stat-people', unique);
   updateHistoryBadge();
 }
 
 /* =============================================
-   VERIFY
+   VERIFY  (API-first, localStorage fallback)
 ============================================= */
-function verifyDocument() {
-  const input = document.getElementById('verifyInput').value.trim().toUpperCase();
+async function verifyDocument() {
+  const inputEl = document.getElementById('verifyInput');
   const resultDiv = document.getElementById('verifyResult');
-  resultDiv.style.display = 'block';
+  if (!inputEl || !resultDiv) return;
 
-  const record = documentHistory.find(r => r.id?.toUpperCase() === input);
+  const certId = inputEl.value.trim().toUpperCase();
+  if (!certId) {
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'verify-result invalid';
+    resultDiv.innerHTML = `<div class="verify-status invalid">⚠️ Please enter a Document ID.</div>`;
+    return;
+  }
+
+  console.log('[AF] Verifying document:', certId);
+
+  resultDiv.style.display = 'block';
+  resultDiv.className = 'verify-result';
+  resultDiv.innerHTML = `<div style="color:var(--text2);font-size:14px;">⏳ Verifying…</div>`;
+
+  let record = null;
+  let source = '';
+
+  // 1. Try API
+  try {
+    const { ok, data } = await apiCall({ action: 'verify', certificate_id: certId });
+    if (ok && data.success && data.found && data.record) {
+      record = data.record;
+      source = 'server';
+      console.log('[AF] Verified via API:', certId);
+    } else if (ok && data.success && !data.found) {
+      // API confirmed not found — fall through to localStorage fallback
+      console.log('[AF] API: document not found on server for', certId);
+    } else {
+      console.warn('[AF] API verification issue:', data);
+    }
+  } catch (e) {
+    console.error('[AF] Verify API error, falling back to localStorage:', e);
+  }
+
+  // 2. localStorage fallback
+  if (!record) {
+    const local = documentHistory.find(r => (r.id || '').toUpperCase() === certId);
+    if (local) {
+      record = {
+        full_name:        local.name,
+        role:             local.role,
+        certificate_type: local.type,
+        issue_date:       local.date,
+        certificate_id:   local.id,
+      };
+      source = 'local';
+      console.log('[AF] Verified via localStorage:', certId);
+    }
+  }
+
   if (record) {
+    const name     = record.full_name        || record.name  || '—';
+    const role     = record.role             || '—';
+    const type     = record.certificate_type || record.type  || '—';
+    const date     = record.issue_date       || record.date  || '—';
+    const id       = record.certificate_id   || record.id    || certId;
+    const srcNote  = source === 'local' ? ' <span style="font-size:10px;color:var(--text3);">(local cache)</span>' : '';
+
     resultDiv.className = 'verify-result valid';
     resultDiv.innerHTML = `
-      <div class="verify-status valid">✅ VALID — Document Verified</div>
-      <div class="verify-detail-row"><span>Document ID</span><span>${record.id}</span></div>
-      <div class="verify-detail-row"><span>Recipient Name</span><span>${record.name}</span></div>
-      <div class="verify-detail-row"><span>Role</span><span>${record.role}</span></div>
-      <div class="verify-detail-row"><span>Document Type</span><span>${record.type}</span></div>
-      <div class="verify-detail-row"><span>Issue Date</span><span>${record.date}</span></div>
+      <div class="verify-status valid">✅ VALID — Document Verified${srcNote}</div>
+      <div class="verify-detail-row"><span>Document ID</span><span>${id}</span></div>
+      <div class="verify-detail-row"><span>Recipient Name</span><span>${name}</span></div>
+      <div class="verify-detail-row"><span>Role</span><span>${role}</span></div>
+      <div class="verify-detail-row"><span>Document Type</span><span>${type}</span></div>
+      <div class="verify-detail-row"><span>Issue Date</span><span>${date}</span></div>
       <div class="verify-detail-row"><span>Issued By</span><span>AcademeForge</span></div>
     `;
   } else {
     resultDiv.className = 'verify-result invalid';
     resultDiv.innerHTML = `
       <div class="verify-status invalid">❌ INVALID — Document Not Found</div>
-      <p style="font-size:13px;color:var(--text2);margin-top:10px;">No document with ID <strong>${input}</strong> was found in the AcademeForge registry. Please check the ID and try again.</p>
+      <p style="font-size:13px;color:var(--text2);margin-top:10px;">No document with ID <strong>${certId}</strong> was found in the AcademeForge registry. Please check the ID and try again.</p>
     `;
   }
 }
@@ -1616,9 +1834,10 @@ function updateLiveDateTime() {
   const el = document.getElementById('liveDT');
   if (!el) return;
   const now = new Date();
-  el.textContent = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })
-    + ' • '
-    + now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  el.textContent =
+    now.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' }) +
+    ' • ' +
+    now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 }
 </script>
 </body>
