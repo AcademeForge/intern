@@ -4,112 +4,59 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>AcademeForge Documentation Center</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700;800&display=swap" rel="stylesheet"/>
+<!-- QR Code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<!-- html2canvas + jsPDF for clean PDF export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 /* =============================================
    VARIABLES & RESET
 ============================================= */
 :root{
-  --green:#22c55e;
-  --green-dark:#16a34a;
-  --green-glow:rgba(34,197,94,0.18);
-  --purple:#7c3aed;
-  --purple-light:#a855f7;
-  --blue:#3b82f6;
-  --pink:#ec4899;
-  --amber:#f59e0b;
-  --red:#ef4444;
-
-  /* Dark theme defaults */
-  --bg:#020617;
-  --bg2:#0a1628;
-  --bg3:#0f172a;
-  --bg4:#1e293b;
-  --surface:rgba(15,23,42,0.95);
-  --border:rgba(255,255,255,0.07);
-  --border2:rgba(255,255,255,0.12);
-  --text:#f1f5f9;
-  --text2:#94a3b8;
-  --text3:#64748b;
-  --card-bg:rgba(15,23,42,0.9);
-  --input-bg:#081225;
+  --green:#22c55e;--green-dark:#16a34a;--green-glow:rgba(34,197,94,0.18);
+  --purple:#7c3aed;--purple-light:#a855f7;--blue:#3b82f6;--pink:#ec4899;
+  --amber:#f59e0b;--red:#ef4444;--gold:#d97706;
+  --bg:#020617;--bg2:#0a1628;--bg3:#0f172a;--bg4:#1e293b;
+  --surface:rgba(15,23,42,0.95);--border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);--text:#f1f5f9;--text2:#94a3b8;
+  --text3:#64748b;--card-bg:rgba(15,23,42,0.9);--input-bg:#081225;
   --shadow:rgba(0,0,0,0.55);
-  --radius-sm:12px;
-  --radius:18px;
-  --radius-lg:24px;
-  --radius-xl:30px;
+  --radius-sm:12px;--radius:18px;--radius-lg:24px;--radius-xl:30px;
   --transition:0.25s cubic-bezier(.4,0,.2,1);
 }
 [data-theme="light"]{
-  --bg:#f0f4f8;
-  --bg2:#e2e8f0;
-  --bg3:#ffffff;
-  --bg4:#cbd5e1;
-  --surface:rgba(255,255,255,0.97);
-  --border:rgba(0,0,0,0.07);
-  --border2:rgba(0,0,0,0.12);
-  --text:#0f172a;
-  --text2:#475569;
-  --text3:#94a3b8;
-  --card-bg:rgba(255,255,255,0.95);
-  --input-bg:#f8fafc;
-  --shadow:rgba(0,0,0,0.12);
+  --bg:#f0f4f8;--bg2:#e2e8f0;--bg3:#ffffff;--bg4:#cbd5e1;
+  --surface:rgba(255,255,255,0.97);--border:rgba(0,0,0,0.07);
+  --border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#94a3b8;
+  --card-bg:rgba(255,255,255,0.95);--input-bg:#f8fafc;--shadow:rgba(0,0,0,0.12);
   --green-glow:rgba(22,163,74,0.12);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{width:100%;min-height:100%;overflow-x:hidden;}
-body{
-  background:var(--bg);
-  font-family:'Poppins',sans-serif;
-  color:var(--text);
-  transition:background var(--transition),color var(--transition);
-}
+body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text);transition:background var(--transition),color var(--transition);}
 [data-theme="dark"] body{
-  background:
-    radial-gradient(circle at top left,#052e16,transparent 25%),
-    radial-gradient(circle at bottom right,#172554,transparent 30%),
-    #020617;
+  background:radial-gradient(circle at top left,#052e16,transparent 25%),radial-gradient(circle at bottom right,#172554,transparent 30%),#020617;
 }
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--bg3);}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--bg3);}
 ::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px;}
 
 /* =============================================
    LOGIN SCREEN
 ============================================= */
-.login-screen{
-  position:fixed;inset:0;z-index:9999;
-  display:flex;justify-content:center;align-items:center;
-  background:
-    radial-gradient(circle at top left,#14532d,transparent 30%),
-    radial-gradient(circle at bottom right,#1e3a8a,transparent 35%),
-    #020617;
-}
-.login-box{
-  width:420px;padding:42px;border-radius:var(--radius-xl);
-  background:rgba(15,23,42,0.95);border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter:blur(18px);box-shadow:0 25px 80px rgba(0,0,0,0.55);
-  animation:fadeUp 0.5s ease;
-}
+.login-screen{position:fixed;inset:0;z-index:9999;display:flex;justify-content:center;align-items:center;
+  background:radial-gradient(circle at top left,#14532d,transparent 30%),radial-gradient(circle at bottom right,#1e3a8a,transparent 35%),#020617;}
+.login-box{width:420px;padding:42px;border-radius:var(--radius-xl);background:rgba(15,23,42,0.95);
+  border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(18px);box-shadow:0 25px 80px rgba(0,0,0,0.55);animation:fadeUp 0.5s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-.login-logo{
-  width:96px;height:96px;margin:auto;border-radius:24px;overflow:hidden;
-  background:#fff;display:flex;justify-content:center;align-items:center;
-}
+.login-logo{width:96px;height:96px;margin:auto;border-radius:24px;overflow:hidden;background:#fff;display:flex;justify-content:center;align-items:center;}
 .login-logo img{width:100%;height:100%;object-fit:contain;padding:10px;}
 .login-box h1{margin-top:24px;text-align:center;color:#fff;font-size:36px;font-weight:800;}
 .login-box>p{margin-top:10px;text-align:center;color:#94a3b8;font-size:14px;line-height:1.8;}
-.login-box input{
-  width:100%;margin-top:30px;background:#0f172a;border:1px solid #1e293b;
-  padding:16px 18px;border-radius:var(--radius);color:#fff;font-size:15px;outline:none;
-  transition:border-color var(--transition),box-shadow var(--transition);
-}
+.login-box input{width:100%;margin-top:30px;background:#0f172a;border:1px solid #1e293b;padding:16px 18px;border-radius:var(--radius);color:#fff;font-size:15px;outline:none;transition:border-color var(--transition),box-shadow var(--transition);}
 .login-box input:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow);}
-.login-box button{
-  width:100%;margin-top:18px;border:none;padding:16px;border-radius:var(--radius);
-  background:linear-gradient(135deg,var(--green-dark),var(--green));
-  color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:var(--transition);
-}
+.login-box button{width:100%;margin-top:18px;border:none;padding:16px;border-radius:var(--radius);background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:var(--transition);}
 .login-box button:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--green-glow);}
 .error-text{display:none;margin-top:14px;text-align:center;color:var(--red);font-size:14px;}
 
@@ -117,77 +64,44 @@ body{
    LAYOUT
 ============================================= */
 #app{display:none;min-height:100vh;}
-
-/* SIDEBAR */
-.sidebar{
-  position:fixed;left:0;top:0;bottom:0;width:260px;
-  background:var(--surface);border-right:1px solid var(--border);
-  display:flex;flex-direction:column;z-index:100;
-  transition:transform var(--transition),background var(--transition);
-  overflow-y:auto;
-}
-.sidebar-header{
-  padding:24px 20px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:14px;flex-shrink:0;
-}
-.sidebar-logo{
-  width:42px;height:42px;border-radius:12px;overflow:hidden;
-  background:#fff;display:flex;justify-content:center;align-items:center;flex-shrink:0;
-}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;transition:transform var(--transition),background var(--transition);overflow-y:auto;}
+.sidebar-header{padding:24px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0;}
+.sidebar-logo{width:42px;height:42px;border-radius:12px;overflow:hidden;background:#fff;display:flex;justify-content:center;align-items:center;flex-shrink:0;}
 .sidebar-logo img{width:100%;height:100%;object-fit:contain;padding:5px;}
 .sidebar-brand{line-height:1.2;}
 .sidebar-brand h2{font-size:15px;font-weight:800;color:var(--text);}
 .sidebar-brand p{font-size:10px;color:var(--text2);margin-top:2px;}
-
 .nav-section{padding:16px 12px 8px;font-size:10px;letter-spacing:2px;color:var(--text3);font-weight:700;text-transform:uppercase;}
-.nav-item{
-  display:flex;align-items:center;gap:12px;padding:11px 16px;
-  margin:2px 8px;border-radius:var(--radius-sm);cursor:pointer;
-  transition:var(--transition);color:var(--text2);font-size:14px;font-weight:500;
-  border:none;background:transparent;width:calc(100% - 16px);text-align:left;
-}
+.nav-item{display:flex;align-items:center;gap:12px;padding:11px 16px;margin:2px 8px;border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);color:var(--text2);font-size:14px;font-weight:500;border:none;background:transparent;width:calc(100% - 16px);text-align:left;}
 .nav-item:hover{background:var(--bg4);color:var(--text);}
 .nav-item.active{background:var(--green-glow);color:var(--green);font-weight:600;}
 .nav-item .nav-icon{font-size:18px;width:22px;text-align:center;flex-shrink:0;}
-.nav-badge{
-  margin-left:auto;background:var(--green);color:#fff;
-  font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;
-}
-
-/* MAIN CONTENT */
-.main{
-  margin-left:260px;min-height:100vh;
-  transition:margin-left var(--transition);
-}
-.topbar{
-  position:sticky;top:0;z-index:50;
-  background:var(--surface);border-bottom:1px solid var(--border);
-  backdrop-filter:blur(16px);
-  display:flex;align-items:center;gap:16px;padding:0 28px;height:64px;
-}
+.nav-badge{margin-left:auto;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;}
+.main{margin-left:260px;min-height:100vh;transition:margin-left var(--transition);}
+.topbar{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);display:flex;align-items:center;gap:16px;padding:0 28px;height:64px;}
 .topbar-title{flex:1;font-size:20px;font-weight:700;color:var(--text);}
 .topbar-actions{display:flex;align-items:center;gap:10px;}
-.icon-btn{
-  width:38px;height:38px;border-radius:var(--radius-sm);border:1px solid var(--border2);
-  background:var(--card-bg);display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:18px;transition:var(--transition);color:var(--text);
-}
+.icon-btn{width:38px;height:38px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--card-bg);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:var(--transition);color:var(--text);}
 .icon-btn:hover{background:var(--bg4);transform:translateY(-1px);}
 
-/* PAGE SECTIONS */
+/* PDF download button in topbar */
+.pdf-dl-btn{
+  display:flex;align-items:center;gap:7px;padding:0 14px;height:38px;border-radius:var(--radius-sm);
+  border:1px solid rgba(34,197,94,0.4);background:var(--green-glow);color:var(--green);
+  font-size:13px;font-weight:700;cursor:pointer;transition:var(--transition);white-space:nowrap;
+}
+.pdf-dl-btn:hover{background:rgba(34,197,94,0.28);transform:translateY(-1px);}
+
+/* =============================================
+   PAGE SECTIONS
+============================================= */
 .page{display:none;padding:28px;}
 .page.active{display:block;animation:fadeUp 0.3s ease;}
 
 /* STATS CARDS */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;}
-.stat-card{
-  background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);
-  padding:22px;transition:var(--transition);position:relative;overflow:hidden;
-}
-.stat-card::before{
-  content:'';position:absolute;top:-40px;right:-40px;
-  width:100px;height:100px;border-radius:50%;opacity:0.06;
-}
+.stat-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;transition:var(--transition);position:relative;overflow:hidden;}
+.stat-card::before{content:'';position:absolute;top:-40px;right:-40px;width:100px;height:100px;border-radius:50%;opacity:0.06;}
 .stat-card.green::before{background:var(--green);}
 .stat-card.purple::before{background:var(--purple);}
 .stat-card.blue::before{background:var(--blue);}
@@ -196,115 +110,85 @@ body{
 .stat-icon{font-size:28px;margin-bottom:14px;}
 .stat-value{font-size:32px;font-weight:800;color:var(--text);}
 .stat-label{font-size:13px;color:var(--text2);margin-top:4px;}
-
-/* SECTION HEADERS */
-.section-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:20px;
-}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
 .section-title{font-size:22px;font-weight:800;color:var(--text);}
 .section-sub{font-size:14px;color:var(--text2);margin-top:3px;}
-
-/* CATEGORY GRID */
 .category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
-.category-card{
-  background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);
-  padding:22px;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;
-}
+.category-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;}
 .category-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px var(--shadow);border-color:var(--border2);}
 .category-card .cat-icon{font-size:32px;margin-bottom:14px;}
 .category-card h3{font-size:15px;font-weight:700;color:var(--text);}
 .category-card p{font-size:12px;color:var(--text2);margin-top:6px;line-height:1.6;}
-.cat-badge{
-  display:inline-flex;align-items:center;margin-top:12px;
-  font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;
-}
+.cat-badge{display:inline-flex;align-items:center;margin-top:12px;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;}
 .cat-badge.letter{background:rgba(59,130,246,0.12);color:var(--blue);}
 .cat-badge.cert{background:rgba(34,197,94,0.12);color:var(--green);}
 .cat-badge.exp{background:rgba(124,58,237,0.12);color:var(--purple);}
-
-/* QUICK ACTIONS */
+.cat-badge.custom{background:rgba(245,158,11,0.12);color:var(--amber);}
 .quick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:28px;}
-.quick-btn{
-  background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);
-  padding:18px;text-align:center;cursor:pointer;transition:var(--transition);
-}
+.quick-btn{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-align:center;cursor:pointer;transition:var(--transition);}
 .quick-btn:hover{transform:translateY(-2px);border-color:var(--green);box-shadow:0 8px 24px var(--green-glow);}
 .quick-btn .q-icon{font-size:26px;margin-bottom:10px;}
 .quick-btn p{font-size:12px;font-weight:600;color:var(--text2);}
 
-/* FORM */
+/* =============================================
+   FORM
+============================================= */
 .generator-layout{display:grid;grid-template-columns:380px 1fr;gap:24px;align-items:flex-start;}
-.form-panel{
-  background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-xl);
-  padding:28px;position:sticky;top:92px;
-}
+.form-panel{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-xl);padding:28px;position:sticky;top:92px;max-height:calc(100vh - 108px);overflow-y:auto;}
 .form-panel h2{font-size:20px;font-weight:800;color:var(--text);margin-bottom:6px;}
 .form-panel>p{font-size:13px;color:var(--text2);margin-bottom:22px;line-height:1.7;}
-
 .doc-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:22px;}
-.doc-type-btn{
-  border:1px solid var(--border2);padding:10px 8px;border-radius:var(--radius-sm);
-  background:var(--bg4);color:var(--text2);font-size:11px;font-weight:600;
-  cursor:pointer;transition:var(--transition);text-align:center;line-height:1.4;
-}
+.doc-type-btn{border:1px solid var(--border2);padding:10px 8px;border-radius:var(--radius-sm);background:var(--bg4);color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;transition:var(--transition);text-align:center;line-height:1.4;}
 .doc-type-btn.active{background:var(--green-glow);border-color:var(--green);color:var(--green);}
 .doc-type-btn:hover{transform:translateY(-1px);}
-
 .form-group{margin-bottom:16px;}
 .form-group label{display:block;margin-bottom:7px;color:var(--text);font-size:13px;font-weight:600;}
 .form-group label span{color:var(--text3);font-weight:400;margin-left:4px;font-size:11px;}
-.form-group input,
-.form-group select,
-.form-group textarea{
-  width:100%;background:var(--input-bg);border:1px solid var(--border2);
-  padding:13px 15px;border-radius:var(--radius);color:var(--text);font-size:14px;
-  outline:none;transition:var(--transition);font-family:'Poppins',sans-serif;
-}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--input-bg);border:1px solid var(--border2);padding:13px 15px;border-radius:var(--radius);color:var(--text);font-size:14px;outline:none;transition:var(--transition);font-family:'Poppins',sans-serif;}
 .form-group textarea{resize:vertical;min-height:80px;line-height:1.6;}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
-  border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow);
-}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-glow);}
 .form-group select option{background:var(--bg3);color:var(--text);}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-
-.action-btn{
-  width:100%;border:none;padding:15px;border-radius:var(--radius);
-  font-size:15px;font-weight:700;cursor:pointer;transition:var(--transition);
-  font-family:'Poppins',sans-serif;
-}
+.action-btn{width:100%;border:none;padding:15px;border-radius:var(--radius);font-size:15px;font-weight:700;cursor:pointer;transition:var(--transition);font-family:'Poppins',sans-serif;}
 .btn-primary{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;margin-top:8px;}
 .btn-secondary{background:var(--bg4);color:var(--text);margin-top:8px;}
+.btn-pdf{background:linear-gradient(135deg,#1d4ed8,#3b82f6);color:#fff;margin-top:8px;}
+.btn-png{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;margin-top:8px;}
 .btn-white{background:#fff;color:#111827;margin-top:8px;}
 .action-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--shadow);}
-
-/* AUTO ID DISPLAY */
-.auto-id-display{
-  background:var(--green-glow);border:1px solid rgba(34,197,94,0.25);
-  border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:16px;
-  display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);font-weight:600;
-}
+.action-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.auto-id-display{background:var(--green-glow);border:1px solid rgba(34,197,94,0.25);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);font-weight:600;}
+.preview-panel{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-xl);padding:28px;}
+.preview-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+.preview-panel-header h2{font-size:20px;font-weight:800;color:var(--text);}
+.preview-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.preview-action-btn{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--card-bg);color:var(--text);font-size:12px;font-weight:700;cursor:pointer;transition:var(--transition);white-space:nowrap;}
+.preview-action-btn:hover{background:var(--bg4);}
+.preview-action-btn.pdf{border-color:rgba(59,130,246,0.4);color:var(--blue);}
+.preview-action-btn.pdf:hover{background:rgba(59,130,246,0.1);}
+.preview-action-btn.png{border-color:rgba(124,58,237,0.4);color:var(--purple);}
+.preview-action-btn.png:hover{background:rgba(124,58,237,0.1);}
+.preview-action-btn.dup{border-color:rgba(34,197,94,0.4);color:var(--green);}
+.preview-action-btn.dup:hover{background:var(--green-glow);}
+.preview-wrap{background:#fff;border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 25px 60px var(--shadow);}
 
 /* =============================================
-   DOCUMENT PREVIEW
+   THEME SWITCHER FOR CERTS
 ============================================= */
-.preview-panel{
-  background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-xl);
-  padding:28px;
-}
-.preview-panel h2{font-size:20px;font-weight:800;color:var(--text);margin-bottom:20px;}
-.preview-wrap{
-  background:#fff;border-radius:var(--radius-lg);overflow:hidden;
-  box-shadow:0 25px 60px var(--shadow);
-}
+.theme-switcher{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.theme-chip{width:28px;height:28px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:var(--transition);position:relative;}
+.theme-chip.active{border-color:var(--text);transform:scale(1.15);}
+.theme-chip[data-theme-id="corporate"]{background:linear-gradient(135deg,#16a34a,#22c55e);}
+.theme-chip[data-theme-id="royal"]{background:linear-gradient(135deg,#7c3aed,#a855f7);}
+.theme-chip[data-theme-id="academic"]{background:linear-gradient(135deg,#1d4ed8,#3b82f6);}
+.theme-chip[data-theme-id="gold"]{background:linear-gradient(135deg,#d97706,#f59e0b);}
+.theme-chip[data-theme-id="ai"]{background:linear-gradient(135deg,#0f172a,#7c3aed);}
+.theme-label{font-size:11px;color:var(--text3);margin-bottom:8px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
 
 /* =============================================
    LETTER TEMPLATE
 ============================================= */
-.letter-doc{
-  width:100%;background:#ffffff;padding:50px 56px;font-family:'Poppins',sans-serif;
-  color:#0f172a;line-height:1.7;position:relative;min-height:700px;
-}
+.letter-doc{width:100%;background:#ffffff;padding:50px 56px;font-family:'Poppins',sans-serif;color:#0f172a;line-height:1.7;position:relative;min-height:700px;}
 .letter-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px;padding-bottom:24px;border-bottom:2px solid #f1f5f9;}
 .letter-logo-area{display:flex;align-items:center;gap:14px;}
 .letter-logo-box{width:56px;height:56px;border-radius:14px;overflow:hidden;background:#fff;border:1px solid #e2e8f0;display:flex;justify-content:center;align-items:center;}
@@ -314,11 +198,7 @@ body{
 .letter-meta{text-align:right;font-size:12px;color:#64748b;line-height:1.8;}
 .letter-meta strong{color:#0f172a;font-size:13px;}
 .letter-divider{height:3px;background:linear-gradient(90deg,#16a34a,#22c55e,transparent);margin-bottom:30px;border-radius:2px;}
-.letter-subject{
-  background:linear-gradient(135deg,rgba(34,197,94,0.06),rgba(59,130,246,0.04));
-  border-left:4px solid #22c55e;padding:14px 18px;border-radius:0 12px 12px 0;
-  margin-bottom:28px;
-}
+.letter-subject{background:linear-gradient(135deg,rgba(34,197,94,0.06),rgba(59,130,246,0.04));border-left:4px solid #22c55e;padding:14px 18px;border-radius:0 12px 12px 0;margin-bottom:28px;}
 .letter-subject p{font-size:11px;color:#64748b;font-weight:600;letter-spacing:2px;text-transform:uppercase;}
 .letter-subject h3{font-size:16px;font-weight:700;color:#0f172a;margin-top:4px;}
 .letter-body{font-size:14px;color:#374151;line-height:1.9;}
@@ -334,39 +214,98 @@ body{
 .letter-sign-role{font-size:12px;color:#64748b;margin-top:4px;line-height:1.5;}
 .letter-seal{width:100px;height:100px;border-radius:50%;overflow:hidden;border:3px dashed #22c55e;display:flex;justify-content:center;align-items:center;}
 .letter-seal img{width:100%;height:100%;object-fit:contain;}
-.letter-bottom{
-  margin-top:28px;padding-top:16px;border-top:1px solid #e2e8f0;
-  display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#94a3b8;
-}
+.letter-bottom{margin-top:28px;padding-top:16px;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#94a3b8;}
 .letter-verify{display:flex;align-items:center;gap:6px;}
 .letter-verify-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;}
-.letter-watermark{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-35deg);
-  font-size:90px;font-weight:900;color:rgba(34,197,94,0.04);
-  letter-spacing:10px;pointer-events:none;white-space:nowrap;font-family:'Cinzel',serif;
-}
+.letter-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-35deg);font-size:90px;font-weight:900;color:rgba(34,197,94,0.04);letter-spacing:10px;pointer-events:none;white-space:nowrap;font-family:'Cinzel',serif;}
+.letter-qr{width:64px;height:64px;}
 
 /* =============================================
-   CERTIFICATE TEMPLATE
+   PREMIUM CERTIFICATE TEMPLATES
+   5 themes: corporate, royal, academic, gold, ai
 ============================================= */
-.cert-doc{
-  width:100%;background:#ffffff;position:relative;overflow:hidden;
-  padding:42px;font-family:'Poppins',sans-serif;
-  min-height:560px;
-}
-.cert-doc.joining-style{
-  background:radial-gradient(circle at top left,rgba(34,197,94,0.08),transparent 30%),radial-gradient(circle at bottom right,rgba(59,130,246,0.06),transparent 35%),#ffffff;
-}
-.cert-doc.experience-style{
-  background:radial-gradient(circle at top left,rgba(124,58,237,0.09),transparent 30%),radial-gradient(circle at bottom right,rgba(236,72,153,0.07),transparent 35%),#ffffff;
-}
-.cert-doc.appreciation-style{
-  background:radial-gradient(circle at top left,rgba(245,158,11,0.08),transparent 30%),radial-gradient(circle at bottom right,rgba(239,68,68,0.05),transparent 35%),#ffffff;
-}
-.cert-border{position:absolute;inset:18px;border-radius:22px;border:2px solid #22c55e;pointer-events:none;}
-.cert-border::before{content:'';position:absolute;inset:12px;border-radius:16px;border:1px solid #cbd5e1;}
-.experience-style .cert-border{border-color:#7c3aed;}
-.appreciation-style .cert-border{border-color:#f59e0b;}
+.cert-doc{width:100%;background:#ffffff;position:relative;overflow:hidden;padding:42px;font-family:'Poppins',sans-serif;min-height:560px;}
+
+/* — Corporate Green (default) — */
+.cert-doc.theme-corporate{background:radial-gradient(circle at top left,rgba(34,197,94,0.08),transparent 30%),radial-gradient(circle at bottom right,rgba(59,130,246,0.06),transparent 35%),#ffffff;}
+.cert-doc.theme-corporate .cert-border{border-color:#16a34a;}
+.cert-doc.theme-corporate .cert-border::after{border-color:#bbf7d0;}
+.cert-doc.theme-corporate .cert-heading{color:#15803d;}
+.cert-doc.theme-corporate .cert-role{color:#16a34a;}
+.cert-doc.theme-corporate .cert-stamp{border-color:#16a34a;}
+.cert-doc.theme-corporate .cert-v-dot{background:#22c55e;}
+.cert-doc.theme-corporate .cert-accent{background:linear-gradient(90deg,#16a34a,#22c55e,#86efac);}
+
+/* — Royal Purple — */
+.cert-doc.theme-royal{background:radial-gradient(circle at top left,rgba(124,58,237,0.09),transparent 30%),radial-gradient(circle at bottom right,rgba(168,85,247,0.07),transparent 35%),#faf5ff;}
+.cert-doc.theme-royal .cert-border{border-color:#7c3aed;}
+.cert-doc.theme-royal .cert-border::after{border-color:#ddd6fe;}
+.cert-doc.theme-royal .cert-heading{color:#6d28d9;font-family:'Cinzel',serif;}
+.cert-doc.theme-royal .cert-role{color:#7c3aed;}
+.cert-doc.theme-royal .cert-stamp{border-color:#7c3aed;}
+.cert-doc.theme-royal .cert-v-dot{background:#7c3aed;}
+.cert-doc.theme-royal .cert-accent{background:linear-gradient(90deg,#7c3aed,#a855f7,#c4b5fd);}
+
+/* — Academic Blue — */
+.cert-doc.theme-academic{background:radial-gradient(circle at top left,rgba(29,78,216,0.08),transparent 30%),radial-gradient(circle at bottom right,rgba(59,130,246,0.06),transparent 35%),#eff6ff;}
+.cert-doc.theme-academic .cert-border{border-color:#1d4ed8;}
+.cert-doc.theme-academic .cert-border::after{border-color:#bfdbfe;}
+.cert-doc.theme-academic .cert-heading{color:#1e40af;font-family:'Playfair Display',serif;}
+.cert-doc.theme-academic .cert-role{color:#1d4ed8;}
+.cert-doc.theme-academic .cert-stamp{border-color:#1d4ed8;}
+.cert-doc.theme-academic .cert-v-dot{background:#3b82f6;}
+.cert-doc.theme-academic .cert-accent{background:linear-gradient(90deg,#1d4ed8,#3b82f6,#93c5fd);}
+
+/* — Gold Excellence — */
+.cert-doc.theme-gold{background:radial-gradient(circle at top left,rgba(217,119,6,0.09),transparent 30%),radial-gradient(circle at bottom right,rgba(245,158,11,0.07),transparent 35%),#fffbeb;}
+.cert-doc.theme-gold .cert-border{border-color:#d97706;}
+.cert-doc.theme-gold .cert-border::after{border-color:#fde68a;}
+.cert-doc.theme-gold .cert-heading{color:#b45309;font-family:'Playfair Display',serif;}
+.cert-doc.theme-gold .cert-role{color:#d97706;}
+.cert-doc.theme-gold .cert-stamp{border-color:#d97706;}
+.cert-doc.theme-gold .cert-v-dot{background:#f59e0b;}
+.cert-doc.theme-gold .cert-accent{background:linear-gradient(90deg,#d97706,#f59e0b,#fcd34d);}
+
+/* — AI Innovation — */
+.cert-doc.theme-ai{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%);}
+.cert-doc.theme-ai .cert-border{border-color:#818cf8;}
+.cert-doc.theme-ai .cert-border::after{border-color:#3730a3;}
+.cert-doc.theme-ai .cert-heading{color:#a5b4fc;font-family:'Cinzel',serif;}
+.cert-doc.theme-ai .cert-role{color:#818cf8;}
+.cert-doc.theme-ai .cert-stamp{border-color:#818cf8;}
+.cert-doc.theme-ai .cert-v-dot{background:#818cf8;}
+.cert-doc.theme-ai .cert-accent{background:linear-gradient(90deg,#4f46e5,#818cf8,#c7d2fe);}
+.cert-doc.theme-ai .cert-name{color:#f1f5f9;}
+.cert-doc.theme-ai .cert-awarded{color:#94a3b8;}
+.cert-doc.theme-ai .cert-tag{color:#64748b;}
+.cert-doc.theme-ai .cert-desc{color:#94a3b8;}
+.cert-doc.theme-ai .cert-info-card{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);}
+.cert-doc.theme-ai .cert-info-card h4{color:#64748b;}
+.cert-doc.theme-ai .cert-info-card p{color:#e2e8f0;}
+.cert-doc.theme-ai .cert-sig-name{color:#f1f5f9;}
+.cert-doc.theme-ai .cert-sig-role{color:#94a3b8;}
+.cert-doc.theme-ai .cert-note{color:#475569;}
+.cert-doc.theme-ai .cert-v-content{color:#64748b;}
+.cert-doc.theme-ai .cert-digital{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);}
+.cert-doc.theme-ai .cert-sig-line{background:#818cf8;}
+
+/* Premium border system */
+.cert-border{position:absolute;inset:14px;border-radius:20px;border:2px solid #22c55e;pointer-events:none;z-index:1;}
+.cert-border::before{content:'';position:absolute;inset:8px;border-radius:14px;border:1px dashed rgba(0,0,0,0.1);}
+.cert-border::after{content:'';position:absolute;inset:16px;border-radius:6px;border:1px solid #bbf7d0;}
+
+/* Decorative corner ornaments */
+.cert-corner{position:absolute;width:40px;height:40px;z-index:2;pointer-events:none;}
+.cert-corner svg{width:100%;height:100%;}
+.cert-corner.tl{top:18px;left:18px;}
+.cert-corner.tr{top:18px;right:18px;transform:scaleX(-1);}
+.cert-corner.bl{bottom:18px;left:18px;transform:scaleY(-1);}
+.cert-corner.br{bottom:18px;right:18px;transform:scale(-1);}
+
+/* Accent bar */
+.cert-accent{height:5px;border-radius:3px;margin:18px 0 24px;}
+
+/* Content */
 .cert-header{position:relative;z-index:5;display:flex;justify-content:space-between;align-items:flex-start;}
 .cert-logo-area{display:flex;align-items:center;gap:14px;}
 .cert-logo-box{width:72px;height:72px;border-radius:18px;overflow:hidden;background:#fff;border:1px solid #e2e8f0;display:flex;justify-content:center;align-items:center;box-shadow:0 6px 18px rgba(0,0,0,0.06);}
@@ -375,37 +314,55 @@ body{
 .cert-brand p{font-size:12px;color:#64748b;margin-top:6px;}
 .cert-msme{width:130px;height:72px;border-radius:14px;overflow:hidden;background:#fff;border:1px dashed #94a3b8;}
 .cert-msme img{width:100%;height:100%;object-fit:contain;}
-.cert-content{position:relative;z-index:5;text-align:center;margin-top:18px;flex:1;display:flex;flex-direction:column;justify-content:center;}
+.cert-content{position:relative;z-index:5;text-align:center;margin-top:8px;flex:1;display:flex;flex-direction:column;justify-content:center;}
 .cert-tag{font-size:10px;letter-spacing:5px;font-weight:700;color:#64748b;text-transform:uppercase;}
-.cert-heading{margin-top:14px;font-size:52px;font-weight:800;line-height:1.1;}
-.joining-style .cert-heading{color:#16a34a;}
-.experience-style .cert-heading{color:#7c3aed;font-family:'Cinzel',serif;font-size:46px;}
-.appreciation-style .cert-heading{color:#d97706;}
-.cert-awarded{margin-top:20px;font-size:15px;color:#64748b;}
-.cert-name{margin-top:14px;font-size:52px;font-weight:800;color:#0f172a;line-height:1.1;word-break:break-word;}
-.cert-role{margin-top:12px;font-size:22px;font-weight:700;}
-.joining-style .cert-role{color:#16a34a;}
-.experience-style .cert-role{color:#7c3aed;}
-.appreciation-style .cert-role{color:#d97706;}
-.cert-desc{width:88%;margin:18px auto 0;font-size:14px;line-height:1.8;color:#475569;}
-.cert-info-row{margin-top:24px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
-.cert-info-card{min-width:150px;background:#fff;border:1px solid #e2e8f0;padding:13px;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,0.04);}
+.cert-heading{margin-top:10px;font-size:46px;font-weight:800;line-height:1.1;}
+.cert-awarded{margin-top:16px;font-size:15px;color:#64748b;}
+.cert-name{margin-top:12px;font-size:48px;font-weight:800;color:#0f172a;line-height:1.1;word-break:break-word;}
+.cert-role{margin-top:10px;font-size:20px;font-weight:700;}
+.cert-desc{width:88%;margin:16px auto 0;font-size:13px;line-height:1.8;color:#475569;}
+.cert-info-row{margin-top:22px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+.cert-info-card{min-width:130px;background:#fff;border:1px solid #e2e8f0;padding:12px;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,0.04);}
 .cert-info-card h4{color:#94a3b8;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;}
-.cert-info-card p{margin-top:8px;color:#0f172a;font-size:14px;font-weight:800;}
-.cert-footer{margin-top:24px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;}
+.cert-info-card p{margin-top:6px;color:#0f172a;font-size:13px;font-weight:800;}
+.cert-footer{margin-top:20px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;position:relative;z-index:5;}
 .cert-sig-area{flex:1;}
 .cert-sig-img{width:130px;object-fit:contain;margin-bottom:5px;}
-.cert-sig-line{width:190px;height:2px;background:#111827;margin-bottom:10px;}
+.cert-sig-line{width:190px;height:2px;background:#111827;margin-bottom:8px;}
 .cert-sig-name{font-size:18px;font-weight:800;color:#111827;}
-.cert-sig-role{margin-top:5px;color:#64748b;font-size:12px;line-height:1.6;}
-.cert-digital{margin-top:14px;width:260px;padding:10px 12px;border-radius:14px;background:#fff;border:1px solid #e2e8f0;display:flex;gap:8px;}
+.cert-sig-role{margin-top:4px;color:#64748b;font-size:12px;line-height:1.6;}
+.cert-digital{margin-top:12px;width:260px;padding:10px 12px;border-radius:14px;background:#fff;border:1px solid #e2e8f0;display:flex;gap:8px;}
 .cert-v-dot{width:9px;height:9px;border-radius:50%;background:#22c55e;margin-top:4px;flex-shrink:0;}
 .cert-v-content{font-size:9px;line-height:1.7;color:#64748b;}
-.cert-stamp{width:130px;height:130px;border-radius:50%;overflow:hidden;background:#fff;border:3px dashed #16a34a;display:flex;justify-content:center;align-items:center;}
-.experience-style .cert-stamp{border-color:#7c3aed;}
-.appreciation-style .cert-stamp{border-color:#f59e0b;}
+.cert-stamp-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.cert-stamp{width:110px;height:110px;border-radius:50%;overflow:hidden;background:#fff;border:3px dashed #16a34a;display:flex;justify-content:center;align-items:center;}
 .cert-stamp img{width:100%;height:100%;object-fit:contain;}
-.cert-note{margin-top:16px;text-align:center;color:#94a3b8;font-size:10px;line-height:1.7;}
+.cert-qr-box{border:1px solid #e2e8f0;border-radius:10px;padding:6px;background:#fff;}
+.cert-note{margin-top:14px;text-align:center;color:#94a3b8;font-size:10px;line-height:1.7;position:relative;z-index:5;}
+
+/* =============================================
+   CUSTOM CERT BUILDER PANEL
+============================================= */
+.custom-builder-section{background:var(--bg4);border-radius:var(--radius-lg);padding:16px;margin-bottom:16px;}
+.custom-builder-section h3{font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.color-row{display:flex;align-items:center;gap:10px;}
+.color-row input[type="color"]{width:40px;height:40px;border-radius:8px;border:2px solid var(--border2);cursor:pointer;padding:2px;}
+.color-row span{font-size:12px;color:var(--text2);}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);}
+.toggle-row:last-child{border-bottom:none;}
+.toggle-row label{font-size:13px;color:var(--text2);}
+.toggle{position:relative;width:40px;height:22px;cursor:pointer;}
+.toggle input{opacity:0;width:0;height:0;}
+.toggle-slider{position:absolute;inset:0;background:var(--bg4);border-radius:11px;transition:var(--transition);border:1px solid var(--border2);}
+.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:2px;top:2px;background:#fff;border-radius:50%;transition:var(--transition);}
+.toggle input:checked+.toggle-slider{background:var(--green);}
+.toggle input:checked+.toggle-slider::before{transform:translateX(18px);}
+.upload-area{border:2px dashed var(--border2);border-radius:var(--radius-sm);padding:14px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;}
+.upload-area:hover{border-color:var(--green);}
+.upload-area input{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.upload-area p{font-size:12px;color:var(--text3);}
+.upload-area .u-icon{font-size:24px;margin-bottom:6px;}
+.upload-preview{width:60px;height:60px;object-fit:contain;margin:0 auto;display:block;border-radius:8px;}
 
 /* =============================================
    HISTORY TABLE
@@ -416,50 +373,28 @@ thead{background:var(--bg4);}
 th{padding:14px 18px;text-align:left;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);}
 td{padding:14px 18px;color:var(--text);border-top:1px solid var(--border);vertical-align:middle;}
 tr:hover td{background:var(--bg4);}
-.doc-type-tag{
-  display:inline-flex;align-items:center;padding:4px 10px;border-radius:20px;
-  font-size:10px;font-weight:700;letter-spacing:0.5px;
-}
+.doc-type-tag{display:inline-flex;align-items:center;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:0.5px;}
 .tag-cert{background:rgba(34,197,94,0.12);color:var(--green);}
 .tag-letter{background:rgba(59,130,246,0.12);color:var(--blue);}
 .tag-exp{background:rgba(124,58,237,0.12);color:var(--purple);}
-.table-action-btn{
-  padding:6px 14px;border-radius:var(--radius-sm);border:1px solid var(--border2);
-  background:var(--card-bg);color:var(--text);font-size:12px;font-weight:600;
-  cursor:pointer;transition:var(--transition);margin-right:6px;
-}
+.table-action-btn{padding:6px 14px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--card-bg);color:var(--text);font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);margin-right:6px;}
 .table-action-btn:hover{background:var(--bg4);}
 .table-action-btn.danger{border-color:rgba(239,68,68,0.3);color:var(--red);}
 .table-action-btn.danger:hover{background:rgba(239,68,68,0.1);}
-
-/* SEARCH & FILTER BAR */
 .filter-bar{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
-.search-input{
-  flex:1;min-width:200px;background:var(--card-bg);border:1px solid var(--border2);
-  padding:11px 16px;border-radius:var(--radius);color:var(--text);font-size:14px;outline:none;
-  transition:var(--transition);font-family:'Poppins',sans-serif;
-}
+.search-input{flex:1;min-width:200px;background:var(--card-bg);border:1px solid var(--border2);padding:11px 16px;border-radius:var(--radius);color:var(--text);font-size:14px;outline:none;transition:var(--transition);font-family:'Poppins',sans-serif;}
 .search-input:focus{border-color:var(--green);}
-.filter-select{
-  background:var(--card-bg);border:1px solid var(--border2);
-  padding:11px 16px;border-radius:var(--radius);color:var(--text);font-size:13px;outline:none;
-  font-family:'Poppins',sans-serif;cursor:pointer;
-}
+.filter-select{background:var(--card-bg);border:1px solid var(--border2);padding:11px 16px;border-radius:var(--radius);color:var(--text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;cursor:pointer;}
 
 /* =============================================
    VERIFY PAGE
 ============================================= */
 .verify-center{max-width:520px;margin:0 auto;padding:40px 0;}
-.verify-card{
-  background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-xl);
-  padding:36px;text-align:center;
-}
+.verify-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-xl);padding:36px;text-align:center;}
 .verify-icon{font-size:56px;margin-bottom:20px;}
 .verify-card h2{font-size:26px;font-weight:800;color:var(--text);margin-bottom:8px;}
 .verify-card p{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:28px;}
-.verify-result{
-  margin-top:24px;padding:22px;border-radius:var(--radius-lg);text-align:left;
-}
+.verify-result{margin-top:24px;padding:22px;border-radius:var(--radius-lg);text-align:left;}
 .verify-result.valid{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);}
 .verify-result.invalid{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);}
 .verify-status{font-size:20px;font-weight:800;margin-bottom:16px;}
@@ -477,12 +412,33 @@ tr:hover td{background:var(--bg4);}
 .empty-state .empty-icon{font-size:52px;margin-bottom:18px;}
 .empty-state h3{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px;}
 .empty-state p{font-size:14px;line-height:1.8;}
-
-/* =============================================
-   MOBILE
-============================================= */
 .menu-toggle{display:none;width:38px;height:38px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--card-bg);align-items:center;justify-content:center;cursor:pointer;font-size:20px;}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;}
+
+/* =============================================
+   TOAST NOTIFICATIONS
+============================================= */
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:9000;display:flex;flex-direction:column;gap:10px;}
+.toast{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:14px 20px;font-size:14px;color:var(--text);box-shadow:0 8px 32px var(--shadow);animation:toastIn 0.3s ease;display:flex;align-items:center;gap:10px;min-width:280px;}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+.toast.success{border-color:rgba(34,197,94,0.4);}
+.toast.error{border-color:rgba(239,68,68,0.4);}
+.toast.info{border-color:rgba(59,130,246,0.4);}
+
+/* =============================================
+   PROGRESS BAR (for PDF export)
+============================================= */
+.progress-overlay{position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,0.7);display:none;flex-direction:column;justify-content:center;align-items:center;gap:20px;}
+.progress-overlay.active{display:flex;}
+.progress-box{background:var(--bg3);border-radius:var(--radius-xl);padding:32px 40px;text-align:center;width:360px;}
+.progress-box h3{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px;}
+.progress-box p{font-size:13px;color:var(--text2);margin-bottom:20px;}
+.progress-bar{height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--green-dark),var(--green));border-radius:3px;transition:width 0.3s ease;width:0%;}
+
+/* =============================================
+   RESPONSIVE
+============================================= */
 @media(max-width:900px){
   .menu-toggle{display:flex;}
   .sidebar{transform:translateX(-100%);}
@@ -490,7 +446,7 @@ tr:hover td{background:var(--bg4);}
   .sidebar-overlay.open{display:block;}
   .main{margin-left:0;}
   .generator-layout{grid-template-columns:1fr;}
-  .form-panel{position:relative;top:0;}
+  .form-panel{position:relative;top:0;max-height:none;}
   .stats-grid{grid-template-columns:1fr 1fr;}
   .quick-grid{grid-template-columns:repeat(3,1fr);}
 }
@@ -500,21 +456,26 @@ tr:hover td{background:var(--bg4);}
   .doc-type-grid{grid-template-columns:1fr;}
   .form-row{grid-template-columns:1fr;}
   .page{padding:16px;}
+  .cert-heading{font-size:32px;}
+  .cert-name{font-size:32px;}
+  .cert-brand h1{font-size:26px;}
+  .letter-details-grid{grid-template-columns:1fr 1fr;}
 }
 
 /* =============================================
-   PRINT
+   PRINT — ONLY print previewWrap
 ============================================= */
-@page{size:A4 landscape;margin:0;}
 @media print{
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
-  body{background:#fff!important;padding:0!important;}
-  .sidebar,.topbar,.form-panel,.print-ignore{display:none!important;}
+  body>*:not(#app){display:none!important;}
+  #app>*:not(.main){display:none!important;}
+  .main>*:not(.page.active){display:none!important;}
+  .topbar,.sidebar,.form-panel,.preview-panel-header,.preview-actions,.print-ignore{display:none!important;}
   .main{margin-left:0!important;}
-  .page{padding:0!important;display:block!important;}
+  .page{padding:0!important;}
+  .generator-layout{grid-template-columns:1fr!important;display:block!important;}
   .preview-panel{padding:0!important;border:none!important;background:transparent!important;}
   .preview-wrap{border-radius:0!important;box-shadow:none!important;}
-  .cert-doc,.letter-doc{min-height:210mm;height:210mm;}
 }
 
 /* Misc */
@@ -526,6 +487,18 @@ tr:hover td{background:var(--bg4);}
 </style>
 </head>
 <body>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- PROGRESS OVERLAY -->
+<div class="progress-overlay" id="progressOverlay">
+  <div class="progress-box">
+    <h3 id="progressTitle">Generating PDF…</h3>
+    <p id="progressMsg">Rendering high-resolution document…</p>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</div>
 
 <!-- ===================== LOGIN ===================== -->
 <div class="login-screen" id="loginScreen">
@@ -543,108 +516,46 @@ tr:hover td{background:var(--bg4);}
 
 <!-- ===================== APP ===================== -->
 <div id="app">
-
-  <!-- SIDEBAR OVERLAY -->
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
-  <!-- SIDEBAR -->
   <nav class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">
         <img src="AF LOGO 2.jpeg" alt="AF" onerror="this.style.display='none';this.parentNode.textContent='AF'"/>
       </div>
-      <div class="sidebar-brand">
-        <h2>AcademeForge</h2>
-        <p>Documentation Center</p>
-      </div>
+      <div class="sidebar-brand"><h2>AcademeForge</h2><p>Documentation Center</p></div>
     </div>
-
     <div class="nav-section">Main</div>
-    <button class="nav-item active" onclick="showPage('dashboard',this)">
-      <span class="nav-icon">🏠</span> Dashboard
-    </button>
-    <button class="nav-item" onclick="showPage('generator',this)">
-      <span class="nav-icon">⚡</span> Generate Document
-    </button>
-
+    <button class="nav-item active" onclick="showPage('dashboard',this)"><span class="nav-icon">🏠</span> Dashboard</button>
+    <button class="nav-item" onclick="showPage('generator',this)"><span class="nav-icon">⚡</span> Generate Document</button>
     <div class="nav-section">Letters</div>
-    <button class="nav-item" onclick="showPageAndSetType('generator','offer-letter',this)">
-      <span class="nav-icon">📋</span> Offer Letter
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','internship-offer',this)">
-      <span class="nav-icon">🎓</span> Internship Offer
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','joining-letter',this)">
-      <span class="nav-icon">🤝</span> Joining Letter
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','volunteer-letter',this)">
-      <span class="nav-icon">💚</span> Volunteer Letter
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','freelance-letter',this)">
-      <span class="nav-icon">💼</span> Freelance Letter
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','appreciation-letter',this)">
-      <span class="nav-icon">⭐</span> Appreciation Letter
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','promotion-letter',this)">
-      <span class="nav-icon">🚀</span> Promotion Letter
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','warning-letter',this)">
-      <span class="nav-icon">⚠️</span> Warning Letter
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','experience-letter',this)">
-      <span class="nav-icon">📄</span> Experience Letter
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','relieving-letter',this)">
-      <span class="nav-icon">🔓</span> Relieving Letter
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','lor',this)">
-      <span class="nav-icon">🏆</span> Recommendation (LOR)
-    </button>
-
+    <button class="nav-item" onclick="showPageAndSetType('generator','offer-letter',this)"><span class="nav-icon">📋</span> Offer Letter</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','internship-offer',this)"><span class="nav-icon">🎓</span> Internship Offer</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','joining-letter',this)"><span class="nav-icon">🤝</span> Joining Letter</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','volunteer-letter',this)"><span class="nav-icon">💚</span> Volunteer Letter</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','freelance-letter',this)"><span class="nav-icon">💼</span> Freelance Letter</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','appreciation-letter',this)"><span class="nav-icon">⭐</span> Appreciation Letter</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','promotion-letter',this)"><span class="nav-icon">🚀</span> Promotion Letter</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','warning-letter',this)"><span class="nav-icon">⚠️</span> Warning Letter</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','experience-letter',this)"><span class="nav-icon">📄</span> Experience Letter</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','relieving-letter',this)"><span class="nav-icon">🔓</span> Relieving Letter</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','lor',this)"><span class="nav-icon">🏆</span> Recommendation (LOR)</button>
     <div class="nav-section">Certificates</div>
-    <button class="nav-item" onclick="showPageAndSetType('generator','internship-cert',this)">
-      <span class="nav-icon">🎖️</span> Internship Certificate
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','experience-cert',this)">
-      <span class="nav-icon">📜</span> Experience Certificate
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','volunteer-cert',this)">
-      <span class="nav-icon">💚</span> Volunteer Certificate
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','appreciation-cert',this)">
-      <span class="nav-icon">⭐</span> Appreciation Certificate
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','excellence-cert',this)">
-      <span class="nav-icon">🥇</span> Excellence Certificate
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','leadership-cert',this)">
-      <span class="nav-icon">👑</span> Leadership Certificate
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','campus-cert',this)">
-      <span class="nav-icon">🏫</span> Campus Ambassador
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','training-cert',this)">
-      <span class="nav-icon">📚</span> Training Certificate
-    </button>
-    <button class="nav-item" onclick="showPageAndSetType('generator','project-cert',this)">
-      <span class="nav-icon">🔧</span> Project Certificate
-    </button>
-
+    <button class="nav-item" onclick="showPageAndSetType('generator','internship-cert',this)"><span class="nav-icon">🎖️</span> Internship Certificate</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','experience-cert',this)"><span class="nav-icon">📜</span> Experience Certificate</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','volunteer-cert',this)"><span class="nav-icon">💚</span> Volunteer Certificate</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','appreciation-cert',this)"><span class="nav-icon">⭐</span> Appreciation Certificate</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','excellence-cert',this)"><span class="nav-icon">🥇</span> Excellence Certificate</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','leadership-cert',this)"><span class="nav-icon">👑</span> Leadership Certificate</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','campus-cert',this)"><span class="nav-icon">🏫</span> Campus Ambassador</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','training-cert',this)"><span class="nav-icon">📚</span> Training Certificate</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','project-cert',this)"><span class="nav-icon">🔧</span> Project Certificate</button>
+    <button class="nav-item" onclick="showPageAndSetType('generator','custom-cert',this)"><span class="nav-icon">✨</span> Custom Certificate</button>
     <div class="nav-section">System</div>
-    <button class="nav-item" onclick="showPage('history',this)">
-      <span class="nav-icon">📂</span> Document History
-      <span class="nav-badge" id="historyBadge">0</span>
-    </button>
-    <button class="nav-item" onclick="showPage('verify',this)">
-      <span class="nav-icon">✅</span> Verify Document
-    </button>
-    <button class="nav-item" onclick="logout()">
-      <span class="nav-icon">🚪</span> Logout
-    </button>
+    <button class="nav-item" onclick="showPage('history',this)"><span class="nav-icon">📂</span> Document History <span class="nav-badge" id="historyBadge">0</span></button>
+    <button class="nav-item" onclick="showPage('verify',this)"><span class="nav-icon">✅</span> Verify Document</button>
+    <button class="nav-item" onclick="logout()"><span class="nav-icon">🚪</span> Logout</button>
   </nav>
 
-  <!-- MAIN -->
   <div class="main">
     <div class="topbar">
       <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()">☰</button>
@@ -652,7 +563,7 @@ tr:hover td{background:var(--bg4);}
       <div class="topbar-actions">
         <div class="icon-btn" onclick="toggleTheme()" title="Toggle Theme" id="themeIcon">🌙</div>
         <div class="icon-btn" onclick="showPage('verify',null)" title="Verify Document">✅</div>
-        <div class="icon-btn" onclick="window.print()" title="Print/Download">🖨️</div>
+        <button class="pdf-dl-btn" onclick="downloadPDF()" title="Download PDF">📥 Download PDF</button>
       </div>
     </div>
 
@@ -664,267 +575,167 @@ tr:hover td{background:var(--bg4);}
           <div class="section-sub">Building Skills. Creating Opportunities. — Generate professional HR documents instantly.</div>
         </div>
       </div>
-
       <div class="stats-grid">
-        <div class="stat-card green">
-          <div class="stat-icon">📄</div>
-          <div class="stat-value" id="stat-total">0</div>
-          <div class="stat-label">Total Documents Generated</div>
-        </div>
-        <div class="stat-card blue">
-          <div class="stat-icon">📋</div>
-          <div class="stat-value" id="stat-letters">0</div>
-          <div class="stat-label">Letters Issued</div>
-        </div>
-        <div class="stat-card purple">
-          <div class="stat-icon">🎖️</div>
-          <div class="stat-value" id="stat-certs">0</div>
-          <div class="stat-label">Certificates Issued</div>
-        </div>
-        <div class="stat-card amber">
-          <div class="stat-icon">👥</div>
-          <div class="stat-value" id="stat-people">0</div>
-          <div class="stat-label">Unique Recipients</div>
-        </div>
+        <div class="stat-card green"><div class="stat-icon">📄</div><div class="stat-value" id="stat-total">0</div><div class="stat-label">Total Documents Generated</div></div>
+        <div class="stat-card blue"><div class="stat-icon">📋</div><div class="stat-value" id="stat-letters">0</div><div class="stat-label">Letters Issued</div></div>
+        <div class="stat-card purple"><div class="stat-icon">🎖️</div><div class="stat-value" id="stat-certs">0</div><div class="stat-label">Certificates Issued</div></div>
+        <div class="stat-card amber"><div class="stat-icon">👥</div><div class="stat-value" id="stat-people">0</div><div class="stat-label">Unique Recipients</div></div>
       </div>
-
       <div class="section-header"><div class="section-title">Quick Actions</div></div>
       <div class="quick-grid">
-        <div class="quick-btn" onclick="showPageAndSetType('generator','offer-letter',null)">
-          <div class="q-icon">📋</div><p>Offer Letter</p>
-        </div>
-        <div class="quick-btn" onclick="showPageAndSetType('generator','internship-offer',null)">
-          <div class="q-icon">🎓</div><p>Internship Offer</p>
-        </div>
-        <div class="quick-btn" onclick="showPageAndSetType('generator','joining-letter',null)">
-          <div class="q-icon">🤝</div><p>Joining Letter</p>
-        </div>
-        <div class="quick-btn" onclick="showPageAndSetType('generator','internship-cert',null)">
-          <div class="q-icon">🎖️</div><p>Internship Cert</p>
-        </div>
-        <div class="quick-btn" onclick="showPageAndSetType('generator','experience-cert',null)">
-          <div class="q-icon">📜</div><p>Experience Cert</p>
-        </div>
-        <div class="quick-btn" onclick="showPageAndSetType('generator','appreciation-cert',null)">
-          <div class="q-icon">⭐</div><p>Appreciation Cert</p>
-        </div>
-        <div class="quick-btn" onclick="showPageAndSetType('generator','lor',null)">
-          <div class="q-icon">🏆</div><p>LOR</p>
-        </div>
-        <div class="quick-btn" onclick="showPage('verify',null)">
-          <div class="q-icon">✅</div><p>Verify Document</p>
-        </div>
+        <div class="quick-btn" onclick="showPageAndSetType('generator','offer-letter',null)"><div class="q-icon">📋</div><p>Offer Letter</p></div>
+        <div class="quick-btn" onclick="showPageAndSetType('generator','internship-offer',null)"><div class="q-icon">🎓</div><p>Internship Offer</p></div>
+        <div class="quick-btn" onclick="showPageAndSetType('generator','joining-letter',null)"><div class="q-icon">🤝</div><p>Joining Letter</p></div>
+        <div class="quick-btn" onclick="showPageAndSetType('generator','internship-cert',null)"><div class="q-icon">🎖️</div><p>Internship Cert</p></div>
+        <div class="quick-btn" onclick="showPageAndSetType('generator','experience-cert',null)"><div class="q-icon">📜</div><p>Experience Cert</p></div>
+        <div class="quick-btn" onclick="showPageAndSetType('generator','appreciation-cert',null)"><div class="q-icon">⭐</div><p>Appreciation Cert</p></div>
+        <div class="quick-btn" onclick="showPageAndSetType('generator','custom-cert',null)"><div class="q-icon">✨</div><p>Custom Cert</p></div>
+        <div class="quick-btn" onclick="showPage('verify',null)"><div class="q-icon">✅</div><p>Verify Document</p></div>
       </div>
-
       <div class="section-header"><div class="section-title">All Document Types</div></div>
       <div class="category-grid">
-        <div class="category-card" onclick="showPageAndSetType('generator','offer-letter',null)">
-          <div class="cat-icon">📋</div>
-          <h3>Offer Letter</h3>
-          <p>For Part-Time, Full-Time, and Paid roles. Includes CTC, role details, and joining instructions.</p>
-          <span class="cat-badge letter">Letter · Template A</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','internship-offer',null)">
-          <div class="cat-icon">🎓</div>
-          <h3>Internship Offer Letter</h3>
-          <p>Paid or unpaid internship offers with stipend, duration, and deliverables section.</p>
-          <span class="cat-badge letter">Letter · Template A</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','joining-letter',null)">
-          <div class="cat-icon">🤝</div>
-          <h3>Joining Confirmation Letter</h3>
-          <p>Official confirmation after candidate accepts offer and formally joins the team.</p>
-          <span class="cat-badge letter">Letter · Template A</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','volunteer-letter',null)">
-          <div class="cat-icon">💚</div>
-          <h3>Volunteer Acceptance Letter</h3>
-          <p>For volunteer and unpaid contributor roles across departments.</p>
-          <span class="cat-badge letter">Letter · Template A</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','freelance-letter',null)">
-          <div class="cat-icon">💼</div>
-          <h3>Freelance Engagement Letter</h3>
-          <p>Project-based engagement with scope, timeline, and deliverables.</p>
-          <span class="cat-badge letter">Letter · Template A</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','appreciation-letter',null)">
-          <div class="cat-icon">⭐</div>
-          <h3>Appreciation Letter</h3>
-          <p>Recognize outstanding performance and meaningful contributions.</p>
-          <span class="cat-badge letter">Letter · Template A</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','promotion-letter',null)">
-          <div class="cat-icon">🚀</div>
-          <h3>Promotion Letter</h3>
-          <p>Official role upgrade with new designation and responsibilities.</p>
-          <span class="cat-badge letter">Letter · Template A</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','warning-letter',null)">
-          <div class="cat-icon">⚠️</div>
-          <h3>Warning Letter</h3>
-          <p>Formal warning for policy violations or performance issues.</p>
-          <span class="cat-badge letter">Letter · Template A</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','experience-letter',null)">
-          <div class="cat-icon">📄</div>
-          <h3>Experience Letter</h3>
-          <p>Official confirmation of service period, role, and performance summary.</p>
-          <span class="cat-badge exp">Letter · Template C</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','relieving-letter',null)">
-          <div class="cat-icon">🔓</div>
-          <h3>Relieving Letter</h3>
-          <p>Formal exit clearance confirming no pending dues or obligations.</p>
-          <span class="cat-badge letter">Letter · Template A</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','lor',null)">
-          <div class="cat-icon">🏆</div>
-          <h3>Letter of Recommendation</h3>
-          <p>Detailed professional endorsement for higher studies or employment.</p>
-          <span class="cat-badge letter">Letter · Template A</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','internship-cert',null)">
-          <div class="cat-icon">🎖️</div>
-          <h3>Internship Certificate</h3>
-          <p>Official completion certificate for internship programs.</p>
-          <span class="cat-badge cert">Certificate · Template B</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','experience-cert',null)">
-          <div class="cat-icon">📜</div>
-          <h3>Experience Certificate</h3>
-          <p>Full-tenure experience certificate with role and duration.</p>
-          <span class="cat-badge cert">Certificate · Template B</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','volunteer-cert',null)">
-          <div class="cat-icon">💚</div>
-          <h3>Volunteer Certificate</h3>
-          <p>Recognition for volunteer contributions to the AcademeForge ecosystem.</p>
-          <span class="cat-badge cert">Certificate · Template B</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','appreciation-cert',null)">
-          <div class="cat-icon">⭐</div>
-          <h3>Certificate of Appreciation</h3>
-          <p>Recognize dedication and positive impact across departments.</p>
-          <span class="cat-badge cert">Certificate · Template B</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','excellence-cert',null)">
-          <div class="cat-icon">🥇</div>
-          <h3>Certificate of Excellence</h3>
-          <p>For top performers who have exceeded expectations significantly.</p>
-          <span class="cat-badge cert">Certificate · Template B</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','leadership-cert',null)">
-          <div class="cat-icon">👑</div>
-          <h3>Leadership Certificate</h3>
-          <p>For team leads and individuals in leadership roles.</p>
-          <span class="cat-badge cert">Certificate · Template B</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','campus-cert',null)">
-          <div class="cat-icon">🏫</div>
-          <h3>Campus Ambassador Certificate</h3>
-          <p>Official recognition for campus representatives and brand ambassadors.</p>
-          <span class="cat-badge cert">Certificate · Template B</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','training-cert',null)">
-          <div class="cat-icon">📚</div>
-          <h3>Training Completion Certificate</h3>
-          <p>For completing structured training, workshops, or bootcamps.</p>
-          <span class="cat-badge cert">Certificate · Template B</span>
-        </div>
-        <div class="category-card" onclick="showPageAndSetType('generator','project-cert',null)">
-          <div class="cat-icon">🔧</div>
-          <h3>Project Completion Certificate</h3>
-          <p>For successful delivery of assigned projects or milestones.</p>
-          <span class="cat-badge cert">Certificate · Template B</span>
-        </div>
+        <div class="category-card" onclick="showPageAndSetType('generator','offer-letter',null)"><div class="cat-icon">📋</div><h3>Offer Letter</h3><p>For Part-Time, Full-Time, and Paid roles. Includes CTC, role details, and joining instructions.</p><span class="cat-badge letter">Letter · Template A</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','internship-offer',null)"><div class="cat-icon">🎓</div><h3>Internship Offer Letter</h3><p>Paid or unpaid internship offers with stipend, duration, and deliverables section.</p><span class="cat-badge letter">Letter · Template A</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','joining-letter',null)"><div class="cat-icon">🤝</div><h3>Joining Confirmation Letter</h3><p>Official confirmation after candidate accepts offer and formally joins the team.</p><span class="cat-badge letter">Letter · Template A</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','volunteer-letter',null)"><div class="cat-icon">💚</div><h3>Volunteer Acceptance Letter</h3><p>For volunteer and unpaid contributor roles across departments.</p><span class="cat-badge letter">Letter · Template A</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','freelance-letter',null)"><div class="cat-icon">💼</div><h3>Freelance Engagement Letter</h3><p>Project-based engagement with scope, timeline, and deliverables.</p><span class="cat-badge letter">Letter · Template A</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','appreciation-letter',null)"><div class="cat-icon">⭐</div><h3>Appreciation Letter</h3><p>Recognize outstanding performance and meaningful contributions.</p><span class="cat-badge letter">Letter · Template A</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','promotion-letter',null)"><div class="cat-icon">🚀</div><h3>Promotion Letter</h3><p>Official role upgrade with new designation and responsibilities.</p><span class="cat-badge letter">Letter · Template A</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','warning-letter',null)"><div class="cat-icon">⚠️</div><h3>Warning Letter</h3><p>Formal warning for policy violations or performance issues.</p><span class="cat-badge letter">Letter · Template A</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','experience-letter',null)"><div class="cat-icon">📄</div><h3>Experience Letter</h3><p>Official confirmation of service period, role, and performance summary.</p><span class="cat-badge exp">Letter · Template C</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','relieving-letter',null)"><div class="cat-icon">🔓</div><h3>Relieving Letter</h3><p>Formal exit clearance confirming no pending dues or obligations.</p><span class="cat-badge letter">Letter · Template A</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','lor',null)"><div class="cat-icon">🏆</div><h3>Letter of Recommendation</h3><p>Detailed professional endorsement for higher studies or employment.</p><span class="cat-badge letter">Letter · Template A</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','internship-cert',null)"><div class="cat-icon">🎖️</div><h3>Internship Certificate</h3><p>Official completion certificate for internship programs.</p><span class="cat-badge cert">Certificate · Template B</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','experience-cert',null)"><div class="cat-icon">📜</div><h3>Experience Certificate</h3><p>Full-tenure experience certificate with role and duration.</p><span class="cat-badge cert">Certificate · Template B</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','volunteer-cert',null)"><div class="cat-icon">💚</div><h3>Volunteer Certificate</h3><p>Recognition for volunteer contributions to the AcademeForge ecosystem.</p><span class="cat-badge cert">Certificate · Template B</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','appreciation-cert',null)"><div class="cat-icon">⭐</div><h3>Certificate of Appreciation</h3><p>Recognize dedication and positive impact across departments.</p><span class="cat-badge cert">Certificate · Template B</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','excellence-cert',null)"><div class="cat-icon">🥇</div><h3>Certificate of Excellence</h3><p>For top performers who have exceeded expectations significantly.</p><span class="cat-badge cert">Certificate · Template B</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','leadership-cert',null)"><div class="cat-icon">👑</div><h3>Leadership Certificate</h3><p>For team leads and individuals in leadership roles.</p><span class="cat-badge cert">Certificate · Template B</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','campus-cert',null)"><div class="cat-icon">🏫</div><h3>Campus Ambassador Certificate</h3><p>Official recognition for campus representatives and brand ambassadors.</p><span class="cat-badge cert">Certificate · Template B</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','training-cert',null)"><div class="cat-icon">📚</div><h3>Training Completion Certificate</h3><p>For completing structured training, workshops, or bootcamps.</p><span class="cat-badge cert">Certificate · Template B</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','project-cert',null)"><div class="cat-icon">🔧</div><h3>Project Completion Certificate</h3><p>For successful delivery of assigned projects or milestones.</p><span class="cat-badge cert">Certificate · Template B</span></div>
+        <div class="category-card" onclick="showPageAndSetType('generator','custom-cert',null)" style="border-color:rgba(245,158,11,0.3);"><div class="cat-icon">✨</div><h3>Custom Certificate Builder</h3><p>Build any custom certificate — AI Pioneer, Hackathon Winner, Innovation Award, Research Excellence — fully customizable.</p><span class="cat-badge custom">Certificate · Custom</span></div>
       </div>
     </div>
 
     <!-- ===== GENERATOR ===== -->
     <div class="page" id="page-generator">
       <div class="section-header">
-        <div>
-          <div class="section-title" id="generatorTitle">Generate Document</div>
-          <div class="section-sub">Fill in the details and preview your professional document instantly.</div>
-        </div>
+        <div><div class="section-title" id="generatorTitle">Generate Document</div><div class="section-sub">Fill in the details and preview your professional document instantly.</div></div>
       </div>
       <div class="generator-layout">
         <!-- FORM PANEL -->
         <div class="form-panel">
           <h2>Document Details</h2>
           <p>Select document type and fill required fields. Auto-ID is generated automatically.</p>
+          <div class="doc-type-grid" id="docTypeGrid"></div>
+          <div class="auto-id-display" id="autoIdDisplay">🆔 <span id="autoIdValue">AF-CERT-2026-0001</span></div>
 
-          <div class="doc-type-grid" id="docTypeGrid">
-            <!-- filled by JS -->
+          <!-- CERT THEME SWITCHER (only for cert types) -->
+          <div id="themeSwitcherWrap" style="display:none;margin-bottom:18px;">
+            <div class="theme-label">🎨 Certificate Theme</div>
+            <div class="theme-switcher">
+              <div class="theme-chip active" data-theme-id="corporate" title="Corporate Green" onclick="setCertTheme('corporate',this)"></div>
+              <div class="theme-chip" data-theme-id="royal" title="Royal Purple" onclick="setCertTheme('royal',this)"></div>
+              <div class="theme-chip" data-theme-id="academic" title="Academic Blue" onclick="setCertTheme('academic',this)"></div>
+              <div class="theme-chip" data-theme-id="gold" title="Gold Excellence" onclick="setCertTheme('gold',this)"></div>
+              <div class="theme-chip" data-theme-id="ai" title="AI Innovation" onclick="setCertTheme('ai',this)"></div>
+            </div>
           </div>
 
-          <div class="auto-id-display" id="autoIdDisplay">
-            🆔 <span id="autoIdValue">AF-CERT-2026-0001</span>
+          <!-- STANDARD FIELDS -->
+          <div id="standardFields">
+            <div class="form-group"><label>Full Name</label><input type="text" id="f-name" placeholder="Devraj Kumar" oninput="liveUpdate()"/></div>
+            <div class="form-row">
+              <div class="form-group"><label>Role / Position</label><input type="text" id="f-role" placeholder="Founder & CEO" oninput="liveUpdate()"/></div>
+              <div class="form-group"><label>Department <span>(optional)</span></label><input type="text" id="f-dept" placeholder="Engineering" oninput="liveUpdate()"/></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Start Date</label><input type="text" id="f-start" placeholder="01 Jan 2026" oninput="liveUpdate()"/></div>
+              <div class="form-group"><label>End Date <span>(if applicable)</span></label><input type="text" id="f-end" placeholder="31 Mar 2026" oninput="liveUpdate()"/></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Issue Date</label><input type="text" id="f-date" placeholder="05 Jun 2026" oninput="liveUpdate()"/></div>
+              <div class="form-group"><label>Duration / Work Type</label><input type="text" id="f-duration" placeholder="Flexible Volunteer" oninput="liveUpdate()"/></div>
+            </div>
+            <div class="form-group" id="stipendGroup">
+              <label>Stipend / CTC <span>(optional)</span></label>
+              <input type="text" id="f-stipend" placeholder="₹5,000/month or Unpaid" oninput="liveUpdate()"/>
+            </div>
+            <div class="form-group"><label>Additional Description <span>(optional)</span></label><textarea id="f-desc" placeholder="Any extra context or description..." oninput="liveUpdate()"></textarea></div>
+            <div class="divider"></div>
+            <div class="form-group"><label>Signatory Name</label><input type="text" id="f-signname" value="Devraj Kumar" oninput="liveUpdate()"/></div>
+            <div class="form-group"><label>Signatory Position</label><input type="text" id="f-signrole" value="Founder & CEO, AcademeForge" oninput="liveUpdate()"/></div>
           </div>
 
-          <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" id="f-name" placeholder="Devraj Kumar" oninput="liveUpdate()"/>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Role / Position</label>
-              <input type="text" id="f-role" placeholder="Founder & CEO" oninput="liveUpdate()"/>
+          <!-- CUSTOM CERT EXTRA FIELDS -->
+          <div id="customCertFields" style="display:none;">
+            <div class="custom-builder-section">
+              <h3>✏️ Certificate Text</h3>
+              <div class="form-group"><label>Certificate Title</label><input type="text" id="cc-title" placeholder="AI Pioneer Certificate" oninput="liveUpdate()"/></div>
+              <div class="form-group"><label>Certificate Subtitle</label><input type="text" id="cc-subtitle" placeholder="Certificate of Innovation & Excellence" oninput="liveUpdate()"/></div>
+              <div class="form-group"><label>Award Category</label><input type="text" id="cc-category" placeholder="Innovation Award" oninput="liveUpdate()"/></div>
+              <div class="form-group"><label>Custom Achievement Line</label><input type="text" id="cc-achievement" placeholder="For outstanding contribution to AI research" oninput="liveUpdate()"/></div>
+              <div class="form-group"><label>Footer Note</label><input type="text" id="cc-footer" placeholder="This award is valid for lifetime recognition." oninput="liveUpdate()"/></div>
+              <div class="form-group"><label>Organization Name</label><input type="text" id="cc-org" placeholder="AcademeForge" oninput="liveUpdate()"/></div>
+              <div class="form-group"><label>Organization Tagline</label><input type="text" id="cc-tagline" placeholder="Building Skills. Creating Opportunities." oninput="liveUpdate()"/></div>
             </div>
-            <div class="form-group">
-              <label>Department <span>(optional)</span></label>
-              <input type="text" id="f-dept" placeholder="Engineering" oninput="liveUpdate()"/>
+            <div class="custom-builder-section">
+              <h3>🎨 Theme Color</h3>
+              <div class="color-row">
+                <input type="color" id="cc-color" value="#16a34a" oninput="liveUpdate()"/>
+                <span>Primary accent color for border, heading, and highlights</span>
+              </div>
+            </div>
+            <div class="custom-builder-section">
+              <h3>🖼️ Upload Assets</h3>
+              <div class="form-group"><label>Custom Logo</label>
+                <div class="upload-area"><input type="file" accept="image/*" id="cc-logo-upload" onchange="handleUpload('cc-logo-upload','cc-logo-preview')"/>
+                  <div class="u-icon">🏢</div><p>Click to upload logo</p>
+                  <img id="cc-logo-preview" class="upload-preview" style="display:none;"/>
+                </div>
+              </div>
+              <div class="form-group"><label>Custom Signature</label>
+                <div class="upload-area"><input type="file" accept="image/*" id="cc-sign-upload" onchange="handleUpload('cc-sign-upload','cc-sign-preview')"/>
+                  <div class="u-icon">✍️</div><p>Click to upload signature</p>
+                  <img id="cc-sign-preview" class="upload-preview" style="display:none;"/>
+                </div>
+              </div>
+              <div class="form-group"><label>Custom Seal</label>
+                <div class="upload-area"><input type="file" accept="image/*" id="cc-seal-upload" onchange="handleUpload('cc-seal-upload','cc-seal-preview')"/>
+                  <div class="u-icon">🔏</div><p>Click to upload seal</p>
+                  <img id="cc-seal-preview" class="upload-preview" style="display:none;"/>
+                </div>
+              </div>
+            </div>
+            <div class="custom-builder-section">
+              <h3>👁️ Show / Hide Sections</h3>
+              <div class="toggle-row"><label>Show MSME Badge</label><label class="toggle"><input type="checkbox" id="cc-show-msme" checked onchange="liveUpdate()"/><span class="toggle-slider"></span></label></div>
+              <div class="toggle-row"><label>Show Dates Section</label><label class="toggle"><input type="checkbox" id="cc-show-dates" checked onchange="liveUpdate()"/><span class="toggle-slider"></span></label></div>
+              <div class="toggle-row"><label>Show Watermark</label><label class="toggle"><input type="checkbox" id="cc-show-watermark" onchange="liveUpdate()"/><span class="toggle-slider"></span></label></div>
+              <div class="toggle-row"><label>Show QR Code</label><label class="toggle"><input type="checkbox" id="cc-show-qr" checked onchange="liveUpdate()"/><span class="toggle-slider"></span></label></div>
+              <div class="toggle-row"><label>Show Achievement Line</label><label class="toggle"><input type="checkbox" id="cc-show-achievement" checked onchange="liveUpdate()"/><span class="toggle-slider"></span></label></div>
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Start Date</label>
-              <input type="text" id="f-start" placeholder="01 Jan 2026" oninput="liveUpdate()"/>
-            </div>
-            <div class="form-group">
-              <label>End Date <span>(if applicable)</span></label>
-              <input type="text" id="f-end" placeholder="31 Mar 2026" oninput="liveUpdate()"/>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Issue Date</label>
-              <input type="text" id="f-date" placeholder="05 Jun 2026" oninput="liveUpdate()"/>
-            </div>
-            <div class="form-group">
-              <label>Duration / Work Type</label>
-              <input type="text" id="f-duration" placeholder="Flexible Volunteer" oninput="liveUpdate()"/>
-            </div>
-          </div>
-          <div class="form-group" id="stipendGroup">
-            <label>Stipend / CTC <span>(optional)</span></label>
-            <input type="text" id="f-stipend" placeholder="₹5,000/month or Unpaid" oninput="liveUpdate()"/>
-          </div>
-          <div class="form-group">
-            <label>Additional Description <span>(optional)</span></label>
-            <textarea id="f-desc" placeholder="Any extra context or description..." oninput="liveUpdate()"></textarea>
-          </div>
-          <div class="divider"></div>
-          <div class="form-group">
-            <label>Signatory Name</label>
-            <input type="text" id="f-signname" value="Devraj Kumar" oninput="liveUpdate()"/>
-          </div>
-          <div class="form-group">
-            <label>Signatory Position</label>
-            <input type="text" id="f-signrole" value="Founder & CEO, AcademeForge" oninput="liveUpdate()"/>
-          </div>
-          <button class="action-btn btn-primary" onclick="generateDocument()">⚡ Generate & Save Document</button>
-          <button class="action-btn btn-white" onclick="window.print()">🖨️ Download / Print PDF</button>
-          <div class="tip-box">💡 Tip: Fill all fields and click Generate. The document preview updates live as you type.</div>
+
+          <button class="action-btn btn-primary" onclick="generateDocument()">⚡ Generate &amp; Save Document</button>
+          <button class="action-btn btn-pdf" onclick="downloadPDF()">📥 Download PDF</button>
+          <button class="action-btn btn-png" onclick="downloadPNG()">🖼️ Download PNG</button>
+          <button class="action-btn btn-secondary" onclick="duplicateDoc()">📋 Duplicate</button>
+          <div class="tip-box">💡 Tip: Select a theme chip to instantly change the certificate design. PDF exports only the document — no sidebar or UI.</div>
         </div>
 
         <!-- PREVIEW PANEL -->
         <div class="preview-panel">
-          <h2>Live Preview</h2>
-          <div class="preview-wrap" id="previewWrap">
-            <!-- Generated content goes here -->
+          <div class="preview-panel-header">
+            <h2>Live Preview</h2>
+            <div class="preview-actions">
+              <button class="preview-action-btn pdf" onclick="downloadPDF()">📥 PDF</button>
+              <button class="preview-action-btn png" onclick="downloadPNG()">🖼️ PNG</button>
+              <button class="preview-action-btn dup" onclick="duplicateDoc()">📋 Duplicate</button>
+            </div>
           </div>
+          <div class="preview-wrap" id="previewWrap"></div>
         </div>
       </div>
     </div>
@@ -932,10 +743,7 @@ tr:hover td{background:var(--bg4);}
     <!-- ===== HISTORY ===== -->
     <div class="page" id="page-history">
       <div class="section-header">
-        <div>
-          <div class="section-title">Document History</div>
-          <div class="section-sub">All generated documents with export and management options.</div>
-        </div>
+        <div><div class="section-title">Document History</div><div class="section-sub">All generated documents with export and management options.</div></div>
       </div>
       <div class="filter-bar">
         <input type="text" class="search-input" id="historySearch" placeholder="🔍 Search by name, ID or type..." oninput="renderHistory()"/>
@@ -944,27 +752,14 @@ tr:hover td{background:var(--bg4);}
           <option value="letter">Letters</option>
           <option value="cert">Certificates</option>
         </select>
-        <button class="action-btn btn-secondary" style="width:auto;padding:11px 20px;margin-top:0;" onclick="clearHistory()">🗑️ Clear All</button>
+        <button class="action-btn btn-secondary print-ignore" style="width:auto;padding:11px 20px;margin-top:0;" onclick="clearHistory()">🗑️ Clear All</button>
       </div>
       <div class="table-wrap">
         <table>
-          <thead>
-            <tr>
-              <th>Document ID</th>
-              <th>Recipient</th>
-              <th>Document Type</th>
-              <th>Date Generated</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="historyTableBody">
-          </tbody>
+          <thead><tr><th>Document ID</th><th>Recipient</th><th>Document Type</th><th>Date Generated</th><th>Actions</th></tr></thead>
+          <tbody id="historyTableBody"></tbody>
         </table>
-        <div class="empty-state print-ignore" id="historyEmpty" style="display:none;">
-          <div class="empty-icon">📂</div>
-          <h3>No documents yet</h3>
-          <p>Generate a document from the form to see it appear here.</p>
-        </div>
+        <div class="empty-state print-ignore" id="historyEmpty" style="display:none;"><div class="empty-icon">📂</div><h3>No documents yet</h3><p>Generate a document from the form to see it appear here.</p></div>
       </div>
     </div>
 
@@ -975,410 +770,449 @@ tr:hover td{background:var(--bg4);}
           <div class="verify-icon">🔍</div>
           <h2>Document Verification</h2>
           <p>Enter the Document ID printed on the certificate or letter to verify its authenticity.</p>
-          <div class="form-group">
-            <input type="text" id="verifyInput" placeholder="e.g. AF-CERT-2026-0001" style="text-transform:uppercase;" oninput="this.value=this.value.toUpperCase()"/>
-          </div>
+          <div class="form-group"><input type="text" id="verifyInput" placeholder="e.g. AF-CERT-2026-0001" style="text-transform:uppercase;" oninput="this.value=this.value.toUpperCase()"/></div>
           <button class="action-btn btn-primary" onclick="verifyDocument()">✅ Verify Document</button>
           <div id="verifyResult" style="display:none;"></div>
         </div>
       </div>
     </div>
-
-  </div><!-- /main -->
-</div><!-- /app -->
-
-
-     <!-----------------------  JAVA SCRIPT STARTS --------------------------------------->
-
-  
+  </div>
+</div>
 
 <script>
-
-
 /* =============================================
    CONSTANTS
 ============================================= */
-const EDGE_URL = 'https://afooyyydhlwngzssgqih.supabase.co/functions/v1/af-certificate-api';
+const EDGE_URL='https://afooyyydhlwngzssgqih.supabase.co/functions/v1/af-certificate-api';
 
 /* =============================================
    STATE
 ============================================= */
-let currentType = 'internship-cert';
-let documentHistory = [];
-let docCounters = {};
-let isDark = true;
-let _liveTimerHandle = null;
+let currentType='internship-cert';
+let documentHistory=[];
+let docCounters={};
+let isDark=true;
+let _liveTimerHandle=null;
+let currentCertTheme='corporate';
+let customLogoDataURL=null;
+let customSignDataURL=null;
+let customSealDataURL=null;
 
-function loadLocalState() {
-  try {
-    documentHistory = JSON.parse(localStorage.getItem('af_doc_history') || '[]');
-    if (!Array.isArray(documentHistory)) documentHistory = [];
-  } catch (e) {
-    console.warn('[AF] Could not parse af_doc_history from localStorage:', e);
-    documentHistory = [];
-  }
-  try {
-    docCounters = JSON.parse(localStorage.getItem('af_doc_counters') || '{}');
-    if (typeof docCounters !== 'object' || Array.isArray(docCounters)) docCounters = {};
-  } catch (e) {
-    console.warn('[AF] Could not parse af_doc_counters from localStorage:', e);
-    docCounters = {};
-  }
+function loadLocalState(){
+  try{ documentHistory=JSON.parse(localStorage.getItem('af_doc_history')||'[]'); if(!Array.isArray(documentHistory))documentHistory=[]; }
+  catch(e){ console.warn('[AF] Could not parse af_doc_history:',e); documentHistory=[]; }
+  try{ docCounters=JSON.parse(localStorage.getItem('af_doc_counters')||'{}'); if(typeof docCounters!=='object'||Array.isArray(docCounters))docCounters={}; }
+  catch(e){ console.warn('[AF] Could not parse af_doc_counters:',e); docCounters={}; }
 }
+
+/* =============================================
+   TOAST
+============================================= */
+function toast(msg, type='info', dur=3500){
+  const wrap=document.getElementById('toastWrap');
+  if(!wrap)return;
+  const icons={success:'✅',error:'❌',info:'ℹ️'};
+  const el=document.createElement('div');
+  el.className='toast '+type;
+  el.innerHTML=`<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+  wrap.appendChild(el);
+  setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateX(20px)'; setTimeout(()=>el.remove(),300); }, dur);
+}
+
+/* =============================================
+   PROGRESS
+============================================= */
+function showProgress(title='Processing…', msg='Please wait…'){
+  const ov=document.getElementById('progressOverlay');
+  const tf=document.getElementById('progressTitle');
+  const mf=document.getElementById('progressMsg');
+  const pf=document.getElementById('progressFill');
+  if(tf)tf.textContent=title;
+  if(mf)mf.textContent=msg;
+  if(pf)pf.style.width='0%';
+  if(ov)ov.classList.add('active');
+  return pf;
+}
+function setProgress(pf,pct){ if(pf)pf.style.width=pct+'%'; }
+function hideProgress(){ const ov=document.getElementById('progressOverlay'); if(ov)ov.classList.remove('active'); }
 
 /* =============================================
    DOC TYPE CONFIG
 ============================================= */
-const DOC_TYPES = {
-  'offer-letter':        { label:'Offer Letter',                  prefix:'AF-OFFER',  cat:'letter', template:'letter', heading:'OFFER LETTER',              tag:'OFFICIAL OFFER LETTER',           style:'joining' },
-  'internship-offer':    { label:'Internship Offer',              prefix:'AF-INTN',   cat:'letter', template:'letter', heading:'INTERNSHIP OFFER LETTER',    tag:'OFFICIAL INTERNSHIP OFFER',       style:'joining' },
-  'joining-letter':      { label:'Joining Letter',                prefix:'AF-JOIN',   cat:'letter', template:'letter', heading:'JOINING CONFIRMATION',       tag:'OFFICIAL JOINING LETTER',         style:'joining' },
-  'volunteer-letter':    { label:'Volunteer Letter',              prefix:'AF-VOL',    cat:'letter', template:'letter', heading:'VOLUNTEER ACCEPTANCE',       tag:'VOLUNTEER ENGAGEMENT LETTER',     style:'joining' },
-  'freelance-letter':    { label:'Freelance Letter',              prefix:'AF-FREE',   cat:'letter', template:'letter', heading:'FREELANCE ENGAGEMENT',       tag:'PROJECT ENGAGEMENT LETTER',       style:'joining' },
-  'appreciation-letter': { label:'Appreciation Letter',           prefix:'AF-APPR',   cat:'letter', template:'letter', heading:'APPRECIATION LETTER',        tag:'LETTER OF APPRECIATION',          style:'appreciation' },
-  'promotion-letter':    { label:'Promotion Letter',              prefix:'AF-PROMO',  cat:'letter', template:'letter', heading:'PROMOTION LETTER',           tag:'OFFICIAL PROMOTION LETTER',       style:'joining' },
-  'warning-letter':      { label:'Warning Letter',                prefix:'AF-WARN',   cat:'letter', template:'letter', heading:'WARNING LETTER',             tag:'FORMAL WARNING NOTICE',           style:'warning' },
-  'experience-letter':   { label:'Experience Letter',             prefix:'AF-EXP',    cat:'letter', template:'letter', heading:'EXPERIENCE LETTER',          tag:'OFFICIAL EXPERIENCE LETTER',      style:'experience' },
-  'relieving-letter':    { label:'Relieving Letter',              prefix:'AF-REL',    cat:'letter', template:'letter', heading:'RELIEVING LETTER',           tag:'OFFICIAL RELIEVING LETTER',       style:'experience' },
-  'lor':                 { label:'Letter of Recommendation',      prefix:'AF-LOR',    cat:'letter', template:'letter', heading:'LETTER OF RECOMMENDATION',   tag:'OFFICIAL RECOMMENDATION',         style:'joining' },
-  'internship-cert':     { label:'Internship Certificate',        prefix:'AF-CERT',   cat:'cert',   template:'cert',   heading:'INTERNSHIP CERTIFICATE',     tag:'OFFICIAL COMPLETION CERTIFICATE', style:'joining' },
-  'experience-cert':     { label:'Experience Certificate',        prefix:'AF-EXP',    cat:'cert',   template:'cert',   heading:'EXPERIENCE CERTIFICATE',     tag:'OFFICIAL COMPLETION CERTIFICATE', style:'experience' },
-  'volunteer-cert':      { label:'Volunteer Certificate',         prefix:'AF-VOL',    cat:'cert',   template:'cert',   heading:'VOLUNTEER CERTIFICATE',      tag:'VOLUNTEER COMPLETION CERTIFICATE',style:'joining' },
-  'appreciation-cert':   { label:'Appreciation Certificate',      prefix:'AF-CERT',   cat:'cert',   template:'cert',   heading:'CERTIFICATE OF APPRECIATION',tag:'CERTIFICATE OF APPRECIATION',     style:'appreciation' },
-  'excellence-cert':     { label:'Excellence Certificate',        prefix:'AF-CERT',   cat:'cert',   template:'cert',   heading:'CERTIFICATE OF EXCELLENCE',  tag:'CERTIFICATE OF EXCELLENCE',       style:'appreciation' },
-  'leadership-cert':     { label:'Leadership Certificate',        prefix:'AF-LEAD',   cat:'cert',   template:'cert',   heading:'LEADERSHIP CERTIFICATE',     tag:'OFFICIAL LEADERSHIP AWARD',       style:'experience' },
-  'campus-cert':         { label:'Campus Ambassador Certificate', prefix:'AF-CA',     cat:'cert',   template:'cert',   heading:'CAMPUS AMBASSADOR',          tag:'OFFICIAL CAMPUS AMBASSADOR CERT', style:'joining' },
-  'training-cert':       { label:'Training Certificate',          prefix:'AF-TRAIN',  cat:'cert',   template:'cert',   heading:'TRAINING CERTIFICATE',       tag:'TRAINING COMPLETION CERTIFICATE', style:'joining' },
-  'project-cert':        { label:'Project Certificate',           prefix:'AF-PROJ',   cat:'cert',   template:'cert',   heading:'PROJECT COMPLETION',         tag:'PROJECT COMPLETION CERTIFICATE',  style:'joining' },
+const DOC_TYPES={
+  'offer-letter':        {label:'Offer Letter',                  prefix:'AF-OFFER', cat:'letter',template:'letter',heading:'OFFER LETTER',           tag:'OFFICIAL OFFER LETTER',          style:'joining'},
+  'internship-offer':    {label:'Internship Offer',              prefix:'AF-INTN',  cat:'letter',template:'letter',heading:'INTERNSHIP OFFER LETTER', tag:'OFFICIAL INTERNSHIP OFFER',      style:'joining'},
+  'joining-letter':      {label:'Joining Letter',                prefix:'AF-JOIN',  cat:'letter',template:'letter',heading:'JOINING CONFIRMATION',    tag:'OFFICIAL JOINING LETTER',        style:'joining'},
+  'volunteer-letter':    {label:'Volunteer Letter',              prefix:'AF-VOL',   cat:'letter',template:'letter',heading:'VOLUNTEER ACCEPTANCE',    tag:'VOLUNTEER ENGAGEMENT LETTER',    style:'joining'},
+  'freelance-letter':    {label:'Freelance Letter',              prefix:'AF-FREE',  cat:'letter',template:'letter',heading:'FREELANCE ENGAGEMENT',    tag:'PROJECT ENGAGEMENT LETTER',      style:'joining'},
+  'appreciation-letter': {label:'Appreciation Letter',           prefix:'AF-APPR',  cat:'letter',template:'letter',heading:'APPRECIATION LETTER',     tag:'LETTER OF APPRECIATION',         style:'appreciation'},
+  'promotion-letter':    {label:'Promotion Letter',              prefix:'AF-PROMO', cat:'letter',template:'letter',heading:'PROMOTION LETTER',        tag:'OFFICIAL PROMOTION LETTER',      style:'joining'},
+  'warning-letter':      {label:'Warning Letter',                prefix:'AF-WARN',  cat:'letter',template:'letter',heading:'WARNING LETTER',          tag:'FORMAL WARNING NOTICE',          style:'warning'},
+  'experience-letter':   {label:'Experience Letter',             prefix:'AF-EXP',   cat:'letter',template:'letter',heading:'EXPERIENCE LETTER',       tag:'OFFICIAL EXPERIENCE LETTER',     style:'experience'},
+  'relieving-letter':    {label:'Relieving Letter',              prefix:'AF-REL',   cat:'letter',template:'letter',heading:'RELIEVING LETTER',        tag:'OFFICIAL RELIEVING LETTER',      style:'experience'},
+  'lor':                 {label:'Letter of Recommendation',      prefix:'AF-LOR',   cat:'letter',template:'letter',heading:'LETTER OF RECOMMENDATION',tag:'OFFICIAL RECOMMENDATION',        style:'joining'},
+  'internship-cert':     {label:'Internship Certificate',        prefix:'AF-CERT',  cat:'cert',  template:'cert',  heading:'INTERNSHIP CERTIFICATE',  tag:'OFFICIAL COMPLETION CERTIFICATE',style:'joining'},
+  'experience-cert':     {label:'Experience Certificate',        prefix:'AF-EXP',   cat:'cert',  template:'cert',  heading:'EXPERIENCE CERTIFICATE',  tag:'OFFICIAL COMPLETION CERTIFICATE',style:'experience'},
+  'volunteer-cert':      {label:'Volunteer Certificate',         prefix:'AF-VOL',   cat:'cert',  template:'cert',  heading:'VOLUNTEER CERTIFICATE',   tag:'VOLUNTEER COMPLETION CERTIFICATE',style:'joining'},
+  'appreciation-cert':   {label:'Appreciation Certificate',      prefix:'AF-CERT',  cat:'cert',  template:'cert',  heading:'CERTIFICATE OF APPRECIATION',tag:'CERTIFICATE OF APPRECIATION', style:'appreciation'},
+  'excellence-cert':     {label:'Excellence Certificate',        prefix:'AF-CERT',  cat:'cert',  template:'cert',  heading:'CERTIFICATE OF EXCELLENCE',tag:'CERTIFICATE OF EXCELLENCE',     style:'appreciation'},
+  'leadership-cert':     {label:'Leadership Certificate',        prefix:'AF-LEAD',  cat:'cert',  template:'cert',  heading:'LEADERSHIP CERTIFICATE',  tag:'OFFICIAL LEADERSHIP AWARD',      style:'experience'},
+  'campus-cert':         {label:'Campus Ambassador Certificate', prefix:'AF-CA',    cat:'cert',  template:'cert',  heading:'CAMPUS AMBASSADOR',       tag:'OFFICIAL CAMPUS AMBASSADOR CERT',style:'joining'},
+  'training-cert':       {label:'Training Certificate',          prefix:'AF-TRAIN', cat:'cert',  template:'cert',  heading:'TRAINING CERTIFICATE',    tag:'TRAINING COMPLETION CERTIFICATE',style:'joining'},
+  'project-cert':        {label:'Project Certificate',           prefix:'AF-PROJ',  cat:'cert',  template:'cert',  heading:'PROJECT COMPLETION',      tag:'PROJECT COMPLETION CERTIFICATE', style:'joining'},
+  'custom-cert':         {label:'Custom Certificate',            prefix:'AF-CUST',  cat:'cert',  template:'custom',heading:'',                        tag:'',                               style:'joining'},
 };
 
-const DOC_DESCRIPTIONS = {
-  'offer-letter':        (d) => `We are pleased to offer you the position of <strong>${d.role}</strong> at AcademeForge. After careful consideration of your profile, skills, and experience, we are confident that you will be a valuable addition to our growing team. This offer is subject to the completion of onboarding formalities.`,
-  'internship-offer':    (d) => `We are delighted to offer you an internship opportunity at AcademeForge as <strong>${d.role}</strong>. This internship will provide you with hands-on experience, mentorship, and exposure to real-world projects.${d.stipend ? ` Stipend: <strong>${d.stipend}</strong>.` : ''} We look forward to your contribution.`,
-  'joining-letter':      (d) => `This is to confirm that <strong>${d.name}</strong> has successfully completed all onboarding formalities and has officially joined AcademeForge as <strong>${d.role}</strong>${d.dept ? ' in the ' + d.dept + ' department' : ''}. We warmly welcome you to our team and wish you a successful journey ahead.`,
-  'volunteer-letter':    (d) => `We are pleased to confirm the acceptance of <strong>${d.name}</strong> as a Volunteer at AcademeForge in the capacity of <strong>${d.role}</strong>. Your commitment to our mission and your willingness to contribute is truly appreciated. We look forward to a meaningful collaboration.`,
-  'freelance-letter':    (d) => `This letter confirms the engagement of <strong>${d.name}</strong> as a Freelance Contributor with AcademeForge for the role of <strong>${d.role}</strong>. The engagement is project-based and governed by the mutually agreed scope of work, timeline, and deliverables.`,
-  'appreciation-letter': (d) => `It is with great pleasure that we extend this letter of appreciation to <strong>${d.name}</strong> for their exceptional performance and outstanding contribution in the role of <strong>${d.role}</strong>. Your dedication, professionalism, and positive attitude have made a significant impact on our team and organization.`,
-  'promotion-letter':    (d) => `We are pleased to inform you that based on your consistent performance, dedication, and growing expertise, you have been promoted to the position of <strong>${d.role}</strong> at AcademeForge. This promotion reflects our confidence in your abilities and your potential for continued growth.`,
-  'warning-letter':      (d) => `This formal warning is being issued to <strong>${d.name}</strong> regarding a reported policy violation or performance concern. We urge you to take immediate corrective action. This letter serves as an official notice, and future incidents may result in further disciplinary action.`,
-  'experience-letter':   (d) => `This is to certify that <strong>${d.name}</strong> has worked with AcademeForge as <strong>${d.role}</strong>${d.dept ? ' in the ' + d.dept + ' department' : ''}. During their tenure, they have demonstrated professionalism, responsibility, and commitment. We appreciate their contributions and wish them the best in future endeavors.`,
-  'relieving-letter':    (d) => `This letter confirms that <strong>${d.name}</strong>, who served as <strong>${d.role}</strong>, has been formally relieved from their duties at AcademeForge. They have fulfilled all obligations and cleared all pending responsibilities. We wish them great success in their future endeavors.`,
-  'lor':                 (d) => `It is my privilege to recommend <strong>${d.name}</strong>, who has served as <strong>${d.role}</strong> at AcademeForge. During their engagement, ${(d.name || '').split(' ')[0] || d.name} consistently demonstrated exceptional aptitude, intellectual curiosity, strong communication skills, and the ability to deliver results under pressure. I wholeheartedly endorse them for any future opportunity.`,
-  'internship-cert':     () => `This is to certify that the individual mentioned above has successfully completed their internship at AcademeForge with dedication, professionalism, and a strong commitment to learning and collaborative growth.`,
-  'experience-cert':     () => `This is to certify that the individual mentioned above has successfully completed their engagement at AcademeForge and has demonstrated professionalism, leadership, communication, and meaningful ecosystem participation throughout the tenure.`,
-  'volunteer-cert':      () => `This is to certify that the individual mentioned above has voluntarily contributed their time, skills, and efforts to AcademeForge, making a meaningful impact on our ecosystem and community.`,
-  'appreciation-cert':   () => `This certificate is proudly presented in recognition of outstanding dedication, exceptional work quality, and meaningful contributions that have made a positive difference at AcademeForge.`,
-  'excellence-cert':     () => `This certificate is awarded in recognition of extraordinary performance, consistent excellence, and a relentless commitment to exceeding expectations at AcademeForge.`,
-  'leadership-cert':     () => `This certificate is presented to recognize exceptional leadership, team management, and mentorship demonstrated during the engagement period at AcademeForge.`,
-  'campus-cert':         () => `This certificate recognizes the outstanding role played as a Campus Ambassador for AcademeForge, representing our brand with integrity, passion, and professionalism.`,
-  'training-cert':       () => `This is to certify that the individual mentioned above has successfully completed the designated training program at AcademeForge with full participation, learning, and engagement.`,
-  'project-cert':        () => `This certificate is awarded for the successful planning, execution, and delivery of an assigned project at AcademeForge, demonstrating technical skill, teamwork, and professionalism.`,
+const DOC_DESCRIPTIONS={
+  'offer-letter':        (d)=>`We are pleased to offer you the position of <strong>${d.role}</strong> at AcademeForge. After careful consideration of your profile, skills, and experience, we are confident that you will be a valuable addition to our growing team. This offer is subject to the completion of onboarding formalities.`,
+  'internship-offer':    (d)=>`We are delighted to offer you an internship opportunity at AcademeForge as <strong>${d.role}</strong>. This internship will provide you with hands-on experience, mentorship, and exposure to real-world projects.${d.stipend?` Stipend: <strong>${d.stipend}</strong>.`:''} We look forward to your contribution.`,
+  'joining-letter':      (d)=>`This is to confirm that <strong>${d.name}</strong> has successfully completed all onboarding formalities and has officially joined AcademeForge as <strong>${d.role}</strong>${d.dept?' in the '+d.dept+' department':''}. We warmly welcome you to our team and wish you a successful journey ahead.`,
+  'volunteer-letter':    (d)=>`We are pleased to confirm the acceptance of <strong>${d.name}</strong> as a Volunteer at AcademeForge in the capacity of <strong>${d.role}</strong>. Your commitment to our mission and your willingness to contribute is truly appreciated. We look forward to a meaningful collaboration.`,
+  'freelance-letter':    (d)=>`This letter confirms the engagement of <strong>${d.name}</strong> as a Freelance Contributor with AcademeForge for the role of <strong>${d.role}</strong>. The engagement is project-based and governed by the mutually agreed scope of work, timeline, and deliverables.`,
+  'appreciation-letter': (d)=>`It is with great pleasure that we extend this letter of appreciation to <strong>${d.name}</strong> for their exceptional performance and outstanding contribution in the role of <strong>${d.role}</strong>. Your dedication, professionalism, and positive attitude have made a significant impact on our team and organization.`,
+  'promotion-letter':    (d)=>`We are pleased to inform you that based on your consistent performance, dedication, and growing expertise, you have been promoted to the position of <strong>${d.role}</strong> at AcademeForge. This promotion reflects our confidence in your abilities and your potential for continued growth.`,
+  'warning-letter':      (d)=>`This formal warning is being issued to <strong>${d.name}</strong> regarding a reported policy violation or performance concern. We urge you to take immediate corrective action. This letter serves as an official notice, and future incidents may result in further disciplinary action.`,
+  'experience-letter':   (d)=>`This is to certify that <strong>${d.name}</strong> has worked with AcademeForge as <strong>${d.role}</strong>${d.dept?' in the '+d.dept+' department':''}. During their tenure, they have demonstrated professionalism, responsibility, and commitment. We appreciate their contributions and wish them the best in future endeavors.`,
+  'relieving-letter':    (d)=>`This letter confirms that <strong>${d.name}</strong>, who served as <strong>${d.role}</strong>, has been formally relieved from their duties at AcademeForge. They have fulfilled all obligations and cleared all pending responsibilities. We wish them great success in their future endeavors.`,
+  'lor':                 (d)=>`It is my privilege to recommend <strong>${d.name}</strong>, who has served as <strong>${d.role}</strong> at AcademeForge. During their engagement, ${(d.name||'').split(' ')[0]||d.name} consistently demonstrated exceptional aptitude, intellectual curiosity, strong communication skills, and the ability to deliver results under pressure. I wholeheartedly endorse them for any future opportunity.`,
+  'internship-cert':     ()=>`This is to certify that the individual mentioned above has successfully completed their internship at AcademeForge with dedication, professionalism, and a strong commitment to learning and collaborative growth.`,
+  'experience-cert':     ()=>`This is to certify that the individual mentioned above has successfully completed their engagement at AcademeForge and has demonstrated professionalism, leadership, communication, and meaningful ecosystem participation throughout the tenure.`,
+  'volunteer-cert':      ()=>`This is to certify that the individual mentioned above has voluntarily contributed their time, skills, and efforts to AcademeForge, making a meaningful impact on our ecosystem and community.`,
+  'appreciation-cert':   ()=>`This certificate is proudly presented in recognition of outstanding dedication, exceptional work quality, and meaningful contributions that have made a positive difference at AcademeForge.`,
+  'excellence-cert':     ()=>`This certificate is awarded in recognition of extraordinary performance, consistent excellence, and a relentless commitment to exceeding expectations at AcademeForge.`,
+  'leadership-cert':     ()=>`This certificate is presented to recognize exceptional leadership, team management, and mentorship demonstrated during the engagement period at AcademeForge.`,
+  'campus-cert':         ()=>`This certificate recognizes the outstanding role played as a Campus Ambassador for AcademeForge, representing our brand with integrity, passion, and professionalism.`,
+  'training-cert':       ()=>`This is to certify that the individual mentioned above has successfully completed the designated training program at AcademeForge with full participation, learning, and engagement.`,
+  'project-cert':        ()=>`This certificate is awarded for the successful planning, execution, and delivery of an assigned project at AcademeForge, demonstrating technical skill, teamwork, and professionalism.`,
+  'custom-cert':         (d)=>d.desc||'This certificate is proudly presented in recognition of outstanding achievement and excellence.',
 };
 
 /* =============================================
-   API HELPERS
+   API HELPERS (unchanged from original)
 ============================================= */
-async function apiCall(body) {
-  console.log('[AF-API] Request:', body.action, body);
-  const response = await fetch(EDGE_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  const data = await response.json();
-  console.log('[AF-API] Response:', body.action, response.status, data);
-  return { ok: response.ok, status: response.status, data };
+async function apiCall(body){
+  console.log('[AF-API] Request:',body.action,body);
+  const response=await fetch(EDGE_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const data=await response.json();
+  console.log('[AF-API] Response:',body.action,response.status,data);
+  return{ok:response.ok,status:response.status,data};
 }
 
 /* =============================================
-   LOGIN
+   LOGIN (unchanged)
 ============================================= */
-window.addEventListener('load', () => {
+window.addEventListener('load',()=>{
   loadLocalState();
-  const session = localStorage.getItem('af_admin_session');
-  if (session === 'authenticated') {
-    const loginScreen = document.getElementById('loginScreen');
-    const app = document.getElementById('app');
-    if (loginScreen) loginScreen.style.display = 'none';
-    if (app) app.style.display = 'block';
+  const session=localStorage.getItem('af_admin_session');
+  if(session==='authenticated'){
+    const ls=document.getElementById('loginScreen');
+    const app=document.getElementById('app');
+    if(ls)ls.style.display='none';
+    if(app)app.style.display='block';
     initApp();
   }
-  const savedTheme = localStorage.getItem('af_theme') || 'dark';
+  const savedTheme=localStorage.getItem('af_theme')||'dark';
   setTheme(savedTheme);
 });
 
-async function login() {
-  const passwordEl = document.getElementById('passwordInput');
-  const errorEl = document.getElementById('errorText');
-  if (!passwordEl || !errorEl) return;
-
-  const password = passwordEl.value.trim();
-  if (!password) {
-    errorEl.style.display = 'block';
-    errorEl.textContent = '❌ Please enter a password.';
-    return;
-  }
-
-  errorEl.style.display = 'none';
-  const btn = document.querySelector('.login-box button');
-  if (btn) { btn.disabled = true; btn.textContent = 'Authenticating…'; }
-
-  try {
-    const { ok, data } = await apiCall({ action: 'login', password });
-    if (ok && data.success) {
+async function login(){
+  const passwordEl=document.getElementById('passwordInput');
+  const errorEl=document.getElementById('errorText');
+  if(!passwordEl||!errorEl)return;
+  const password=passwordEl.value.trim();
+  if(!password){ errorEl.style.display='block'; errorEl.textContent='❌ Please enter a password.'; return; }
+  errorEl.style.display='none';
+  const btn=document.querySelector('.login-box button');
+  if(btn){ btn.disabled=true; btn.textContent='Authenticating…'; }
+  try{
+    const{ok,data}=await apiCall({action:'login',password});
+    if(ok&&data.success){
       console.log('[AF] Login successful');
-      localStorage.setItem('af_admin_session', 'authenticated');
-      const loginScreen = document.getElementById('loginScreen');
-      const app = document.getElementById('app');
-      if (loginScreen) loginScreen.style.display = 'none';
-      if (app) app.style.display = 'block';
+      localStorage.setItem('af_admin_session','authenticated');
+      const ls=document.getElementById('loginScreen');
+      const app=document.getElementById('app');
+      if(ls)ls.style.display='none';
+      if(app)app.style.display='block';
       initApp();
-    } else {
-      console.warn('[AF] Login failed:', data.message);
-      errorEl.style.display = 'block';
-      errorEl.textContent = '❌ ' + (data.message || 'Invalid Password. Please try again.');
+    } else{
+      console.warn('[AF] Login failed:',data.message);
+      errorEl.style.display='block';
+      errorEl.textContent='❌ '+(data.message||'Invalid Password. Please try again.');
     }
-  } catch (e) {
-    console.error('[AF] Login network error:', e);
-    errorEl.style.display = 'block';
-    errorEl.textContent = '❌ Network error. Please check your connection and try again.';
-  } finally {
-    if (btn) { btn.disabled = false; btn.textContent = 'Access Dashboard'; }
+  } catch(e){
+    console.error('[AF] Login network error:',e);
+    errorEl.style.display='block';
+    errorEl.textContent='❌ Network error. Please check your connection and try again.';
+  } finally{
+    if(btn){ btn.disabled=false; btn.textContent='Access Dashboard'; }
   }
 }
-
-function logout() {
-  localStorage.removeItem('af_admin_session');
-  location.reload();
-}
+function logout(){ localStorage.removeItem('af_admin_session'); location.reload(); }
 
 /* =============================================
    INIT
 ============================================= */
-function initApp() {
+function initApp(){
   console.log('[AF] Initialising app');
   loadLocalState();
-  buildDocTypeGrid();          // must run before setDocType
+  buildDocTypeGrid();
   setDocType('internship-cert');
   prefillDefaults();
   liveUpdate();
   updateStats();
   renderHistory();
-
-  if (_liveTimerHandle) clearInterval(_liveTimerHandle);
+  if(_liveTimerHandle)clearInterval(_liveTimerHandle);
   updateLiveDateTime();
-  _liveTimerHandle = setInterval(updateLiveDateTime, 1000);
+  _liveTimerHandle=setInterval(updateLiveDateTime,1000);
 }
 
 /* =============================================
    NAVIGATION
 ============================================= */
-function showPage(pageId, btn) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const target = document.getElementById('page-' + pageId);
-  if (target) target.classList.add('active');
-  else console.warn('[AF] showPage: page not found:', pageId);
-
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-
-  const titles = { dashboard: 'Dashboard', generator: 'Generate Document', history: 'Document History', verify: 'Verify Document' };
-  const titleEl = document.getElementById('topbarTitle');
-  if (titleEl) titleEl.textContent = titles[pageId] || pageId;
-
+function showPage(pageId,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const target=document.getElementById('page-'+pageId);
+  if(target)target.classList.add('active');
+  else console.warn('[AF] showPage: page not found:',pageId);
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  const titles={dashboard:'Dashboard',generator:'Generate Document',history:'Document History',verify:'Verify Document'};
+  const titleEl=document.getElementById('topbarTitle');
+  if(titleEl)titleEl.textContent=titles[pageId]||pageId;
   closeSidebar();
 }
-
-function showPageAndSetType(pageId, type, btn) {
-  showPage(pageId, btn);
+function showPageAndSetType(pageId,type,btn){
+  showPage(pageId,btn);
   setDocType(type);
   prefillDefaults();
   liveUpdate();
-  const cfg = DOC_TYPES[type];
-  const genTitle = document.getElementById('generatorTitle');
-  if (cfg && genTitle) genTitle.textContent = 'Generate: ' + cfg.label;
+  const cfg=DOC_TYPES[type];
+  const genTitle=document.getElementById('generatorTitle');
+  if(cfg&&genTitle)genTitle.textContent='Generate: '+cfg.label;
 }
-
-/* =============================================
-   SIDEBAR TOGGLE
-============================================= */
-function toggleSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('sidebarOverlay');
-  if (sidebar) sidebar.classList.toggle('open');
-  if (overlay) overlay.classList.toggle('open');
-}
-
-function closeSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('sidebarOverlay');
-  if (sidebar) sidebar.classList.remove('open');
-  if (overlay) overlay.classList.remove('open');
-}
+function toggleSidebar(){ const s=document.getElementById('sidebar'); const o=document.getElementById('sidebarOverlay'); if(s)s.classList.toggle('open'); if(o)o.classList.toggle('open'); }
+function closeSidebar(){ const s=document.getElementById('sidebar'); const o=document.getElementById('sidebarOverlay'); if(s)s.classList.remove('open'); if(o)o.classList.remove('open'); }
 
 /* =============================================
    THEME
 ============================================= */
-function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme') || 'dark';
-  setTheme(current === 'dark' ? 'light' : 'dark');
+function toggleTheme(){
+  const current=document.documentElement.getAttribute('data-theme')||'dark';
+  setTheme(current==='dark'?'light':'dark');
 }
-
-function setTheme(theme) {
-  isDark = theme === 'dark';
-  document.documentElement.setAttribute('data-theme', theme);
-  const themeIcon = document.getElementById('themeIcon');
-  if (themeIcon) themeIcon.textContent = isDark ? '🌙' : '☀️';
-  localStorage.setItem('af_theme', theme);
+function setTheme(theme){
+  isDark=theme==='dark';
+  document.documentElement.setAttribute('data-theme',theme);
+  const icon=document.getElementById('themeIcon');
+  if(icon)icon.textContent=isDark?'🌙':'☀️';
+  localStorage.setItem('af_theme',theme);
 }
 
 /* =============================================
-   DOC TYPE GRID BUILDER
+   CERT THEME
 ============================================= */
-function buildDocTypeGrid() {
-  const grid = document.getElementById('docTypeGrid');
-  if (!grid) return;
-  grid.innerHTML = '';
-  Object.entries(DOC_TYPES).forEach(([key, cfg]) => {
-    const btn = document.createElement('button');
-    btn.className = 'doc-type-btn' + (key === currentType ? ' active' : '');
-    btn.textContent = cfg.label;
-    btn.id = 'dtbtn-' + key;
-    btn.addEventListener('click', () => {
-      setDocType(key);
-      liveUpdate();
-    });
+function setCertTheme(themeId,el){
+  currentCertTheme=themeId;
+  document.querySelectorAll('.theme-chip').forEach(c=>c.classList.remove('active'));
+  if(el)el.classList.add('active');
+  liveUpdate();
+}
+
+/* =============================================
+   DOC TYPE GRID
+============================================= */
+function buildDocTypeGrid(){
+  const grid=document.getElementById('docTypeGrid');
+  if(!grid)return;
+  grid.innerHTML='';
+  Object.entries(DOC_TYPES).forEach(([key,cfg])=>{
+    const btn=document.createElement('button');
+    btn.className='doc-type-btn'+(key===currentType?' active':'');
+    btn.textContent=cfg.label;
+    btn.id='dtbtn-'+key;
+    btn.addEventListener('click',()=>{ setDocType(key); liveUpdate(); });
     grid.appendChild(btn);
   });
 }
-
-function setDocType(type) {
-  if (!DOC_TYPES[type]) {
-    console.warn('[AF] setDocType: unknown type:', type);
-    return;
-  }
-  currentType = type;
-  document.querySelectorAll('.doc-type-btn').forEach(b => b.classList.remove('active'));
-  const btn = document.getElementById('dtbtn-' + type);
-  if (btn) {
-    btn.classList.add('active');
-    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-  }
+function setDocType(type){
+  if(!DOC_TYPES[type]){ console.warn('[AF] setDocType: unknown type:',type); return; }
+  currentType=type;
+  document.querySelectorAll('.doc-type-btn').forEach(b=>b.classList.remove('active'));
+  const btn=document.getElementById('dtbtn-'+type);
+  if(btn){ btn.classList.add('active'); btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
   generateAutoId(type);
-  const showStipend = ['offer-letter', 'internship-offer', 'freelance-letter'].includes(type);
-  const stipendGroup = document.getElementById('stipendGroup');
-  if (stipendGroup) stipendGroup.style.display = showStipend ? 'block' : 'none';
+  const showStipend=['offer-letter','internship-offer','freelance-letter'].includes(type);
+  const stipendGroup=document.getElementById('stipendGroup');
+  if(stipendGroup)stipendGroup.style.display=showStipend?'block':'none';
+  // Custom cert
+  const customFields=document.getElementById('customCertFields');
+  const standardFields=document.getElementById('standardFields');
+  const themeSwitcher=document.getElementById('themeSwitcherWrap');
+  const cfg=DOC_TYPES[type];
+  if(type==='custom-cert'){
+    if(customFields)customFields.style.display='block';
+    if(themeSwitcher)themeSwitcher.style.display='none';
+    // Still show standard name/role fields in standardFields
+  } else {
+    if(customFields)customFields.style.display='none';
+    if(themeSwitcher)themeSwitcher.style.display=cfg.template==='cert'?'block':'none';
+  }
 }
 
 /* =============================================
    AUTO ID
 ============================================= */
-function generateAutoId(type) {
-  const cfg = DOC_TYPES[type];
-  if (!cfg) return '';
-  const year = new Date().getFullYear();
-  const key = cfg.prefix + '-' + year;
-  const next = ((docCounters[key] || 0) + 1).toString().padStart(4, '0');
-  const id = `${cfg.prefix}-${year}-${next}`;
-  const el = document.getElementById('autoIdValue');
-  if (el) el.textContent = id;
-  console.log('[AF] Auto-ID generated:', id);
+function generateAutoId(type){
+  const cfg=DOC_TYPES[type];
+  if(!cfg)return'';
+  const year=new Date().getFullYear();
+  const key=cfg.prefix+'-'+year;
+  const next=((docCounters[key]||0)+1).toString().padStart(4,'0');
+  const id=`${cfg.prefix}-${year}-${next}`;
+  const el=document.getElementById('autoIdValue');
+  if(el)el.textContent=id;
   return id;
 }
-
-function getAutoId() {
-  const el = document.getElementById('autoIdValue');
-  return el ? el.textContent.trim() : generateAutoId(currentType);
-}
+function getAutoId(){ const el=document.getElementById('autoIdValue'); return el?el.textContent.trim():generateAutoId(currentType); }
 
 /* =============================================
-   PREFILL DEFAULTS
+   PREFILL
 ============================================= */
-function prefillDefaults() {
-  const today = new Date();
-  const fmt = (d) => d.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
-  const dateEl = document.getElementById('f-date');
-  if (dateEl && !dateEl.value) dateEl.value = fmt(today);
-  // Ensure these never return undefined
-  const startEl = document.getElementById('f-start');
-  const endEl = document.getElementById('f-end');
-  if (startEl && !startEl.value) startEl.value = '';
-  if (endEl && !endEl.value) endEl.value = '';
+function prefillDefaults(){
+  const today=new Date();
+  const fmt=(d)=>d.toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  const dateEl=document.getElementById('f-date');
+  if(dateEl&&!dateEl.value)dateEl.value=fmt(today);
 }
 
 /* =============================================
    LIVE UPDATE
 ============================================= */
-function liveUpdate() {
-  const data = getFormData();
-  const cfg = DOC_TYPES[currentType];
-  if (!cfg) return;
-  const html = cfg.template === 'cert' ? buildCertHTML(data, cfg) : buildLetterHTML(data, cfg);
-  const wrap = document.getElementById('previewWrap');
-  if (wrap) wrap.innerHTML = html;
+function liveUpdate(){
+  const data=getFormData();
+  const cfg=DOC_TYPES[currentType];
+  if(!cfg)return;
+  let html='';
+  if(cfg.template==='cert')html=buildCertHTML(data,cfg);
+  else if(cfg.template==='custom')html=buildCustomCertHTML(data);
+  else html=buildLetterHTML(data,cfg);
+  const wrap=document.getElementById('previewWrap');
+  if(wrap){
+    wrap.innerHTML=html;
+    // Render QR after inserting HTML
+    renderQRCode(data.id);
+  }
 }
-
-function getFormData() {
-  const val = (id, fallback = '') => {
-    const el = document.getElementById(id);
-    return (el && el.value.trim()) ? el.value.trim() : fallback;
-  };
-  return {
-    name:     val('f-name',     'Devraj Kumar'),
-    role:     val('f-role',     'Founder & CEO'),
+function getFormData(){
+  const val=(id,fallback='')=>{ const el=document.getElementById(id); return(el&&el.value.trim())?el.value.trim():fallback; };
+  return{
+    name:     val('f-name',     'Recipient Name'),
+    role:     val('f-role',     'Role / Position'),
     dept:     val('f-dept',     ''),
     start:    val('f-start',    ''),
     end:      val('f-end',      ''),
-    date:     val('f-date',     new Date().toLocaleDateString('en-IN', { day:'2-digit', month:'long', year:'numeric' })),
-    duration: val('f-duration', 'Flexible Volunteer'),
+    date:     val('f-date',     new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'})),
+    duration: val('f-duration', 'Flexible'),
     stipend:  val('f-stipend',  ''),
     desc:     val('f-desc',     ''),
     signname: val('f-signname', 'Devraj Kumar'),
     signrole: val('f-signrole', 'Founder & CEO, AcademeForge'),
     id:       getAutoId(),
+    // custom cert extras
+    ccTitle:       val('cc-title',       ''),
+    ccSubtitle:    val('cc-subtitle',    ''),
+    ccCategory:    val('cc-category',    ''),
+    ccAchievement: val('cc-achievement', ''),
+    ccFooter:      val('cc-footer',      ''),
+    ccOrg:         val('cc-org',         'AcademeForge'),
+    ccTagline:     val('cc-tagline',     'Building Skills. Creating Opportunities.'),
+    ccColor:       (document.getElementById('cc-color')||{value:'#16a34a'}).value,
+    ccShowMsme:    (document.getElementById('cc-show-msme')||{checked:true}).checked,
+    ccShowDates:   (document.getElementById('cc-show-dates')||{checked:true}).checked,
+    ccShowWatermark:(document.getElementById('cc-show-watermark')||{checked:false}).checked,
+    ccShowQr:      (document.getElementById('cc-show-qr')||{checked:true}).checked,
+    ccShowAchievement:(document.getElementById('cc-show-achievement')||{checked:true}).checked,
   };
 }
 
 /* =============================================
-   CERTIFICATE BUILDER
+   QR CODE GENERATOR
 ============================================= */
-function buildCertHTML(data, cfg) {
-  const descFn = DOC_DESCRIPTIONS[currentType] || (() => '');
-  const desc = data.desc || descFn(data);
-  const styleClass = (cfg.style || 'joining') + '-style';
-  const showDates = ['experience-cert', 'relieving-letter'].includes(currentType);
+function renderQRCode(certId){
+  const container=document.getElementById('cert-qr-container');
+  if(!container)return;
+  container.innerHTML='';
+  try{
+    new QRCode(container,{
+      text:`https://academeforge.in/verify?id=${certId}`,
+      width:60,height:60,
+      colorDark:'#0f172a',colorLight:'#ffffff',
+      correctLevel:QRCode.CorrectLevel.M
+    });
+  } catch(e){ container.innerHTML='<div style="font-size:9px;color:#94a3b8">QR</div>'; }
+}
 
-  return `<div class="cert-doc ${styleClass}">
+/* =============================================
+   CORNER SVG ORNAMENT
+============================================= */
+function cornerSVG(color='#16a34a'){
+  return`<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 2 L20 2 L20 6 L6 6 L6 20 L2 20 Z" fill="${color}" opacity="0.7"/>
+    <path d="M2 2 L8 2 L8 8 L2 8 Z" fill="${color}"/>
+    <circle cx="2" cy="2" r="2" fill="${color}"/>
+  </svg>`;
+}
+
+/* =============================================
+   PREMIUM CERT BUILDER
+============================================= */
+function buildCertHTML(data,cfg){
+  const descFn=DOC_DESCRIPTIONS[currentType]||((d)=>'');
+  const desc=data.desc||descFn(data);
+  const showDates=['experience-cert','experience-letter','relieving-letter'].includes(currentType);
+  const themeClass='theme-'+currentCertTheme;
+  const themeColors={corporate:'#16a34a',royal:'#7c3aed',academic:'#1d4ed8',gold:'#d97706',ai:'#818cf8'};
+  const tc=themeColors[currentCertTheme]||'#16a34a';
+
+  return`<div class="cert-doc ${themeClass}" style="display:flex;flex-direction:column;">
+  <!-- Decorative border -->
   <div class="cert-border"></div>
+  <!-- Corner ornaments -->
+  <div class="cert-corner tl">${cornerSVG(tc)}</div>
+  <div class="cert-corner tr">${cornerSVG(tc)}</div>
+  <div class="cert-corner bl">${cornerSVG(tc)}</div>
+  <div class="cert-corner br">${cornerSVG(tc)}</div>
+
+  <!-- Header -->
   <div class="cert-header">
     <div class="cert-logo-area">
-      <div class="cert-logo-box">
-        <img src="AF LOGO 2.jpeg" alt="AF" onerror="this.style.display='none';this.parentNode.textContent='AF'"/>
-      </div>
-      <div class="cert-brand">
-        <h1>AcademeForge</h1>
-        <p>Building Skills. Creating Opportunities.</p>
-      </div>
+      <div class="cert-logo-box"><img src="AF LOGO 2.jpeg" alt="AF" onerror="this.style.display='none';this.parentNode.textContent='AF'"/></div>
+      <div class="cert-brand"><h1>AcademeForge</h1><p>Building Skills. Creating Opportunities.</p></div>
     </div>
-    <div class="cert-msme">
-      <img src="MSME-logo.png" alt="MSME" onerror="this.style.display='none'"/>
-    </div>
+    <div class="cert-msme"><img src="MSME-logo.png" alt="MSME" onerror="this.style.display='none'"/></div>
   </div>
+
+  <!-- Accent bar -->
+  <div class="cert-accent"></div>
+
+  <!-- Content -->
   <div class="cert-content">
-    <div class="cert-tag">${cfg.tag || ''}</div>
-    <div class="cert-heading">${cfg.heading || ''}</div>
+    <div class="cert-tag">${cfg.tag||''}</div>
+    <div class="cert-heading">${cfg.heading||''}</div>
     <div class="cert-awarded">This certificate is proudly presented to</div>
     <div class="cert-name">${data.name}</div>
-    <div class="cert-role">${data.role}${data.dept ? ' · ' + data.dept : ''}</div>
+    <div class="cert-role">${data.role}${data.dept?' · '+data.dept:''}</div>
     <div class="cert-desc">${desc}</div>
     <div class="cert-info-row">
       <div class="cert-info-card"><h4>Certificate ID</h4><p>${data.id}</p></div>
       <div class="cert-info-card"><h4>Issue Date</h4><p>${data.date}</p></div>
       <div class="cert-info-card"><h4>Work Type</h4><p>${data.duration}</p></div>
-      ${showDates && data.start ? `<div class="cert-info-card"><h4>Start Date</h4><p>${data.start}</p></div>` : ''}
-      ${showDates && data.end   ? `<div class="cert-info-card"><h4>End Date</h4><p>${data.end}</p></div>`   : ''}
+      ${showDates&&data.start?`<div class="cert-info-card"><h4>Start Date</h4><p>${data.start}</p></div>`:''}
+      ${showDates&&data.end?`<div class="cert-info-card"><h4>End Date</h4><p>${data.end}</p></div>`:''}
     </div>
   </div>
+
+  <!-- Footer -->
   <div class="cert-footer">
     <div class="cert-sig-area">
       <img src="devraj-sign.png" class="cert-sig-img" alt="Signature" onerror="this.style.display='none'"/>
@@ -1387,11 +1221,12 @@ function buildCertHTML(data, cfg) {
       <div class="cert-sig-role">${data.signrole}</div>
       <div class="cert-digital">
         <div class="cert-v-dot"></div>
-        <div class="cert-v-content"><strong>Digitally Signed</strong><br>${data.signname}<br><span id="liveDT">${data.date}</span></div>
+        <div class="cert-v-content"><strong>Digitally Verified</strong><br>${data.signname}<br><span id="liveDT">${data.date}</span></div>
       </div>
     </div>
-    <div class="cert-stamp">
-      <img src="af-stamp.png" alt="Stamp" onerror="this.style.display='none'"/>
+    <div class="cert-stamp-qr-wrap">
+      <div class="cert-stamp"><img src="af-stamp.png" alt="Stamp" onerror="this.style.display='none'"/></div>
+      <div class="cert-qr-box"><div id="cert-qr-container"></div></div>
     </div>
   </div>
   <div class="cert-note">This is a digitally generated certificate issued by AcademeForge. Verify at: academeforge.in/verify | contact@academeforge.in</div>
@@ -1399,52 +1234,154 @@ function buildCertHTML(data, cfg) {
 }
 
 /* =============================================
+   CUSTOM CERT BUILDER
+============================================= */
+function buildCustomCertHTML(data){
+  const color=data.ccColor||'#16a34a';
+  const colorLight=hexToRgba(color,0.08);
+  const colorMid=hexToRgba(color,0.15);
+  const org=data.ccOrg||'AcademeForge';
+  const tagline=data.ccTagline||'Building Skills. Creating Opportunities.';
+  const title=data.ccTitle||'Certificate of Achievement';
+  const subtitle=data.ccSubtitle||'Certificate of Excellence';
+  const desc=data.desc||data.ccAchievement||'This certificate is proudly presented in recognition of outstanding achievement and excellence.';
+  const footer=data.ccFooter||'This certificate is valid for lifetime recognition.';
+
+  const logoSrc=customLogoDataURL?customLogoDataURL:'AF LOGO 2.jpeg';
+  const signSrc=customSignDataURL?customSignDataURL:'devraj-sign.png';
+  const sealSrc=customSealDataURL?customSealDataURL:'af-stamp.png';
+
+  return`<div class="cert-doc" style="background:radial-gradient(circle at top left,${colorLight},transparent 35%),radial-gradient(circle at bottom right,${colorMid},transparent 40%),#ffffff;display:flex;flex-direction:column;">
+  <!-- Custom-color border -->
+  <div style="position:absolute;inset:14px;border-radius:20px;border:2px solid ${color};pointer-events:none;z-index:1;"></div>
+  <div style="position:absolute;inset:22px;border-radius:14px;border:1px dashed ${hexToRgba(color,0.3)};pointer-events:none;z-index:1;"></div>
+  <div style="position:absolute;inset:30px;border-radius:8px;border:1px solid ${hexToRgba(color,0.12)};pointer-events:none;z-index:1;"></div>
+  <!-- Corner ornaments -->
+  <div class="cert-corner tl">${cornerSVG(color)}</div>
+  <div class="cert-corner tr">${cornerSVG(color)}</div>
+  <div class="cert-corner bl">${cornerSVG(color)}</div>
+  <div class="cert-corner br">${cornerSVG(color)}</div>
+  ${data.ccShowWatermark?`<div class="letter-watermark" style="color:${hexToRgba(color,0.04)};font-size:80px;">${org.toUpperCase()}</div>`:''}
+
+  <!-- Header -->
+  <div class="cert-header" style="position:relative;z-index:5;">
+    <div class="cert-logo-area">
+      <div class="cert-logo-box"><img src="${logoSrc}" alt="${org}" onerror="this.style.display='none';this.parentNode.textContent='${org.substring(0,2).toUpperCase()}'"/></div>
+      <div class="cert-brand"><h1>${org}</h1><p>${tagline}</p></div>
+    </div>
+    ${data.ccShowMsme?`<div class="cert-msme"><img src="MSME-logo.png" alt="MSME" onerror="this.style.display='none'"/></div>`:''}
+  </div>
+
+  <!-- Accent bar -->
+  <div style="height:5px;border-radius:3px;margin:18px 0 24px;background:linear-gradient(90deg,${color},${hexToRgba(color,0.4)},transparent);"></div>
+
+  <!-- Main content -->
+  <div class="cert-content" style="position:relative;z-index:5;">
+    <div class="cert-tag" style="color:${color};letter-spacing:6px;">${data.ccCategory||'CERTIFICATE OF ACHIEVEMENT'}</div>
+    <div class="cert-heading" style="color:${color};font-size:42px;margin-top:10px;">${title}</div>
+    ${subtitle?`<div style="font-size:16px;color:#64748b;margin-top:6px;font-style:italic;">${subtitle}</div>`:''}
+    <div class="cert-awarded" style="margin-top:18px;">This certificate is proudly presented to</div>
+    <div class="cert-name">${data.name}</div>
+    <div class="cert-role" style="color:${color};">${data.role}${data.dept?' · '+data.dept:''}</div>
+    ${data.ccShowAchievement&&data.ccAchievement?`<div style="margin-top:14px;font-size:14px;font-weight:600;color:#374151;font-style:italic;">"${data.ccAchievement}"</div>`:''}
+    <div class="cert-desc">${desc}</div>
+    <div class="cert-info-row">
+      <div class="cert-info-card"><h4>Certificate ID</h4><p>${data.id}</p></div>
+      <div class="cert-info-card"><h4>Award Date</h4><p>${data.date}</p></div>
+      ${data.ccShowDates&&data.start?`<div class="cert-info-card"><h4>From</h4><p>${data.start}</p></div>`:''}
+      ${data.ccShowDates&&data.end?`<div class="cert-info-card"><h4>To</h4><p>${data.end}</p></div>`:''}
+      <div class="cert-info-card"><h4>Duration</h4><p>${data.duration}</p></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="cert-footer" style="position:relative;z-index:5;">
+    <div class="cert-sig-area">
+      <img src="${signSrc}" class="cert-sig-img" alt="Signature" onerror="this.style.display='none'"/>
+      <div class="cert-sig-line" style="background:${color};"></div>
+      <div class="cert-sig-name">${data.signname}</div>
+      <div class="cert-sig-role">${data.signrole}</div>
+      <div class="cert-digital" style="border-color:${hexToRgba(color,0.3)};">
+        <div class="cert-v-dot" style="background:${color};"></div>
+        <div class="cert-v-content"><strong>Digitally Verified</strong><br>${data.signname}<br>${data.date}</div>
+      </div>
+    </div>
+    <div class="cert-stamp-qr-wrap">
+      <div class="cert-stamp" style="border-color:${color};"><img src="${sealSrc}" alt="Seal" onerror="this.style.display='none'"/></div>
+      ${data.ccShowQr?`<div class="cert-qr-box"><div id="cert-qr-container"></div></div>`:''}
+    </div>
+  </div>
+
+  <!-- Footer note -->
+  ${footer?`<div class="cert-note" style="position:relative;z-index:5;border-top:1px solid ${hexToRgba(color,0.2)};padding-top:12px;margin-top:12px;">${footer} | Verify at: academeforge.in/verify</div>`:''}
+</div>`;
+}
+
+/* Helper: hex to rgba */
+function hexToRgba(hex,alpha=1){
+  hex=hex.replace('#','');
+  if(hex.length===3)hex=hex.split('').map(c=>c+c).join('');
+  const r=parseInt(hex.substring(0,2),16);
+  const g=parseInt(hex.substring(2,4),16);
+  const b=parseInt(hex.substring(4,6),16);
+  return`rgba(${r},${g},${b},${alpha})`;
+}
+
+/* Handle file uploads for custom cert */
+function handleUpload(inputId,previewId){
+  const input=document.getElementById(inputId);
+  const preview=document.getElementById(previewId);
+  if(!input||!input.files||!input.files[0])return;
+  const file=input.files[0];
+  const reader=new FileReader();
+  reader.onload=(e)=>{
+    const dataURL=e.target.result;
+    if(previewId==='cc-logo-preview')customLogoDataURL=dataURL;
+    else if(previewId==='cc-sign-preview')customSignDataURL=dataURL;
+    else if(previewId==='cc-seal-preview')customSealDataURL=dataURL;
+    if(preview){ preview.src=dataURL; preview.style.display='block'; }
+    liveUpdate();
+  };
+  reader.readAsDataURL(file);
+}
+
+/* =============================================
    LETTER BUILDER
 ============================================= */
-function buildLetterHTML(data, cfg) {
-  const descFn = DOC_DESCRIPTIONS[currentType] || (() => '');
-  const bodyDesc = data.desc || descFn(data);
-  const accentMap = { experience: '#7c3aed', appreciation: '#d97706', warning: '#ef4444' };
-  const accentColor = accentMap[cfg.style] || '#16a34a';
-  const showEndDate = !['offer-letter','internship-offer','joining-letter','volunteer-letter','freelance-letter','appreciation-letter','promotion-letter','warning-letter'].includes(currentType);
+function buildLetterHTML(data,cfg){
+  const descFn=DOC_DESCRIPTIONS[currentType]||((d)=>'');
+  const bodyDesc=data.desc||descFn(data);
+  const accentMap={experience:'#7c3aed',appreciation:'#d97706',warning:'#ef4444'};
+  const accentColor=accentMap[cfg.style]||'#16a34a';
+  const showEndDate=!['offer-letter','internship-offer','joining-letter','volunteer-letter','freelance-letter','appreciation-letter','promotion-letter','warning-letter'].includes(currentType);
 
-  return `<div class="letter-doc">
+  return`<div class="letter-doc">
   <div class="letter-watermark">ACADEMEFORGE</div>
   <div class="letter-header">
     <div class="letter-logo-area">
-      <div class="letter-logo-box">
-        <img src="AF LOGO 2.jpeg" alt="AF" onerror="this.style.display='none';this.parentNode.textContent='AF'"/>
-      </div>
-      <div class="letter-brand">
-        <h1>AcademeForge</h1>
-        <p>Building Skills. Creating Opportunities.</p>
-      </div>
+      <div class="letter-logo-box"><img src="AF LOGO 2.jpeg" alt="AF" onerror="this.style.display='none';this.parentNode.textContent='AF'"/></div>
+      <div class="letter-brand"><h1>AcademeForge</h1><p>Building Skills. Creating Opportunities.</p></div>
     </div>
-    <div class="letter-meta">
-      <strong>${data.id}</strong><br>
-      Date: ${data.date}<br>
-      academeforge.in<br>
-      contact@academeforge.in
-    </div>
+    <div class="letter-meta"><strong>${data.id}</strong><br>Date: ${data.date}<br>academeforge.in<br>contact@academeforge.in</div>
   </div>
   <div class="letter-divider" style="background:linear-gradient(90deg,${accentColor},transparent);"></div>
-  <div class="letter-subject">
-    <p>${cfg.tag || ''}</p>
-    <h3>${cfg.heading || ''} — ${data.name}</h3>
+  <div class="letter-subject" style="border-left-color:${accentColor};">
+    <p>${cfg.tag||''}</p>
+    <h3>${cfg.heading||''} — ${data.name}</h3>
   </div>
   <div class="letter-body">
     <p>Dear <span class="letter-highlight">${data.name}</span>,</p>
     <p>${bodyDesc}</p>
-    ${data.dept ? `<p>Department: <span class="letter-highlight">${data.dept}</span></p>` : ''}
+    ${data.dept?`<p>Department: <span class="letter-highlight">${data.dept}</span></p>`:''}
   </div>
   <div class="letter-details-grid">
     <div class="letter-detail-item"><h4>Document ID</h4><p>${data.id}</p></div>
     <div class="letter-detail-item"><h4>Role / Position</h4><p>${data.role}</p></div>
     <div class="letter-detail-item"><h4>Work Type</h4><p>${data.duration}</p></div>
-    ${data.start ? `<div class="letter-detail-item"><h4>Start Date</h4><p>${data.start}</p></div>` : ''}
-    ${showEndDate && data.end ? `<div class="letter-detail-item"><h4>End Date</h4><p>${data.end}</p></div>` : ''}
+    ${data.start?`<div class="letter-detail-item"><h4>Start Date</h4><p>${data.start}</p></div>`:''}
+    ${showEndDate&&data.end?`<div class="letter-detail-item"><h4>End Date</h4><p>${data.end}</p></div>`:''}
     <div class="letter-detail-item"><h4>Issue Date</h4><p>${data.date}</p></div>
-    ${data.stipend ? `<div class="letter-detail-item"><h4>Stipend / CTC</h4><p>${data.stipend}</p></div>` : ''}
+    ${data.stipend?`<div class="letter-detail-item"><h4>Stipend / CTC</h4><p>${data.stipend}</p></div>`:''}
   </div>
   <div class="letter-body">
     <p>This letter is officially issued by AcademeForge and is valid as a supporting document for professional and academic purposes.</p>
@@ -1458,165 +1395,223 @@ function buildLetterHTML(data, cfg) {
       <div class="letter-sign-name">${data.signname}</div>
       <div class="letter-sign-role">${data.signrole}</div>
     </div>
-    <div class="letter-seal">
-      <img src="af-stamp.png" alt="Stamp" onerror="this.style.display='none'"/>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+      <div class="letter-seal"><img src="af-stamp.png" alt="Stamp" onerror="this.style.display='none'"/></div>
+      <div class="letter-qr" id="cert-qr-container"></div>
     </div>
   </div>
   <div class="letter-bottom">
-    <div class="letter-verify">
-      <div class="letter-verify-dot"></div>
-      Digitally Signed · ${data.signname} · ${data.date}
-    </div>
+    <div class="letter-verify"><div class="letter-verify-dot" style="background:${accentColor};"></div>Digitally Signed · ${data.signname} · ${data.date}</div>
     <div>AcademeForge · academeforge.in · contact@academeforge.in</div>
   </div>
 </div>`;
 }
 
 /* =============================================
-   GENERATE & SAVE  (async — waits for API)
+   PDF EXPORT — ONLY previewWrap content
 ============================================= */
-async function generateDocument() {
-  const data = getFormData();
-  const cfg = DOC_TYPES[currentType];
+async function downloadPDF(){
+  const wrap=document.getElementById('previewWrap');
+  if(!wrap||!wrap.innerHTML.trim()){ toast('Please generate a document first.','error'); return; }
 
-  // Validation
-  if (!data.name || data.name === 'Devraj Kumar' && !document.getElementById('f-name').value.trim()) {
-    alert('⚠️ Please enter the recipient\'s Full Name.');
-    return;
+  const certId=getAutoId();
+  const cfg=DOC_TYPES[currentType];
+  const isLandscape=cfg&&cfg.template!=='letter';
+
+  const pf=showProgress('Generating PDF…','Rendering high-resolution document…');
+  setProgress(pf,10);
+
+  try{
+    // Clone the node so we can manipulate without affecting UI
+    const clone=wrap.firstElementChild.cloneNode(true);
+    // Remove QR container from clone (QR won't render in canvas cross-origin; we'll skip it)
+    clone.style.width= isLandscape ? '1122px' : '794px';
+    clone.style.minHeight= isLandscape ? '794px' : '1122px';
+    clone.style.position='fixed';
+    clone.style.left='-9999px';
+    clone.style.top='0';
+    clone.style.zIndex='0';
+    document.body.appendChild(clone);
+    setProgress(pf,25);
+
+    const canvas=await html2canvas(clone,{
+      scale:2,useCORS:true,allowTaint:true,
+      backgroundColor:'#ffffff',
+      logging:false,
+      width: isLandscape ? 1122 : 794,
+      height: isLandscape ? 794 : 1122,
+    });
+    document.body.removeChild(clone);
+    setProgress(pf,70);
+
+    const{jsPDF}=window.jspdf;
+    const doc=new jsPDF({orientation:isLandscape?'landscape':'portrait',unit:'mm',format:'a4'});
+    const imgData=canvas.toDataURL('image/jpeg',0.97);
+    const pageW=doc.internal.pageSize.getWidth();
+    const pageH=doc.internal.pageSize.getHeight();
+    doc.addImage(imgData,'JPEG',0,0,pageW,pageH);
+    setProgress(pf,90);
+    doc.save(`${certId}.pdf`);
+    setProgress(pf,100);
+    setTimeout(hideProgress,400);
+    toast(`PDF saved: ${certId}.pdf`,'success');
+  } catch(e){
+    hideProgress();
+    console.error('[AF] PDF export error:',e);
+    toast('PDF export failed. Try "Download PNG" or use browser print (Ctrl+P).','error',5000);
   }
-  const rawName = document.getElementById('f-name')?.value.trim();
-  const rawRole = document.getElementById('f-role')?.value.trim();
-  if (!rawName) { alert('⚠️ Full Name is required.'); return; }
-  if (!rawRole) { alert('⚠️ Role / Position is required.'); return; }
+}
 
-  const certId = getAutoId();
-  console.log('[AF] Generating document:', currentType, certId, rawName);
+/* =============================================
+   PNG EXPORT
+============================================= */
+async function downloadPNG(){
+  const wrap=document.getElementById('previewWrap');
+  if(!wrap||!wrap.innerHTML.trim()){ toast('Please generate a document first.','error'); return; }
 
-  const record = {
-    action:           'save-certificate',
-    certificate_id:   certId,
-    full_name:        rawName,
-    role:             rawRole,
-    department:       data.dept || '',
-    certificate_type: cfg.label,
-    category:         cfg.cat,
-    doc_key:          currentType,
-    issue_date:       data.date,
-    start_date:       data.start || '',
-    end_date:         data.end || '',
-    work_type:        data.duration,
-    stipend:          data.stipend || '',
-    signatory_name:   data.signname,
-    signatory_role:   data.signrole,
-    description:      data.desc || '',
+  const certId=getAutoId();
+  const cfg=DOC_TYPES[currentType];
+  const isLandscape=cfg&&cfg.template!=='letter';
+
+  const pf=showProgress('Exporting PNG…','Capturing high-resolution image…');
+  setProgress(pf,20);
+  try{
+    const clone=wrap.firstElementChild.cloneNode(true);
+    clone.style.width= isLandscape ? '1122px' : '794px';
+    clone.style.minHeight= isLandscape ? '794px' : '1122px';
+    clone.style.position='fixed';
+    clone.style.left='-9999px';
+    clone.style.top='0';
+    document.body.appendChild(clone);
+    setProgress(pf,40);
+    const canvas=await html2canvas(clone,{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',logging:false});
+    document.body.removeChild(clone);
+    setProgress(pf,80);
+    const link=document.createElement('a');
+    link.download=`${certId}.png`;
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+    setProgress(pf,100);
+    setTimeout(hideProgress,400);
+    toast(`PNG saved: ${certId}.png`,'success');
+  } catch(e){
+    hideProgress();
+    console.error('[AF] PNG export error:',e);
+    toast('PNG export failed.','error');
+  }
+}
+
+/* =============================================
+   DUPLICATE DOCUMENT
+============================================= */
+function duplicateDoc(){
+  // Just re-show generator with same data — user can edit and re-generate
+  toast('Document duplicated — edit fields and click Generate to save a new copy.','info');
+  showPage('generator',null);
+}
+
+/* =============================================
+   GENERATE & SAVE (unchanged backend logic)
+============================================= */
+async function generateDocument(){
+  const data=getFormData();
+  const cfg=DOC_TYPES[currentType];
+  const rawName=document.getElementById('f-name')?.value.trim();
+  const rawRole=document.getElementById('f-role')?.value.trim();
+  if(!rawName){ toast('Full Name is required.','error'); return; }
+  if(!rawRole){ toast('Role / Position is required.','error'); return; }
+
+  const certId=getAutoId();
+  console.log('[AF] Generating document:',currentType,certId,rawName);
+
+  const record={
+    action:'save-certificate',
+    certificate_id:certId,
+    full_name:rawName,
+    role:rawRole,
+    department:data.dept||'',
+    certificate_type:cfg.label,
+    category:cfg.cat,
+    doc_key:currentType,
+    issue_date:data.date,
+    start_date:data.start||'',
+    end_date:data.end||'',
+    work_type:data.duration,
+    stipend:data.stipend||'',
+    signatory_name:data.signname,
+    signatory_role:data.signrole,
+    description:data.desc||'',
   };
 
-  // Disable button during save
-  const genBtn = document.querySelector('#page-generator .btn-primary');
-  if (genBtn) { genBtn.disabled = true; genBtn.textContent = '⏳ Saving…'; }
+  const genBtn=document.querySelector('#page-generator .btn-primary');
+  if(genBtn){ genBtn.disabled=true; genBtn.textContent='⏳ Saving…'; }
 
-  let savedToBackend = false;
-  try {
-    const { ok, data: resData } = await apiCall(record);
-    if (ok && resData.success) {
-      savedToBackend = true;
-      console.log('[AF] Backend save success:', certId);
-    } else {
-      console.error('[AF] Backend save failed:', resData);
-      const proceed = confirm(`⚠️ Backend save failed: ${resData.message || 'Unknown error'}.\n\nSave to local history only?`);
-      if (!proceed) {
-        if (genBtn) { genBtn.disabled = false; genBtn.textContent = '⚡ Generate & Save Document'; }
-        return;
-      }
+  let savedToBackend=false;
+  try{
+    const{ok,data:resData}=await apiCall(record);
+    if(ok&&resData.success){ savedToBackend=true; console.log('[AF] Backend save success:',certId); }
+    else{
+      console.error('[AF] Backend save failed:',resData);
+      const proceed=confirm(`⚠️ Backend save failed: ${resData.message||'Unknown error'}.\n\nSave to local history only?`);
+      if(!proceed){ if(genBtn){ genBtn.disabled=false; genBtn.textContent='⚡ Generate & Save Document'; } return; }
     }
-  } catch (e) {
-    console.error('[AF] Backend save network error:', e);
-    const proceed = confirm('⚠️ Network error — could not reach server.\n\nSave to local history only?');
-    if (!proceed) {
-      if (genBtn) { genBtn.disabled = false; genBtn.textContent = '⚡ Generate & Save Document'; }
-      return;
-    }
+  } catch(e){
+    console.error('[AF] Backend save network error:',e);
+    const proceed=confirm('⚠️ Network error — could not reach server.\n\nSave to local history only?');
+    if(!proceed){ if(genBtn){ genBtn.disabled=false; genBtn.textContent='⚡ Generate & Save Document'; } return; }
   }
 
-  // Increment counter only after successful save decision
-  const year = new Date().getFullYear();
-  const counterKey = cfg.prefix + '-' + year;
-  docCounters[counterKey] = (docCounters[counterKey] || 0) + 1;
-  localStorage.setItem('af_doc_counters', JSON.stringify(docCounters));
+  const year=new Date().getFullYear();
+  const counterKey=cfg.prefix+'-'+year;
+  docCounters[counterKey]=(docCounters[counterKey]||0)+1;
+  localStorage.setItem('af_doc_counters',JSON.stringify(docCounters));
 
-  // Build local history record
-  const localRecord = {
-    id:        certId,
-    name:      rawName,
-    role:      rawRole,
-    dept:      data.dept || '',
-    type:      cfg.label,
-    cat:       cfg.cat,
-    docKey:    currentType,
-    date:      data.date,
-    start:     data.start || '',
-    end:       data.end || '',
-    duration:  data.duration,
-    stipend:   data.stipend || '',
-    signname:  data.signname,
-    signrole:  data.signrole,
-    desc:      data.desc || '',
-    createdAt: new Date().toISOString(),
+  const localRecord={
+    id:certId,name:rawName,role:rawRole,dept:data.dept||'',
+    type:cfg.label,cat:cfg.cat,docKey:currentType,
+    date:data.date,start:data.start||'',end:data.end||'',
+    duration:data.duration,stipend:data.stipend||'',
+    signname:data.signname,signrole:data.signrole,
+    desc:data.desc||'',certTheme:currentCertTheme,
+    createdAt:new Date().toISOString(),
   };
 
   documentHistory.unshift(localRecord);
-  localStorage.setItem('af_doc_history', JSON.stringify(documentHistory));
-
+  localStorage.setItem('af_doc_history',JSON.stringify(documentHistory));
   updateStats();
   renderHistory();
-
-  // Generate next ID for next document
   generateAutoId(currentType);
 
-  if (genBtn) { genBtn.disabled = false; genBtn.textContent = '⚡ Generate & Save Document'; }
-
-  const backendNote = savedToBackend ? '\n✅ Saved to server.' : '\n⚠️ Saved locally only.';
-  alert(`✅ Document generated!\nID: ${certId}\nRecipient: ${rawName}${backendNote}`);
+  if(genBtn){ genBtn.disabled=false; genBtn.textContent='⚡ Generate & Save Document'; }
+  const backendNote=savedToBackend?'\n✅ Saved to server.':'\n⚠️ Saved locally only.';
+  toast(`Document saved! ID: ${certId}${savedToBackend?' (server)':' (local only)'}`, savedToBackend?'success':'info');
 }
 
 /* =============================================
    HISTORY
 ============================================= */
-function renderHistory() {
-  const searchEl = document.getElementById('historySearch');
-  const filterEl = document.getElementById('historyFilter');
-  const tbody = document.getElementById('historyTableBody');
-  const empty = document.getElementById('historyEmpty');
-  if (!tbody) return;
-
-  const search = (searchEl?.value || '').toLowerCase();
-  const filter = filterEl?.value || 'all';
-
-  const filtered = documentHistory.filter(r => {
-    const matchSearch = !search ||
-      (r.name || '').toLowerCase().includes(search) ||
-      (r.id || '').toLowerCase().includes(search) ||
-      (r.type || '').toLowerCase().includes(search);
-    const matchFilter = filter === 'all' || r.cat === filter;
-    return matchSearch && matchFilter;
+function renderHistory(){
+  const searchEl=document.getElementById('historySearch');
+  const filterEl=document.getElementById('historyFilter');
+  const tbody=document.getElementById('historyTableBody');
+  const empty=document.getElementById('historyEmpty');
+  if(!tbody)return;
+  const search=(searchEl?.value||'').toLowerCase();
+  const filter=filterEl?.value||'all';
+  const filtered=documentHistory.filter(r=>{
+    const matchSearch=!search||(r.name||'').toLowerCase().includes(search)||(r.id||'').toLowerCase().includes(search)||(r.type||'').toLowerCase().includes(search);
+    const matchFilter=filter==='all'||r.cat===filter;
+    return matchSearch&&matchFilter;
   });
-
-  if (filtered.length === 0) {
-    tbody.innerHTML = '';
-    if (empty) empty.style.display = 'block';
-    return;
-  }
-  if (empty) empty.style.display = 'none';
-
-  // Use original index in documentHistory for load/delete actions (fix: filtered idx mismatch)
-  tbody.innerHTML = filtered.map(r => {
-    const origIdx = documentHistory.indexOf(r);
-    const dateLabel = r.date || (r.createdAt ? new Date(r.createdAt).toLocaleDateString('en-IN') : '—');
-    return `
-    <tr>
-      <td><code style="font-size:12px;color:var(--green);">${r.id || '—'}</code></td>
-      <td><strong>${r.name || '—'}</strong>${r.role ? `<br><span style="font-size:11px;color:var(--text3);">${r.role}</span>` : ''}</td>
-      <td><span class="doc-type-tag tag-${r.cat || 'cert'}">${r.type || '—'}</span></td>
+  if(filtered.length===0){ tbody.innerHTML=''; if(empty)empty.style.display='block'; updateHistoryBadge(); return; }
+  if(empty)empty.style.display='none';
+  tbody.innerHTML=filtered.map(r=>{
+    const origIdx=documentHistory.indexOf(r);
+    const dateLabel=r.date||(r.createdAt?new Date(r.createdAt).toLocaleDateString('en-IN'):'—');
+    return`<tr>
+      <td><code style="font-size:12px;color:var(--green);">${r.id||'—'}</code></td>
+      <td><strong>${r.name||'—'}</strong>${r.role?`<br><span style="font-size:11px;color:var(--text3);">${r.role}</span>`:''}</td>
+      <td><span class="doc-type-tag tag-${r.cat||'cert'}">${r.type||'—'}</span></td>
       <td style="font-size:12px;color:var(--text2);">${dateLabel}</td>
       <td>
         <button class="table-action-btn" data-action="load" data-idx="${origIdx}">📂 Load</button>
@@ -1624,220 +1619,144 @@ function renderHistory() {
       </td>
     </tr>`;
   }).join('');
-
-  // Event delegation for load/delete (avoids inline onclick with potentially wrong index)
-  tbody.querySelectorAll('button[data-action]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const idx = parseInt(btn.getAttribute('data-idx'), 10);
-      if (btn.getAttribute('data-action') === 'load') loadDoc(idx);
+  tbody.querySelectorAll('button[data-action]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const idx=parseInt(btn.getAttribute('data-idx'),10);
+      if(btn.getAttribute('data-action')==='load')loadDoc(idx);
       else deleteDoc(idx);
     });
   });
-
   updateHistoryBadge();
 }
 
-function loadDoc(idx) {
-  const r = documentHistory[idx];
-  if (!r) { console.warn('[AF] loadDoc: record not found at index', idx); return; }
-  console.log('[AF] Loading doc:', r.id);
-
-  // Rebuild grid first to ensure buttons exist for the loaded type
+function loadDoc(idx){
+  const r=documentHistory[idx];
+  if(!r){ console.warn('[AF] loadDoc: record not found at index',idx); return; }
+  console.log('[AF] Loading doc:',r.id);
   buildDocTypeGrid();
-
-  const set = (id, val) => {
-    const el = document.getElementById(id);
-    if (el) el.value = val || '';
-  };
-
-  currentType = r.docKey || 'internship-cert';
-  set('f-name',     r.name);
-  set('f-role',     r.role);
-  set('f-dept',     r.dept);
-  set('f-start',    r.start);
-  set('f-end',      r.end);
-  set('f-date',     r.date);
-  set('f-duration', r.duration);
-  set('f-stipend',  r.stipend);
-  set('f-signname', r.signname || 'Devraj Kumar');
-  set('f-signrole', r.signrole || 'Founder & CEO, AcademeForge');
-  set('f-desc',     r.desc);
-
-  const autoIdEl = document.getElementById('autoIdValue');
-  if (autoIdEl) autoIdEl.textContent = r.id || '';
-
+  const set=(id,val)=>{ const el=document.getElementById(id); if(el)el.value=val||''; };
+  currentType=r.docKey||'internship-cert';
+  set('f-name',r.name); set('f-role',r.role); set('f-dept',r.dept);
+  set('f-start',r.start); set('f-end',r.end); set('f-date',r.date);
+  set('f-duration',r.duration); set('f-stipend',r.stipend);
+  set('f-signname',r.signname||'Devraj Kumar');
+  set('f-signrole',r.signrole||'Founder & CEO, AcademeForge');
+  set('f-desc',r.desc);
+  const autoIdEl=document.getElementById('autoIdValue');
+  if(autoIdEl)autoIdEl.textContent=r.id||'';
+  if(r.certTheme)currentCertTheme=r.certTheme;
   setDocType(currentType);
   liveUpdate();
-  showPage('generator', null);
-
-  const genTitle = document.getElementById('generatorTitle');
-  if (genTitle) genTitle.textContent = 'Loaded: ' + (r.type || currentType);
+  showPage('generator',null);
+  const genTitle=document.getElementById('generatorTitle');
+  if(genTitle)genTitle.textContent='Loaded: '+(r.type||currentType);
+  toast('Document loaded successfully.','success');
 }
 
-async function deleteDoc(idx) {
-  const r = documentHistory[idx];
-  if (!r) return;
-  if (!confirm(`Delete document ${r.id} for ${r.name}?`)) return;
+async function deleteDoc(idx){
+  const r=documentHistory[idx];
+  if(!r)return;
+  if(!confirm(`Delete document ${r.id} for ${r.name}?`))return;
+  console.log('[AF] Deleting doc:',r.id);
+  documentHistory.splice(idx,1);
+  localStorage.setItem('af_doc_history',JSON.stringify(documentHistory));
+  renderHistory(); updateStats();
+  try{
+    const{ok,data}=await apiCall({action:'delete-certificate',certificate_id:r.id});
+    if(!ok||!data.success)console.warn('[AF] API delete failed (local already removed):',data.message);
+    else console.log('[AF] API delete success:',r.id);
+  } catch(e){ console.error('[AF] API delete network error (local already removed):',e); }
+  toast('Document deleted.','info');
+}
 
-  console.log('[AF] Deleting doc:', r.id);
-
-  // Remove from local first for immediate UI feedback
-  documentHistory.splice(idx, 1);
-  localStorage.setItem('af_doc_history', JSON.stringify(documentHistory));
-  renderHistory();
-  updateStats();
-
-  // Then attempt API delete
-  try {
-    const { ok, data } = await apiCall({ action: 'delete-certificate', certificate_id: r.id });
-    if (!ok || !data.success) {
-      console.warn('[AF] API delete failed (local already removed):', data.message);
-    } else {
-      console.log('[AF] API delete success:', r.id);
-    }
-  } catch (e) {
-    console.error('[AF] API delete network error (local already removed):', e);
+async function clearHistory(){
+  if(!confirm('Clear ALL document history? This cannot be undone.'))return;
+  const ids=documentHistory.map(r=>r.id).filter(Boolean);
+  documentHistory=[];
+  localStorage.setItem('af_doc_history',JSON.stringify(documentHistory));
+  renderHistory(); updateStats();
+  for(const id of ids){
+    try{ await apiCall({action:'delete-certificate',certificate_id:id}); }
+    catch(e){ console.warn('[AF] clearHistory: API delete failed for',id,e); }
   }
+  toast('History cleared.','info');
 }
-
-async function clearHistory() {
-  if (!confirm('Clear ALL document history? This cannot be undone.')) return;
-  console.log('[AF] Clearing all history. Count:', documentHistory.length);
-
-  // Clear locally immediately
-  const ids = documentHistory.map(r => r.id).filter(Boolean);
-  documentHistory = [];
-  localStorage.setItem('af_doc_history', JSON.stringify(documentHistory));
-  renderHistory();
-  updateStats();
-
-  // Best-effort delete from backend
-  for (const id of ids) {
-    try {
-      await apiCall({ action: 'delete-certificate', certificate_id: id });
-    } catch (e) {
-      console.warn('[AF] clearHistory: API delete failed for', id, e);
-    }
-  }
-}
-
-function updateHistoryBadge() {
-  const badge = document.getElementById('historyBadge');
-  if (badge) badge.textContent = documentHistory.length;
-}
+function updateHistoryBadge(){ const badge=document.getElementById('historyBadge'); if(badge)badge.textContent=documentHistory.length; }
 
 /* =============================================
    STATS
 ============================================= */
-function updateStats() {
-  const set = (id, val) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = val;
-  };
-  set('stat-total',   documentHistory.length);
-  set('stat-letters', documentHistory.filter(d => d.cat === 'letter').length);
-  set('stat-certs',   documentHistory.filter(d => d.cat === 'cert').length);
-  const unique = new Set(documentHistory.map(d => (d.name || '').toLowerCase().trim()).filter(Boolean)).size;
-  set('stat-people', unique);
+function updateStats(){
+  const set=(id,val)=>{ const el=document.getElementById(id); if(el)el.textContent=val; };
+  set('stat-total',documentHistory.length);
+  set('stat-letters',documentHistory.filter(d=>d.cat==='letter').length);
+  set('stat-certs',documentHistory.filter(d=>d.cat==='cert').length);
+  const unique=new Set(documentHistory.map(d=>(d.name||'').toLowerCase().trim()).filter(Boolean)).size;
+  set('stat-people',unique);
   updateHistoryBadge();
 }
 
 /* =============================================
-   VERIFY  (API-first, localStorage fallback)
+   VERIFY (unchanged backend logic)
 ============================================= */
-async function verifyDocument() {
-  const inputEl = document.getElementById('verifyInput');
-  const resultDiv = document.getElementById('verifyResult');
-  if (!inputEl || !resultDiv) return;
-
-  const certId = inputEl.value.trim().toUpperCase();
-  if (!certId) {
-    resultDiv.style.display = 'block';
-    resultDiv.className = 'verify-result invalid';
-    resultDiv.innerHTML = `<div class="verify-status invalid">⚠️ Please enter a Document ID.</div>`;
+async function verifyDocument(){
+  const inputEl=document.getElementById('verifyInput');
+  const resultDiv=document.getElementById('verifyResult');
+  if(!inputEl||!resultDiv)return;
+  const certId=inputEl.value.trim().toUpperCase();
+  if(!certId){
+    resultDiv.style.display='block';
+    resultDiv.className='verify-result invalid';
+    resultDiv.innerHTML=`<div class="verify-status invalid">⚠️ Please enter a Document ID.</div>`;
     return;
   }
-
-  console.log('[AF] Verifying document:', certId);
-
-  resultDiv.style.display = 'block';
-  resultDiv.className = 'verify-result';
-  resultDiv.innerHTML = `<div style="color:var(--text2);font-size:14px;">⏳ Verifying…</div>`;
-
-  let record = null;
-  let source = '';
-
-  // 1. Try API
-  try {
-    const { ok, data } = await apiCall({ action: 'verify', certificate_id: certId });
-    if (ok && data.success && data.found && data.record) {
-      record = data.record;
-      source = 'server';
-      console.log('[AF] Verified via API:', certId);
-    } else if (ok && data.success && !data.found) {
-      // API confirmed not found — fall through to localStorage fallback
-      console.log('[AF] API: document not found on server for', certId);
-    } else {
-      console.warn('[AF] API verification issue:', data);
-    }
-  } catch (e) {
-    console.error('[AF] Verify API error, falling back to localStorage:', e);
+  console.log('[AF] Verifying document:',certId);
+  resultDiv.style.display='block';
+  resultDiv.className='verify-result';
+  resultDiv.innerHTML=`<div style="color:var(--text2);font-size:14px;">⏳ Verifying…</div>`;
+  let record=null; let source='';
+  try{
+    const{ok,data}=await apiCall({action:'verify',certificate_id:certId});
+    if(ok&&data.success&&data.found&&data.record){ record=data.record; source='server'; }
+    else if(ok&&data.success&&!data.found){ console.log('[AF] API: document not found on server for',certId); }
+    else{ console.warn('[AF] API verification issue:',data); }
+  } catch(e){ console.error('[AF] Verify API error, falling back to localStorage:',e); }
+  if(!record){
+    const local=documentHistory.find(r=>(r.id||'').toUpperCase()===certId);
+    if(local){ record={full_name:local.name,role:local.role,certificate_type:local.type,issue_date:local.date,certificate_id:local.id}; source='local'; }
   }
-
-  // 2. localStorage fallback
-  if (!record) {
-    const local = documentHistory.find(r => (r.id || '').toUpperCase() === certId);
-    if (local) {
-      record = {
-        full_name:        local.name,
-        role:             local.role,
-        certificate_type: local.type,
-        issue_date:       local.date,
-        certificate_id:   local.id,
-      };
-      source = 'local';
-      console.log('[AF] Verified via localStorage:', certId);
-    }
-  }
-
-  if (record) {
-    const name     = record.full_name        || record.name  || '—';
-    const role     = record.role             || '—';
-    const type     = record.certificate_type || record.type  || '—';
-    const date     = record.issue_date       || record.date  || '—';
-    const id       = record.certificate_id   || record.id    || certId;
-    const srcNote  = source === 'local' ? ' <span style="font-size:10px;color:var(--text3);">(local cache)</span>' : '';
-
-    resultDiv.className = 'verify-result valid';
-    resultDiv.innerHTML = `
+  if(record){
+    const name=record.full_name||record.name||'—';
+    const role=record.role||'—';
+    const type=record.certificate_type||record.type||'—';
+    const date=record.issue_date||record.date||'—';
+    const id=record.certificate_id||record.id||certId;
+    const srcNote=source==='local'?' <span style="font-size:10px;color:var(--text3);">(local cache)</span>':'';
+    resultDiv.className='verify-result valid';
+    resultDiv.innerHTML=`
       <div class="verify-status valid">✅ VALID — Document Verified${srcNote}</div>
       <div class="verify-detail-row"><span>Document ID</span><span>${id}</span></div>
       <div class="verify-detail-row"><span>Recipient Name</span><span>${name}</span></div>
       <div class="verify-detail-row"><span>Role</span><span>${role}</span></div>
       <div class="verify-detail-row"><span>Document Type</span><span>${type}</span></div>
       <div class="verify-detail-row"><span>Issue Date</span><span>${date}</span></div>
-      <div class="verify-detail-row"><span>Issued By</span><span>AcademeForge</span></div>
-    `;
-  } else {
-    resultDiv.className = 'verify-result invalid';
-    resultDiv.innerHTML = `
+      <div class="verify-detail-row"><span>Issued By</span><span>AcademeForge</span></div>`;
+  } else{
+    resultDiv.className='verify-result invalid';
+    resultDiv.innerHTML=`
       <div class="verify-status invalid">❌ INVALID — Document Not Found</div>
-      <p style="font-size:13px;color:var(--text2);margin-top:10px;">No document with ID <strong>${certId}</strong> was found in the AcademeForge registry. Please check the ID and try again.</p>
-    `;
+      <p style="font-size:13px;color:var(--text2);margin-top:10px;">No document with ID <strong>${certId}</strong> was found in the AcademeForge registry. Please check the ID and try again.</p>`;
   }
 }
 
 /* =============================================
    LIVE DATE TIME
 ============================================= */
-function updateLiveDateTime() {
-  const el = document.getElementById('liveDT');
-  if (!el) return;
-  const now = new Date();
-  el.textContent =
-    now.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' }) +
-    ' • ' +
-    now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+function updateLiveDateTime(){
+  const el=document.getElementById('liveDT');
+  if(!el)return;
+  const now=new Date();
+  el.textContent=now.toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'})+' • '+now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
 }
 </script>
 </body>
