@@ -9,9 +9,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
-/* ===========================================
-   VARIABLES & RESET
-=========================================== */
 :root{
   --green:#22c55e;--green-dark:#16a34a;--green-glow:rgba(34,197,94,0.18);
   --purple:#7c3aed;--purple-light:#a855f7;--blue:#3b82f6;--pink:#ec4899;
@@ -37,10 +34,6 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;}
 body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text);transition:background var(--transition),color var(--transition);}
 [data-theme="dark"] body{background:radial-gradient(circle at top left,#052e16,transparent 25%),radial-gradient(circle at bottom right,#172554,transparent 30%),#020617;}
 ::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--bg3);}::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px;}
-
-/* ===========================================
-   LOGIN SCREEN
-=========================================== */
 .login-screen{position:fixed;inset:0;z-index:9999;display:flex;justify-content:center;align-items:center;background:radial-gradient(circle at top left,#14532d,transparent 30%),radial-gradient(circle at bottom right,#1e3a8a,transparent 35%),#020617;}
 .login-box{width:420px;padding:42px;border-radius:var(--radius-xl);background:rgba(15,23,42,0.95);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(18px);box-shadow:0 25px 80px rgba(0,0,0,0.55);animation:fadeUp 0.5s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
@@ -53,10 +46,6 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text);tra
 .login-box button{width:100%;margin-top:18px;border:none;padding:16px;border-radius:var(--radius);background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:var(--transition);}
 .login-box button:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--green-glow);}
 .error-text{display:none;margin-top:14px;text-align:center;color:var(--red);font-size:14px;}
-
-/* ===========================================
-   LAYOUT
-=========================================== */
 #app{display:none;min-height:100vh;}
 .sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;transition:transform var(--transition),background var(--transition);overflow-y:auto;}
 .sidebar-header{padding:20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0;}
@@ -78,14 +67,8 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text);tra
 .icon-btn:hover{background:var(--bg4);transform:translateY(-1px);}
 .pdf-dl-btn{display:flex;align-items:center;gap:6px;padding:0 12px;height:36px;border-radius:var(--radius-sm);border:1px solid rgba(34,197,94,0.4);background:var(--green-glow);color:var(--green);font-size:12px;font-weight:700;cursor:pointer;transition:var(--transition);white-space:nowrap;}
 .pdf-dl-btn:hover{background:rgba(34,197,94,0.28);transform:translateY(-1px);}
-
-/* ===========================================
-   PAGES
-=========================================== */
 .page{display:none;padding:24px;}
 .page.active{display:block;animation:fadeUp 0.3s ease;}
-
-/* STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:24px;}
 .stat-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;transition:var(--transition);position:relative;overflow:hidden;}
 .stat-card::before{content:'';position:absolute;top:-40px;right:-40px;width:100px;height:100px;border-radius:50%;opacity:0.06;}
@@ -116,10 +99,6 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text);tra
 .quick-btn:hover{transform:translateY(-2px);border-color:var(--green);box-shadow:0 8px 24px var(--green-glow);}
 .quick-btn .q-icon{font-size:24px;margin-bottom:8px;}
 .quick-btn p{font-size:11px;font-weight:600;color:var(--text2);}
-
-/* ===========================================
-   GENERATOR FORM
-=========================================== */
 .generator-layout{display:grid;grid-template-columns:390px 1fr;gap:20px;align-items:flex-start;}
 .form-panel{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-xl);padding:24px;position:sticky;top:80px;max-height:calc(100vh - 96px);overflow-y:auto;}
 .form-panel h2{font-size:18px;font-weight:800;color:var(--text);margin-bottom:5px;}
@@ -159,8 +138,6 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text);tra
 .preview-action-btn.dup:hover{background:var(--green-glow);}
 .preview-wrap{background:#e2e8f0;border-radius:var(--radius-lg);overflow:hidden;padding:16px;}
 .preview-wrap-inner{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-
-/* THEME SWITCHER */
 .theme-switcher{display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap;}
 .theme-chip{width:26px;height:26px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:var(--transition);}
 .theme-chip.active{border-color:var(--text);transform:scale(1.2);}
@@ -172,11 +149,9 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text);tra
 .theme-chip[data-theme-id="minimal"]{background:linear-gradient(135deg,#1e293b,#64748b);}
 .theme-chip[data-theme-id="tech"]{background:linear-gradient(135deg,#0e7490,#06b6d4);}
 .theme-chip[data-theme-id="startup"]{background:linear-gradient(135deg,#be123c,#f43f5e);}
+.theme-chip[data-theme-id="leadership"]{background:linear-gradient(135deg,#78350f,#92400e);}
 .theme-chip[data-theme-id="global"]{background:linear-gradient(135deg,#1e3a5f,#2563eb);}
-.theme-chip[data-theme-id="luxury"]{background:linear-gradient(135deg,#78350f,#92400e);}
 .theme-label{font-size:10px;color:var(--text3);margin-bottom:6px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
-
-/* BUILDER SECTIONS */
 .builder-section{background:var(--bg4);border-radius:var(--radius);padding:14px;margin-bottom:12px;}
 .builder-section h3{font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
 .builder-tabs{display:flex;gap:4px;margin-bottom:12px;background:var(--bg3);border-radius:var(--radius-sm);padding:4px;}
@@ -206,58 +181,16 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text);tra
 .range-group label{font-size:11px;color:var(--text2);width:90px;flex-shrink:0;}
 .range-group input[type="range"]{flex:1;accent-color:var(--green);}
 .range-group .range-val{font-size:11px;color:var(--green);width:32px;text-align:right;flex-shrink:0;}
-
-/* ===========================================
-   CERT DOCUMENT BASE — FIX: Proper layout,
-   no overflow, no unwanted lines
-=========================================== */
-/* The .cert-doc wrapper that goes inside preview-wrap-inner */
-.cert-doc{
-  width:100%;
-  background:#ffffff;
-  position:relative;
-  font-family:'Poppins',sans-serif;
-  /* FIX: Use flex column so content fills evenly */
-  display:flex;
-  flex-direction:column;
-  /* FIX: Fixed aspect ratio matching A4 landscape */
-  aspect-ratio:1122/794;
-  overflow:hidden; /* FIX: Clip internal elements, no lines spill out */
-  padding:40px 48px;
-}
-
-/* FIX: cert-border sits INSIDE the cert-doc, fully contained */
-.cert-border-frame{
-  position:absolute;
-  inset:12px;
-  border-radius:18px;
-  /* FIX: Single clean border, no ::after child border causing duplicate lines */
-  border:2px solid currentColor;
-  pointer-events:none;
-  z-index:1;
-}
-.cert-border-inner{
-  position:absolute;
-  inset:20px;
-  border-radius:12px;
-  border:1px dashed currentColor;
-  opacity:0.25;
-  pointer-events:none;
-  z-index:1;
-}
-
-/* Corner ornaments */
+.cert-doc{width:100%;background:#ffffff;position:relative;font-family:'Poppins',sans-serif;display:flex;flex-direction:column;aspect-ratio:1122/794;overflow:hidden;padding:40px 48px;}
+.cert-border-frame{position:absolute;inset:12px;border-radius:18px;border:2px solid currentColor;pointer-events:none;z-index:1;}
+.cert-border-inner{position:absolute;inset:20px;border-radius:12px;border:1px dashed currentColor;opacity:0.25;pointer-events:none;z-index:1;}
 .cert-corner{position:absolute;width:36px;height:36px;z-index:2;pointer-events:none;}
 .cert-corner svg{width:100%;height:100%;}
 .cert-corner.tl{top:16px;left:16px;}
 .cert-corner.tr{top:16px;right:16px;transform:scaleX(-1);}
 .cert-corner.bl{bottom:16px;left:16px;transform:scaleY(-1);}
 .cert-corner.br{bottom:16px;right:16px;transform:scale(-1);}
-
-/* Accent bar */
 .cert-accent-bar{height:4px;border-radius:2px;margin:14px 0 18px;position:relative;z-index:5;}
-
-/* Header row */
 .cert-header{position:relative;z-index:5;display:flex;justify-content:space-between;align-items:flex-start;}
 .cert-logo-area{display:flex;align-items:center;gap:12px;}
 .cert-logo-box{width:60px;height:60px;border-radius:14px;overflow:hidden;background:#fff;border:1px solid #e2e8f0;display:flex;justify-content:center;align-items:center;box-shadow:0 4px 14px rgba(0,0,0,0.08);flex-shrink:0;}
@@ -266,8 +199,6 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text);tra
 .cert-brand p{font-size:11px;color:#64748b;margin-top:5px;}
 .cert-msme-box{width:110px;height:60px;border-radius:12px;overflow:hidden;border:1px dashed #94a3b8;background:#fff;display:flex;align-items:center;justify-content:center;}
 .cert-msme-box img{width:100%;height:100%;object-fit:contain;}
-
-/* Main cert content */
 .cert-content{position:relative;z-index:5;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center;margin:0 auto;width:100%;}
 .cert-tag{font-size:9px;letter-spacing:5px;font-weight:700;color:#64748b;text-transform:uppercase;}
 .cert-heading{font-size:38px;font-weight:800;line-height:1.1;margin-top:8px;}
@@ -279,8 +210,6 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text);tra
 .cert-info-card{min-width:110px;background:#fff;border:1px solid #e2e8f0;padding:10px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.04);}
 .cert-info-card h4{color:#94a3b8;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:700;}
 .cert-info-card p{margin-top:4px;color:#0f172a;font-size:11px;font-weight:800;}
-
-/* Footer */
 .cert-footer{position:relative;z-index:5;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-top:16px;}
 .cert-sig-area{flex:1;}
 .cert-sig-img{height:40px;object-fit:contain;margin-bottom:4px;}
@@ -296,155 +225,26 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text);tra
 .cert-qr-box{border:1px solid #e2e8f0;border-radius:8px;padding:4px;background:#fff;display:flex;align-items:center;justify-content:center;}
 .cert-note{position:relative;z-index:5;margin-top:10px;text-align:center;color:#94a3b8;font-size:9px;line-height:1.7;}
 .cert-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-35deg);font-size:80px;font-weight:900;letter-spacing:8px;pointer-events:none;white-space:nowrap;font-family:'Cinzel',serif;z-index:0;}
-
-/* ===========================================
-   CERT THEMES — 10 Themes
-=========================================== */
-
-/* 1. Corporate Green */
 .theme-corporate{background:radial-gradient(circle at 10% 10%,rgba(34,197,94,0.07),transparent 40%),radial-gradient(circle at 90% 90%,rgba(59,130,246,0.05),transparent 40%),#ffffff;}
-.theme-corporate .cert-border-frame{color:#16a34a;}
-.theme-corporate .cert-border-inner{color:#16a34a;}
-.theme-corporate .cert-heading{color:#15803d;}
-.theme-corporate .cert-role{color:#16a34a;}
-.theme-corporate .cert-stamp{border-color:#16a34a;}
-.theme-corporate .cert-v-dot{background:#22c55e;}
-.theme-corporate .cert-accent-bar{background:linear-gradient(90deg,#16a34a,#22c55e,#86efac,transparent);}
-.theme-corporate .cert-brand h1{color:#0f172a;}
-
-/* 2. Royal Purple */
+.theme-corporate .cert-border-frame{color:#16a34a;}.theme-corporate .cert-border-inner{color:#16a34a;}.theme-corporate .cert-heading{color:#15803d;}.theme-corporate .cert-role{color:#16a34a;}.theme-corporate .cert-stamp{border-color:#16a34a;}.theme-corporate .cert-v-dot{background:#22c55e;}.theme-corporate .cert-accent-bar{background:linear-gradient(90deg,#16a34a,#22c55e,#86efac,transparent);}.theme-corporate .cert-brand h1{color:#0f172a;}
 .theme-royal{background:radial-gradient(circle at 10% 10%,rgba(124,58,237,0.08),transparent 40%),radial-gradient(circle at 90% 90%,rgba(168,85,247,0.06),transparent 40%),#faf5ff;}
-.theme-royal .cert-border-frame{color:#7c3aed;}
-.theme-royal .cert-border-inner{color:#7c3aed;}
-.theme-royal .cert-heading{color:#6d28d9;font-family:'Cinzel',serif;}
-.theme-royal .cert-role{color:#7c3aed;}
-.theme-royal .cert-stamp{border-color:#7c3aed;}
-.theme-royal .cert-v-dot{background:#7c3aed;}
-.theme-royal .cert-accent-bar{background:linear-gradient(90deg,#7c3aed,#a855f7,#c4b5fd,transparent);}
-.theme-royal .cert-brand h1{color:#4c1d95;}
-.theme-royal .cert-digital{border-color:#ddd6fe;}
-
-/* 3. Academic Blue */
+.theme-royal .cert-border-frame{color:#7c3aed;}.theme-royal .cert-border-inner{color:#7c3aed;}.theme-royal .cert-heading{color:#6d28d9;font-family:'Cinzel',serif;}.theme-royal .cert-role{color:#7c3aed;}.theme-royal .cert-stamp{border-color:#7c3aed;}.theme-royal .cert-v-dot{background:#7c3aed;}.theme-royal .cert-accent-bar{background:linear-gradient(90deg,#7c3aed,#a855f7,#c4b5fd,transparent);}.theme-royal .cert-brand h1{color:#4c1d95;}.theme-royal .cert-digital{border-color:#ddd6fe;}
 .theme-academic{background:radial-gradient(circle at 10% 10%,rgba(29,78,216,0.07),transparent 40%),radial-gradient(circle at 90% 90%,rgba(59,130,246,0.05),transparent 40%),#eff6ff;}
-.theme-academic .cert-border-frame{color:#1d4ed8;}
-.theme-academic .cert-border-inner{color:#1d4ed8;}
-.theme-academic .cert-heading{color:#1e40af;font-family:'Playfair Display',serif;}
-.theme-academic .cert-role{color:#1d4ed8;}
-.theme-academic .cert-stamp{border-color:#1d4ed8;}
-.theme-academic .cert-v-dot{background:#3b82f6;}
-.theme-academic .cert-accent-bar{background:linear-gradient(90deg,#1d4ed8,#3b82f6,#93c5fd,transparent);}
-.theme-academic .cert-brand h1{color:#1e3a8a;}
-
-/* 4. Gold Excellence */
+.theme-academic .cert-border-frame{color:#1d4ed8;}.theme-academic .cert-border-inner{color:#1d4ed8;}.theme-academic .cert-heading{color:#1e40af;font-family:'Playfair Display',serif;}.theme-academic .cert-role{color:#1d4ed8;}.theme-academic .cert-stamp{border-color:#1d4ed8;}.theme-academic .cert-v-dot{background:#3b82f6;}.theme-academic .cert-accent-bar{background:linear-gradient(90deg,#1d4ed8,#3b82f6,#93c5fd,transparent);}.theme-academic .cert-brand h1{color:#1e3a8a;}
 .theme-gold{background:radial-gradient(circle at 10% 10%,rgba(217,119,6,0.08),transparent 40%),radial-gradient(circle at 90% 90%,rgba(245,158,11,0.06),transparent 40%),#fffbeb;}
-.theme-gold .cert-border-frame{color:#d97706;}
-.theme-gold .cert-border-inner{color:#d97706;}
-.theme-gold .cert-heading{color:#b45309;font-family:'Playfair Display',serif;}
-.theme-gold .cert-role{color:#d97706;}
-.theme-gold .cert-stamp{border-color:#d97706;}
-.theme-gold .cert-v-dot{background:#f59e0b;}
-.theme-gold .cert-accent-bar{background:linear-gradient(90deg,#d97706,#f59e0b,#fcd34d,transparent);}
-.theme-gold .cert-brand h1{color:#78350f;}
-
-/* 5. AI Innovation (Dark) */
+.theme-gold .cert-border-frame{color:#d97706;}.theme-gold .cert-border-inner{color:#d97706;}.theme-gold .cert-heading{color:#b45309;font-family:'Playfair Display',serif;}.theme-gold .cert-role{color:#d97706;}.theme-gold .cert-stamp{border-color:#d97706;}.theme-gold .cert-v-dot{background:#f59e0b;}.theme-gold .cert-accent-bar{background:linear-gradient(90deg,#d97706,#f59e0b,#fcd34d,transparent);}.theme-gold .cert-brand h1{color:#78350f;}
 .theme-ai{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%);}
-.theme-ai .cert-border-frame{color:#818cf8;}
-.theme-ai .cert-border-inner{color:#818cf8;}
-.theme-ai .cert-heading{color:#a5b4fc;font-family:'Cinzel',serif;}
-.theme-ai .cert-role{color:#818cf8;}
-.theme-ai .cert-stamp{border-color:#818cf8;}
-.theme-ai .cert-v-dot{background:#818cf8;}
-.theme-ai .cert-accent-bar{background:linear-gradient(90deg,#4f46e5,#818cf8,#c7d2fe,transparent);}
-.theme-ai .cert-brand h1{color:#e2e8f0;}
-.theme-ai .cert-brand p{color:#64748b;}
-.theme-ai .cert-tag{color:#64748b;}
-.theme-ai .cert-awarded{color:#94a3b8;}
-.theme-ai .cert-name{color:#f1f5f9;}
-.theme-ai .cert-desc{color:#94a3b8;}
-.theme-ai .cert-info-card{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);}
-.theme-ai .cert-info-card h4{color:#64748b;}
-.theme-ai .cert-info-card p{color:#e2e8f0;}
-.theme-ai .cert-sig-name{color:#f1f5f9;}
-.theme-ai .cert-sig-role{color:#64748b;}
-.theme-ai .cert-sig-line{background:#818cf8;}
-.theme-ai .cert-digital{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);}
-.theme-ai .cert-v-content{color:#64748b;}
-.theme-ai .cert-note{color:#475569;}
-.theme-ai .cert-msme-box{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);}
-
-/* 6. Modern Minimal */
-.theme-minimal{background:#ffffff;}
-.theme-minimal .cert-border-frame{color:#1e293b;}
-.theme-minimal .cert-border-inner{color:#e2e8f0;}
-.theme-minimal .cert-heading{color:#0f172a;font-family:'Inter',sans-serif;font-weight:900;letter-spacing:-1px;}
-.theme-minimal .cert-role{color:#475569;}
-.theme-minimal .cert-stamp{border-color:#1e293b;border-style:solid;}
-.theme-minimal .cert-v-dot{background:#1e293b;}
-.theme-minimal .cert-accent-bar{background:linear-gradient(90deg,#0f172a,#475569,#cbd5e1,transparent);}
-.theme-minimal .cert-brand h1{color:#0f172a;font-family:'Inter',sans-serif;}
-.theme-minimal .cert-tag{color:#94a3b8;}
-
-/* 7. Technology Futuristic */
+.theme-ai .cert-border-frame{color:#818cf8;}.theme-ai .cert-border-inner{color:#818cf8;}.theme-ai .cert-heading{color:#a5b4fc;font-family:'Cinzel',serif;}.theme-ai .cert-role{color:#818cf8;}.theme-ai .cert-stamp{border-color:#818cf8;}.theme-ai .cert-v-dot{background:#818cf8;}.theme-ai .cert-accent-bar{background:linear-gradient(90deg,#4f46e5,#818cf8,#c7d2fe,transparent);}.theme-ai .cert-brand h1{color:#e2e8f0;}.theme-ai .cert-brand p{color:#64748b;}.theme-ai .cert-tag{color:#64748b;}.theme-ai .cert-awarded{color:#94a3b8;}.theme-ai .cert-name{color:#f1f5f9;}.theme-ai .cert-desc{color:#94a3b8;}.theme-ai .cert-info-card{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);}.theme-ai .cert-info-card h4{color:#64748b;}.theme-ai .cert-info-card p{color:#e2e8f0;}.theme-ai .cert-sig-name{color:#f1f5f9;}.theme-ai .cert-sig-role{color:#64748b;}.theme-ai .cert-sig-line{background:#818cf8;}.theme-ai .cert-digital{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);}.theme-ai .cert-v-content{color:#64748b;}.theme-ai .cert-note{color:#475569;}.theme-ai .cert-msme-box{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);}
+.theme-minimal{background:#ffffff;}.theme-minimal .cert-border-frame{color:#1e293b;}.theme-minimal .cert-border-inner{color:#e2e8f0;}.theme-minimal .cert-heading{color:#0f172a;font-family:'Inter',sans-serif;font-weight:900;letter-spacing:-1px;}.theme-minimal .cert-role{color:#475569;}.theme-minimal .cert-stamp{border-color:#1e293b;border-style:solid;}.theme-minimal .cert-v-dot{background:#1e293b;}.theme-minimal .cert-accent-bar{background:linear-gradient(90deg,#0f172a,#475569,#cbd5e1,transparent);}.theme-minimal .cert-brand h1{color:#0f172a;font-family:'Inter',sans-serif;}.theme-minimal .cert-tag{color:#94a3b8;}
 .theme-tech{background:linear-gradient(135deg,#ecfeff 0%,#cffafe 50%,#e0f2fe 100%);}
-.theme-tech .cert-border-frame{color:#0e7490;}
-.theme-tech .cert-border-inner{color:#06b6d4;}
-.theme-tech .cert-heading{color:#0c4a6e;font-family:'Montserrat',sans-serif;font-weight:900;}
-.theme-tech .cert-role{color:#0e7490;}
-.theme-tech .cert-stamp{border-color:#0e7490;}
-.theme-tech .cert-v-dot{background:#06b6d4;}
-.theme-tech .cert-accent-bar{background:linear-gradient(90deg,#0e7490,#06b6d4,#67e8f9,transparent);}
-.theme-tech .cert-brand h1{color:#0c4a6e;font-family:'Montserrat',sans-serif;}
-
-/* 8. Startup Achievement */
+.theme-tech .cert-border-frame{color:#0e7490;}.theme-tech .cert-border-inner{color:#06b6d4;}.theme-tech .cert-heading{color:#0c4a6e;font-family:'Montserrat',sans-serif;font-weight:900;}.theme-tech .cert-role{color:#0e7490;}.theme-tech .cert-stamp{border-color:#0e7490;}.theme-tech .cert-v-dot{background:#06b6d4;}.theme-tech .cert-accent-bar{background:linear-gradient(90deg,#0e7490,#06b6d4,#67e8f9,transparent);}.theme-tech .cert-brand h1{color:#0c4a6e;font-family:'Montserrat',sans-serif;}
 .theme-startup{background:linear-gradient(135deg,#fff1f2 0%,#ffe4e6 50%,#fff1f2 100%);}
-.theme-startup .cert-border-frame{color:#be123c;}
-.theme-startup .cert-border-inner{color:#f43f5e;}
-.theme-startup .cert-heading{color:#9f1239;font-family:'Raleway',sans-serif;font-weight:900;}
-.theme-startup .cert-role{color:#be123c;}
-.theme-startup .cert-stamp{border-color:#be123c;}
-.theme-startup .cert-v-dot{background:#f43f5e;}
-.theme-startup .cert-accent-bar{background:linear-gradient(90deg,#be123c,#f43f5e,#fda4af,transparent);}
-.theme-startup .cert-brand h1{color:#881337;font-family:'Raleway',sans-serif;}
-
-/* 9. Leadership Award */
+.theme-startup .cert-border-frame{color:#be123c;}.theme-startup .cert-border-inner{color:#f43f5e;}.theme-startup .cert-heading{color:#9f1239;font-family:'Raleway',sans-serif;font-weight:900;}.theme-startup .cert-role{color:#be123c;}.theme-startup .cert-stamp{border-color:#be123c;}.theme-startup .cert-v-dot{background:#f43f5e;}.theme-startup .cert-accent-bar{background:linear-gradient(90deg,#be123c,#f43f5e,#fda4af,transparent);}.theme-startup .cert-brand h1{color:#881337;font-family:'Raleway',sans-serif;}
 .theme-leadership{background:radial-gradient(circle at 10% 10%,rgba(180,83,9,0.1),transparent 40%),radial-gradient(circle at 90% 90%,rgba(120,53,15,0.08),transparent 40%),#fefce8;}
-.theme-leadership .cert-border-frame{color:#92400e;}
-.theme-leadership .cert-border-inner{color:#d97706;}
-.theme-leadership .cert-heading{color:#78350f;font-family:'Playfair Display',serif;font-style:italic;}
-.theme-leadership .cert-role{color:#92400e;}
-.theme-leadership .cert-stamp{border-color:#92400e;}
-.theme-leadership .cert-v-dot{background:#d97706;}
-.theme-leadership .cert-accent-bar{background:linear-gradient(90deg,#92400e,#d97706,#fbbf24,transparent);}
-.theme-leadership .cert-brand h1{color:#78350f;font-family:'Playfair Display',serif;}
-
-/* 10. Global Recognition */
+.theme-leadership .cert-border-frame{color:#92400e;}.theme-leadership .cert-border-inner{color:#d97706;}.theme-leadership .cert-heading{color:#78350f;font-family:'Playfair Display',serif;font-style:italic;}.theme-leadership .cert-role{color:#92400e;}.theme-leadership .cert-stamp{border-color:#92400e;}.theme-leadership .cert-v-dot{background:#d97706;}.theme-leadership .cert-accent-bar{background:linear-gradient(90deg,#92400e,#d97706,#fbbf24,transparent);}.theme-leadership .cert-brand h1{color:#78350f;font-family:'Playfair Display',serif;}
 .theme-global{background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 50%,#eff6ff 100%);}
-.theme-global .cert-border-frame{color:#1e3a5f;}
-.theme-global .cert-border-inner{color:#2563eb;}
-.theme-global .cert-heading{color:#1e3a5f;font-family:'Cinzel',serif;}
-.theme-global .cert-role{color:#1d4ed8;}
-.theme-global .cert-stamp{border-color:#1e3a5f;}
-.theme-global .cert-v-dot{background:#2563eb;}
-.theme-global .cert-accent-bar{background:linear-gradient(90deg,#1e3a5f,#2563eb,#93c5fd,transparent);}
-.theme-global .cert-brand h1{color:#1e3a5f;font-family:'Cinzel',serif;}
-
-/* ===========================================
-   LETTER TEMPLATE
-=========================================== */
-.letter-doc{
-  width:100%;
-  background:#ffffff;
-  padding:44px 50px;
-  font-family:'Poppins',sans-serif;
-  color:#0f172a;
-  line-height:1.7;
-  position:relative;
-  /* FIX: Fixed A4 portrait aspect for preview */
-  aspect-ratio:794/1122;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-}
+.theme-global .cert-border-frame{color:#1e3a5f;}.theme-global .cert-border-inner{color:#2563eb;}.theme-global .cert-heading{color:#1e3a5f;font-family:'Cinzel',serif;}.theme-global .cert-role{color:#1d4ed8;}.theme-global .cert-stamp{border-color:#1e3a5f;}.theme-global .cert-v-dot{background:#2563eb;}.theme-global .cert-accent-bar{background:linear-gradient(90deg,#1e3a5f,#2563eb,#93c5fd,transparent);}.theme-global .cert-brand h1{color:#1e3a5f;font-family:'Cinzel',serif;}
+.letter-doc{width:100%;background:#ffffff;padding:44px 50px;font-family:'Poppins',sans-serif;color:#0f172a;line-height:1.7;position:relative;aspect-ratio:794/1122;overflow:hidden;display:flex;flex-direction:column;}
 .letter-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid #f1f5f9;}
 .letter-logo-area{display:flex;align-items:center;gap:12px;}
 .letter-logo-box{width:50px;height:50px;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #e2e8f0;display:flex;justify-content:center;align-items:center;}
@@ -475,10 +275,6 @@ body{background:var(--bg);font-family:'Poppins',sans-serif;color:var(--text);tra
 .letter-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-35deg);font-size:72px;font-weight:900;color:rgba(34,197,94,0.04);letter-spacing:8px;pointer-events:none;white-space:nowrap;font-family:'Cinzel',serif;z-index:0;}
 .letter-sig-img{height:36px;object-fit:contain;margin-bottom:4px;display:block;}
 .letter-qr{display:flex;align-items:center;justify-content:center;}
-
-/* ===========================================
-   HISTORY TABLE
-=========================================== */
 .table-wrap{overflow-x:auto;border-radius:var(--radius-lg);border:1px solid var(--border);}
 table{width:100%;border-collapse:collapse;font-size:12px;}
 thead{background:var(--bg4);}
@@ -498,10 +294,6 @@ tr:hover td{background:var(--bg4);}
 .search-input{flex:1;min-width:180px;background:var(--card-bg);border:1px solid var(--border2);padding:10px 14px;border-radius:var(--radius);color:var(--text);font-size:13px;outline:none;transition:var(--transition);font-family:'Poppins',sans-serif;}
 .search-input:focus{border-color:var(--green);}
 .filter-select{background:var(--card-bg);border:1px solid var(--border2);padding:10px 14px;border-radius:var(--radius);color:var(--text);font-size:12px;outline:none;font-family:'Poppins',sans-serif;cursor:pointer;}
-
-/* ===========================================
-   VERIFY PAGE
-=========================================== */
 .verify-center{max-width:500px;margin:0 auto;padding:36px 0;}
 .verify-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-xl);padding:32px;text-align:center;}
 .verify-icon{font-size:50px;margin-bottom:16px;}
@@ -517,23 +309,17 @@ tr:hover td{background:var(--bg4);}
 .verify-detail-row:last-child{border-bottom:none;}
 .verify-detail-row span:first-child{color:var(--text2);}
 .verify-detail-row span:last-child{font-weight:700;color:var(--text);}
-
-/* EMPTY STATE */
 .empty-state{text-align:center;padding:50px 20px;color:var(--text2);}
 .empty-state .empty-icon{font-size:46px;margin-bottom:14px;}
 .empty-state h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:7px;}
 .menu-toggle{display:none;width:36px;height:36px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--card-bg);align-items:center;justify-content:center;cursor:pointer;font-size:18px;}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;}
-
-/* TOAST */
 .toast-wrap{position:fixed;bottom:20px;right:20px;z-index:9000;display:flex;flex-direction:column;gap:8px;}
 .toast{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:12px 18px;font-size:13px;color:var(--text);box-shadow:0 8px 32px var(--shadow);animation:toastIn 0.3s ease;display:flex;align-items:center;gap:9px;min-width:260px;}
 @keyframes toastIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
 .toast.success{border-color:rgba(34,197,94,0.4);}
 .toast.error{border-color:rgba(239,68,68,0.4);}
 .toast.info{border-color:rgba(59,130,246,0.4);}
-
-/* PROGRESS */
 .progress-overlay{position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,0.7);display:none;flex-direction:column;justify-content:center;align-items:center;gap:20px;}
 .progress-overlay.active{display:flex;}
 .progress-box{background:var(--bg3);border-radius:var(--radius-xl);padding:28px 36px;text-align:center;width:340px;}
@@ -541,16 +327,10 @@ tr:hover td{background:var(--bg4);}
 .progress-box p{font-size:12px;color:var(--text2);margin-bottom:18px;}
 .progress-bar{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden;}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--green-dark),var(--green));border-radius:3px;transition:width 0.3s ease;width:0%;}
-
-/* MISC */
 .badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;}
 .badge-green{background:rgba(34,197,94,0.12);color:var(--green);}
 .divider{height:1px;background:var(--border);margin:16px 0;}
 .tip-box{background:var(--bg4);border-radius:var(--radius-sm);padding:10px 14px;font-size:11px;color:var(--text2);margin-top:10px;line-height:1.7;}
-
-/* ===========================================
-   RESPONSIVE
-=========================================== */
 @media(max-width:1100px){.generator-layout{grid-template-columns:340px 1fr;}}
 @media(max-width:900px){
   .menu-toggle{display:flex;}
@@ -570,8 +350,6 @@ tr:hover td{background:var(--bg4);}
   .cert-heading{font-size:26px!important;}
   .cert-name{font-size:28px!important;}
 }
-
-/* PRINT */
 @media print{
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
   body>*:not(#app){display:none!important;}
@@ -587,7 +365,6 @@ tr:hover td{background:var(--bg4);}
 </style>
 </head>
 <body>
-
 <div class="toast-wrap" id="toastWrap"></div>
 <div class="progress-overlay" id="progressOverlay">
   <div class="progress-box">
@@ -596,13 +373,9 @@ tr:hover td{background:var(--bg4);}
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   </div>
 </div>
-
-<!-- LOGIN -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
-    <div class="login-logo">
-      <img src="AF LOGO 2.jpeg" alt="AcademeForge" onerror="this.style.display='none';this.parentNode.textContent='AF'"/>
-    </div>
+    <div class="login-logo"><img src="AF LOGO 2.jpeg" alt="AcademeForge" onerror="this.style.display='none';this.parentNode.textContent='AF'"/></div>
     <h1>AcademeForge</h1>
     <p>Secure Certificate &amp; Documentation Portal<br>Building Skills. Creating Opportunities.</p>
     <input type="password" id="passwordInput" placeholder="Enter Admin Password" onkeydown="if(event.key==='Enter')login()"/>
@@ -610,8 +383,6 @@ tr:hover td{background:var(--bg4);}
     <div class="error-text" id="errorText">❌ Invalid Password. Please try again.</div>
   </div>
 </div>
-
-<!-- APP -->
 <div id="app">
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
   <nav class="sidebar" id="sidebar">
@@ -651,7 +422,6 @@ tr:hover td{background:var(--bg4);}
     <button class="nav-item" onclick="showPage('verify',this)"><span class="nav-icon">✅</span>Verify Document</button>
     <button class="nav-item" onclick="logout()"><span class="nav-icon">🚪</span>Logout</button>
   </nav>
-
   <div class="main">
     <div class="topbar">
       <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()">☰</button>
@@ -662,15 +432,8 @@ tr:hover td{background:var(--bg4);}
         <button class="pdf-dl-btn" onclick="downloadPDF()">📥 Download PDF</button>
       </div>
     </div>
-
-    <!-- DASHBOARD -->
     <div class="page active" id="page-dashboard">
-      <div class="section-header">
-        <div>
-          <div class="section-title">Welcome to AcademeForge Documentation Center</div>
-          <div class="section-sub">Building Skills. Creating Opportunities. — Generate professional HR documents instantly.</div>
-        </div>
-      </div>
+      <div class="section-header"><div><div class="section-title">Welcome to AcademeForge Documentation Center</div><div class="section-sub">Building Skills. Creating Opportunities. — Generate professional HR documents instantly.</div></div></div>
       <div class="stats-grid">
         <div class="stat-card green"><div class="stat-icon">📄</div><div class="stat-value" id="stat-total">0</div><div class="stat-label">Total Documents</div></div>
         <div class="stat-card blue"><div class="stat-icon">📋</div><div class="stat-value" id="stat-letters">0</div><div class="stat-label">Letters Issued</div></div>
@@ -715,20 +478,14 @@ tr:hover td{background:var(--bg4);}
         <div class="category-card" onclick="showPageAndSetType('generator','custom-cert',null)" style="border-color:rgba(245,158,11,0.3);"><div class="cat-icon">✨</div><h3>Custom Certificate Builder</h3><p>Fully customizable certificate — any title, color, layout, fonts, and branding.</p><span class="cat-badge custom">Custom</span></div>
       </div>
     </div>
-
-    <!-- GENERATOR -->
     <div class="page" id="page-generator">
-      <div class="section-header">
-        <div><div class="section-title" id="generatorTitle">Generate Document</div><div class="section-sub">Fill in the details and preview your document instantly.</div></div>
-      </div>
+      <div class="section-header"><div><div class="section-title" id="generatorTitle">Generate Document</div><div class="section-sub">Fill in the details and preview your document instantly.</div></div></div>
       <div class="generator-layout">
         <div class="form-panel">
           <h2>Document Details</h2>
           <p>Select type and fill required fields. Auto-ID is generated automatically.</p>
           <div class="doc-type-grid" id="docTypeGrid"></div>
           <div class="auto-id-display">🆔 <span id="autoIdValue">AF-CERT-2026-0001</span></div>
-
-          <!-- CERT THEME -->
           <div id="themeSwitcherWrap" style="display:none;margin-bottom:14px;">
             <div class="theme-label">🎨 Certificate Theme (10 Designs)</div>
             <div class="theme-switcher">
@@ -745,8 +502,6 @@ tr:hover td{background:var(--bg4);}
             </div>
             <div style="font-size:10px;color:var(--text3);margin-top:4px;" id="themeNameLabel">Theme: Corporate Green</div>
           </div>
-
-          <!-- STANDARD FIELDS -->
           <div id="standardFields">
             <div class="form-group"><label>Full Name</label><input type="text" id="f-name" placeholder="Devraj Kumar" oninput="liveUpdate()"/></div>
             <div class="form-row">
@@ -761,12 +516,7 @@ tr:hover td{background:var(--bg4);}
               <div class="form-group"><label>Issue Date</label><input type="text" id="f-date" placeholder="05 Jun 2026" oninput="liveUpdate()"/></div>
               <div class="form-group"><label>Work Type</label><input type="text" id="f-duration" placeholder="Flexible / Full-Time" oninput="liveUpdate()"/></div>
             </div>
-            <div class="form-group" id="stipendGroup" style="display:none;">
-              <label>Stipend / CTC <span>(optional)</span></label>
-              <input type="text" id="f-stipend" placeholder="₹5,000/month or Unpaid" oninput="liveUpdate()"/>
-            </div>
-
-            <!-- EDITABLE TEMPLATE FIELDS (shown for preset certs) -->
+            <div class="form-group" id="stipendGroup" style="display:none;"><label>Stipend / CTC <span>(optional)</span></label><input type="text" id="f-stipend" placeholder="₹5,000/month or Unpaid" oninput="liveUpdate()"/></div>
             <div id="editableTemplateFields" style="display:none;">
               <div class="divider"></div>
               <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:10px;letter-spacing:1px;">✏️ EDITABLE TEMPLATE FIELDS</div>
@@ -781,7 +531,6 @@ tr:hover td{background:var(--bg4);}
                 <div class="form-group"><label>Organization Tagline</label><input type="text" id="f-orgTagline" placeholder="Building Skills. Creating Opportunities." oninput="liveUpdate()"/></div>
               </div>
             </div>
-
             <div id="letterDescGroup">
               <div class="form-group"><label>Additional Details <span>(optional)</span></label><textarea id="f-letter-desc" placeholder="Any extra context for this letter…" oninput="liveUpdate()"></textarea></div>
             </div>
@@ -789,8 +538,6 @@ tr:hover td{background:var(--bg4);}
             <div class="form-group"><label>Signatory Name</label><input type="text" id="f-signname" value="Devraj Kumar" oninput="liveUpdate()"/></div>
             <div class="form-group"><label>Signatory Position</label><input type="text" id="f-signrole" value="Founder & CEO, AcademeForge" oninput="liveUpdate()"/></div>
           </div>
-
-          <!-- CUSTOM CERT FIELDS -->
           <div id="customCertFields" style="display:none;">
             <div class="builder-tabs">
               <button class="builder-tab active" onclick="switchBuilderTab('text',this)">✏️ Text</button>
@@ -798,7 +545,6 @@ tr:hover td{background:var(--bg4);}
               <button class="builder-tab" onclick="switchBuilderTab('layout',this)">📐 Layout</button>
               <button class="builder-tab" onclick="switchBuilderTab('upload',this)">🖼️ Assets</button>
             </div>
-
             <div id="btab-text" class="builder-tab-content active">
               <div class="builder-section">
                 <h3>✏️ Certificate Text</h3>
@@ -829,7 +575,6 @@ tr:hover td{background:var(--bg4);}
                 <div class="form-group"><label>Signatory Role</label><input type="text" id="cc-signrole" placeholder="Founder & CEO, AcademeForge" oninput="liveUpdate()"/></div>
               </div>
             </div>
-
             <div id="btab-style" class="builder-tab-content">
               <div class="builder-section">
                 <h3>🎨 Colors</h3>
@@ -868,10 +613,8 @@ tr:hover td{background:var(--bg4);}
                 <h3>🖼️ Border & Decoration</h3>
                 <div class="form-group"><label>Border Style</label>
                   <select id="cc-border-style" onchange="liveUpdate()">
-                    <option value="solid">Solid</option>
-                    <option value="dashed">Dashed</option>
-                    <option value="double">Double</option>
-                    <option value="groove">Groove</option>
+                    <option value="solid">Solid</option><option value="dashed">Dashed</option>
+                    <option value="double">Double</option><option value="groove">Groove</option>
                     <option value="none">None</option>
                   </select>
                 </div>
@@ -882,17 +625,14 @@ tr:hover td{background:var(--bg4);}
                 <h3>🌈 Background</h3>
                 <div class="form-group"><label>Background Type</label>
                   <select id="cc-bg-type" onchange="liveUpdate()">
-                    <option value="solid">Solid Color</option>
-                    <option value="gradient-radial">Radial Gradient</option>
-                    <option value="gradient-linear">Linear Gradient</option>
-                    <option value="image">Custom Image</option>
+                    <option value="solid">Solid Color</option><option value="gradient-radial">Radial Gradient</option>
+                    <option value="gradient-linear">Linear Gradient</option><option value="image">Custom Image</option>
                   </select>
                 </div>
                 <div class="color-row"><label>BG Color 1</label><input type="color" id="cc-bg-color1" value="#ffffff" oninput="liveUpdate()"/></div>
                 <div class="color-row"><label>BG Color 2</label><input type="color" id="cc-bg-color2" value="#f0fdf4" oninput="liveUpdate()"/></div>
               </div>
             </div>
-
             <div id="btab-layout" class="builder-tab-content">
               <div class="builder-section">
                 <h3>👁️ Show / Hide Sections</h3>
@@ -907,21 +647,15 @@ tr:hover td{background:var(--bg4);}
               <div class="builder-section">
                 <h3>📐 Layout Positions</h3>
                 <div class="form-group"><label>Content Alignment</label>
-                  <select id="cc-text-align" onchange="liveUpdate()">
-                    <option value="center">Center</option>
-                    <option value="left">Left</option>
-                  </select>
+                  <select id="cc-text-align" onchange="liveUpdate()"><option value="center">Center</option><option value="left">Left</option></select>
                 </div>
                 <div class="form-group"><label>Name Style</label>
                   <select id="cc-name-style" onchange="liveUpdate()">
-                    <option value="large">Large & Bold</option>
-                    <option value="elegant">Elegant Italic</option>
-                    <option value="outlined">Outlined</option>
+                    <option value="large">Large & Bold</option><option value="elegant">Elegant Italic</option><option value="outlined">Outlined</option>
                   </select>
                 </div>
               </div>
             </div>
-
             <div id="btab-upload" class="builder-tab-content">
               <div class="builder-section">
                 <h3>🖼️ Upload Assets</h3>
@@ -951,16 +685,12 @@ tr:hover td{background:var(--bg4);}
                 </div>
               </div>
             </div>
-
-            <!-- Shared fields for custom cert -->
             <div class="divider"></div>
             <button class="action-btn btn-primary" onclick="generateDocument()">⚡ Generate & Save</button>
             <button class="action-btn btn-pdf" onclick="downloadPDF()">📥 Download PDF</button>
             <button class="action-btn btn-png" onclick="downloadPNG()">🖼️ Download PNG</button>
             <button class="action-btn btn-secondary" onclick="duplicateDoc()">📋 Duplicate</button>
           </div>
-
-          <!-- CUSTOM LETTER FIELDS -->
           <div id="customLetterFields" style="display:none;">
             <div class="builder-section">
               <h3>✏️ Letter Content</h3>
@@ -1014,8 +744,6 @@ tr:hover td{background:var(--bg4);}
             <button class="action-btn btn-png" onclick="downloadPNG()">🖼️ Download PNG</button>
             <button class="action-btn btn-secondary" onclick="duplicateDoc()">📋 Duplicate</button>
           </div>
-
-          <!-- Standard action buttons (for non-custom types) -->
           <div id="standardActions">
             <button class="action-btn btn-primary" onclick="generateDocument()">⚡ Generate &amp; Save Document</button>
             <button class="action-btn btn-pdf" onclick="downloadPDF()">📥 Download PDF</button>
@@ -1024,8 +752,6 @@ tr:hover td{background:var(--bg4);}
             <div class="tip-box">💡 Tip: Use 10 certificate themes via the color chips above. Edit Certificate Heading, Tagline, and Description to customise any template without code.</div>
           </div>
         </div>
-
-        <!-- PREVIEW PANEL -->
         <div class="preview-panel">
           <div class="preview-panel-header">
             <h2>Live Preview</h2>
@@ -1035,24 +761,16 @@ tr:hover td{background:var(--bg4);}
               <button class="preview-action-btn dup" onclick="duplicateDoc()">📋 Duplicate</button>
             </div>
           </div>
-          <div class="preview-wrap">
-            <div class="preview-wrap-inner" id="previewWrap"></div>
-          </div>
+          <div class="preview-wrap"><div class="preview-wrap-inner" id="previewWrap"></div></div>
         </div>
       </div>
     </div>
-
-    <!-- HISTORY -->
     <div class="page" id="page-history">
-      <div class="section-header">
-        <div><div class="section-title">Document History</div><div class="section-sub">All generated documents with search, export and management options.</div></div>
-      </div>
+      <div class="section-header"><div><div class="section-title">Document History</div><div class="section-sub">All generated documents with search, export and management options.</div></div></div>
       <div class="filter-bar">
         <input type="text" class="search-input" id="historySearch" placeholder="🔍 Search by name, ID or type…" oninput="renderHistory()"/>
         <select class="filter-select" id="historyFilter" onchange="renderHistory()">
-          <option value="all">All Types</option>
-          <option value="letter">Letters</option>
-          <option value="cert">Certificates</option>
+          <option value="all">All Types</option><option value="letter">Letters</option><option value="cert">Certificates</option>
         </select>
         <button class="action-btn btn-secondary print-ignore" style="width:auto;padding:10px 18px;margin-top:0;" onclick="clearHistory()">🗑️ Clear All</button>
       </div>
@@ -1064,8 +782,6 @@ tr:hover td{background:var(--bg4);}
         <div class="empty-state print-ignore" id="historyEmpty" style="display:none;"><div class="empty-icon">📂</div><h3>No documents yet</h3><p>Generate a document to see it appear here.</p></div>
       </div>
     </div>
-
-    <!-- VERIFY -->
     <div class="page" id="page-verify">
       <div class="verify-center">
         <div class="verify-card">
@@ -1080,37 +796,33 @@ tr:hover td{background:var(--bg4);}
     </div>
   </div>
 </div>
-
 <script>
-/* ===========================================
-   CONSTANTS
-=========================================== */
-const EDGE_URL='https://afooyyydhlwngzssgqih.supabase.co/functions/v1/af-certificate-api';
-/* FIX #3: Updated QR verification URL to correct domain */
-const QR_BASE_URL='https://cert.academeforge.in/verify?id=';
+// ============================================================
+// ⚠️  ACTION REQUIRED: Replace with your Supabase anon key
+// Found in: Supabase Dashboard → Project Settings → API →
+//           Project API keys → "anon" "public"
+// ============================================================
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
 
-/* ===========================================
-   STATE
-=========================================== */
-let currentType='internship-cert';
-let documentHistory=[];
-let docCounters={};
-let isDark=true;
-let _liveTimer=null;
-let currentCertTheme='corporate';
-let uploadedAssets={logo:null,sign:null,seal:null,bg:null,'cl-logo':null,'cl-sign':null};
+const EDGE_URL = 'https://afooyyydhlwngzssgqih.supabase.co/functions/v1/af-certificate-api';
+const QR_BASE_URL = 'https://cert.academeforge.in/verify?id=';
 
-/* ===========================================
-   LOCAL STATE
-=========================================== */
+// ─── STATE ───────────────────────────────────────────────────
+let currentType = 'internship-cert';
+let documentHistory = [];
+let docCounters = {};
+let isDark = true;
+let _liveTimer = null;
+let currentCertTheme = 'corporate';
+let uploadedAssets = {logo:null,sign:null,seal:null,bg:null,'cl-logo':null,'cl-sign':null};
+
+// ─── LOCAL STORAGE ───────────────────────────────────────────
 function loadLocalState(){
   try{ documentHistory=JSON.parse(localStorage.getItem('af_doc_history')||'[]'); if(!Array.isArray(documentHistory))documentHistory=[]; }catch(e){ documentHistory=[]; }
   try{ docCounters=JSON.parse(localStorage.getItem('af_doc_counters')||'{}'); if(typeof docCounters!=='object'||Array.isArray(docCounters))docCounters={}; }catch(e){ docCounters={}; }
 }
 
-/* ===========================================
-   TOAST
-=========================================== */
+// ─── TOAST ───────────────────────────────────────────────────
 function toast(msg,type='info',dur=3500){
   const wrap=document.getElementById('toastWrap');
   if(!wrap)return;
@@ -1122,9 +834,7 @@ function toast(msg,type='info',dur=3500){
   setTimeout(()=>{el.style.opacity='0';el.style.transform='translateX(20px)';setTimeout(()=>el.remove(),300);},dur);
 }
 
-/* ===========================================
-   PROGRESS
-=========================================== */
+// ─── PROGRESS ────────────────────────────────────────────────
 function showProgress(title='Processing…',msg='Please wait…'){
   const ov=document.getElementById('progressOverlay');
   const pf=document.getElementById('progressFill');
@@ -1137,9 +847,7 @@ function showProgress(title='Processing…',msg='Please wait…'){
 function setProgress(pf,pct){if(pf)pf.style.width=pct+'%';}
 function hideProgress(){const ov=document.getElementById('progressOverlay');if(ov)ov.classList.remove('active');}
 
-/* ===========================================
-   DOC TYPES CONFIG
-=========================================== */
+// ─── DOC TYPES ───────────────────────────────────────────────
 const DOC_TYPES={
   'offer-letter':        {label:'Offer Letter',                  prefix:'AF-OFFER', cat:'letter',template:'letter',heading:'OFFER LETTER',              tag:'OFFICIAL OFFER LETTER',          accentStyle:'green'},
   'internship-offer':    {label:'Internship Offer',              prefix:'AF-INTN',  cat:'letter',template:'letter',heading:'INTERNSHIP OFFER LETTER',    tag:'OFFICIAL INTERNSHIP OFFER',      accentStyle:'green'},
@@ -1182,9 +890,7 @@ const LETTER_DESCRIPTIONS={
 const ACCENT_COLORS={green:'#16a34a',blue:'#1d4ed8',purple:'#7c3aed',amber:'#d97706',red:'#dc2626'};
 const THEME_NAMES={corporate:'Corporate Green',royal:'Royal Purple',academic:'Academic Blue',gold:'Gold Excellence',ai:'AI Innovation',minimal:'Modern Minimal',tech:'Technology Futuristic',startup:'Startup Achievement',leadership:'Leadership Award',global:'Global Recognition'};
 
-/* ===========================================
-   LOGIN
-=========================================== */
+// ─── LOGIN ───────────────────────────────────────────────────
 window.addEventListener('load',()=>{
   loadLocalState();
   const session=localStorage.getItem('af_admin_session');
@@ -1210,24 +916,26 @@ async function login(){
       document.getElementById('loginScreen').style.display='none';
       document.getElementById('app').style.display='block';
       initApp();
-    } else{errEl.style.display='block';errEl.textContent='❌ '+(data.message||'Invalid Password.');}
+    }else{errEl.style.display='block';errEl.textContent='❌ '+(data.message||'Invalid Password.');}
   }catch(e){errEl.style.display='block';errEl.textContent='❌ Network error. Please try again.';}
   finally{btn.disabled=false;btn.textContent='Access Dashboard';}
 }
 function logout(){localStorage.removeItem('af_admin_session');location.reload();}
 
-/* ===========================================
-   API
-=========================================== */
+// ─── API CALL (FIX #1: Added Authorization + apikey headers) ─
 async function apiCall(body){
-  const res=await fetch(EDGE_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const headers={'Content-Type':'application/json'};
+  // FIX: Supabase requires Authorization header to invoke edge functions
+  if(SUPABASE_ANON_KEY && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY_HERE'){
+    headers['Authorization']='Bearer '+SUPABASE_ANON_KEY;
+    headers['apikey']=SUPABASE_ANON_KEY;
+  }
+  const res=await fetch(EDGE_URL,{method:'POST',headers,body:JSON.stringify(body)});
   const data=await res.json();
   return{ok:res.ok,status:res.status,data};
 }
 
-/* ===========================================
-   INIT
-=========================================== */
+// ─── INIT ─────────────────────────────────────────────────────
 function initApp(){
   loadLocalState();
   buildDocTypeGrid();
@@ -1240,9 +948,7 @@ function initApp(){
   _liveTimer=setInterval(updateLiveDateTime,1000);
 }
 
-/* ===========================================
-   NAVIGATION
-=========================================== */
+// ─── NAVIGATION ───────────────────────────────────────────────
 function showPage(pageId,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const t=document.getElementById('page-'+pageId);
@@ -1266,9 +972,7 @@ function showPageAndSetType(pageId,type,btn){
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('open');}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');}
 
-/* ===========================================
-   THEME
-=========================================== */
+// ─── THEME ────────────────────────────────────────────────────
 function toggleTheme(){setTheme(isDark?'light':'dark');}
 function setTheme(theme){
   isDark=theme==='dark';
@@ -1277,10 +981,6 @@ function setTheme(theme){
   if(icon)icon.textContent=isDark?'🌙':'☀️';
   localStorage.setItem('af_theme',theme);
 }
-
-/* ===========================================
-   CERT THEME
-=========================================== */
 function setCertTheme(themeId,el){
   currentCertTheme=themeId;
   document.querySelectorAll('.theme-chip').forEach(c=>c.classList.remove('active'));
@@ -1289,25 +989,18 @@ function setCertTheme(themeId,el){
   if(lbl)lbl.textContent='Theme: '+(THEME_NAMES[themeId]||themeId);
   liveUpdate();
 }
-
-/* ===========================================
-   BUILDER TABS
-=========================================== */
 function switchBuilderTab(tabId,btn){
   document.querySelectorAll('.builder-tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.builder-tab-content').forEach(c=>c.classList.remove('active'));
   if(btn)btn.classList.add('active');
   const el=document.getElementById('btab-'+tabId);
   if(el)el.classList.add('active');
-  // Show bg image upload only when bg-type = image
   const bgType=document.getElementById('cc-bg-type');
   const bgWrap=document.getElementById('cc-bg-img-wrap');
   if(bgType&&bgWrap)bgWrap.style.display=bgType.value==='image'?'block':'none';
 }
 
-/* ===========================================
-   DOC TYPE GRID
-=========================================== */
+// ─── DOC TYPE GRID ────────────────────────────────────────────
 function buildDocTypeGrid(){
   const grid=document.getElementById('docTypeGrid');
   if(!grid)return;
@@ -1321,7 +1014,6 @@ function buildDocTypeGrid(){
     grid.appendChild(btn);
   });
 }
-
 function setDocType(type){
   if(!DOC_TYPES[type])return;
   currentType=type;
@@ -1334,8 +1026,6 @@ function setDocType(type){
   const isCustomCert=cfg.template==='custom-cert';
   const isCustomLetter=cfg.template==='custom-letter';
   const isLetter=cfg.template==='letter';
-
-  // Show/hide panel sections
   document.getElementById('standardFields').style.display=(isCert||isLetter)?'block':'none';
   document.getElementById('customCertFields').style.display=isCustomCert?'block':'none';
   document.getElementById('customLetterFields').style.display=isCustomLetter?'block':'none';
@@ -1343,22 +1033,16 @@ function setDocType(type){
   document.getElementById('themeSwitcherWrap').style.display=isCert?'block':'none';
   document.getElementById('editableTemplateFields').style.display=isCert?'block':'none';
   document.getElementById('letterDescGroup').style.display=isLetter?'block':'none';
-
-  // Stipend for specific letter types
   const showStipend=['offer-letter','internship-offer','freelance-letter'].includes(type);
   const sg=document.getElementById('stipendGroup');
   if(sg)sg.style.display=showStipend?'block':'none';
-
-  // Prefill editable template heading/tag
   const hEl=document.getElementById('f-certHeading');
   const tEl=document.getElementById('f-certTag');
   if(hEl&&!hEl.value&&cfg.heading)hEl.placeholder=cfg.heading;
   if(tEl&&!tEl.value&&cfg.tag)tEl.placeholder=cfg.tag;
 }
 
-/* ===========================================
-   AUTO ID
-=========================================== */
+// ─── AUTO ID ──────────────────────────────────────────────────
 function generateAutoId(type){
   const cfg=DOC_TYPES[type];
   if(!cfg)return'';
@@ -1372,23 +1056,17 @@ function generateAutoId(type){
 }
 function getAutoId(){const el=document.getElementById('autoIdValue');return el?el.textContent.trim():generateAutoId(currentType);}
 
-/* ===========================================
-   PREFILL
-=========================================== */
+// ─── PREFILL ──────────────────────────────────────────────────
 function prefillDefaults(){
   const fmt=(d)=>d.toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
   const today=new Date();
   ['f-date','cl-date','cc-date'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=fmt(today);});
 }
 
-/* ===========================================
-   FORM DATA
-=========================================== */
+// ─── FORM DATA ────────────────────────────────────────────────
 function val(id,fb=''){const el=document.getElementById(id);return(el&&el.value.trim())?el.value.trim():fb;}
 function chk(id,def=true){const el=document.getElementById(id);return el?el.checked:def;}
-
 function getFormData(){
-  const cfg=DOC_TYPES[currentType]||{};
   return{
     name:val('f-name','Recipient Name'),role:val('f-role','Role / Position'),dept:val('f-dept',''),
     start:val('f-start',''),end:val('f-end',''),
@@ -1397,12 +1075,10 @@ function getFormData(){
     letterDesc:val('f-letter-desc',''),
     signname:val('f-signname','Devraj Kumar'),signrole:val('f-signrole','Founder & CEO, AcademeForge'),
     id:getAutoId(),
-    // editable template fields
     certHeading:val('f-certHeading',''),certTag:val('f-certTag',''),certAward:val('f-certAward',''),
     certAchievement:val('f-certAchievement',''),certDesc:val('f-desc',''),
     certFooter:val('f-certFooter',''),orgName:val('f-orgName','AcademeForge'),
     orgTagline:val('f-orgTagline','Building Skills. Creating Opportunities.'),
-    // custom cert
     ccName:val('cc-name',''),ccRole:val('cc-role',''),ccDept:val('cc-dept',''),
     ccStart:val('cc-start',''),ccEnd:val('cc-end',''),
     ccDate:val('cc-date',new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'})),
@@ -1411,7 +1087,7 @@ function getFormData(){
     ccAchievement:val('cc-achievement',''),ccDesc:val('cc-desc',''),ccFooter:val('cc-footer',''),
     ccOrg:val('cc-org','AcademeForge'),ccTagline:val('cc-tagline','Building Skills. Creating Opportunities.'),
     ccSignname:val('cc-signname','Devraj Kumar'),ccSignrole:val('cc-signrole','Founder & CEO, AcademeForge'),
-    ccColorPrimary:val('cc-color-primary','#16a34a')||(document.getElementById('cc-color-primary')||{value:'#16a34a'}).value,
+    ccColorPrimary:(document.getElementById('cc-color-primary')||{value:'#16a34a'}).value,
     ccColorHeading:(document.getElementById('cc-color-heading')||{value:'#15803d'}).value,
     ccColorBg:(document.getElementById('cc-color-bg')||{value:'#ffffff'}).value,
     ccColorAccent:(document.getElementById('cc-color-accent')||{value:'#22c55e'}).value,
@@ -1434,7 +1110,6 @@ function getFormData(){
     ccShowWatermark:chk('cc-show-watermark',false),ccShowQr:chk('cc-show-qr'),
     ccShowAchievement:chk('cc-show-achievement'),ccShowInnerBorder:chk('cc-show-inner-border'),
     ccShowCorners:chk('cc-show-corners'),
-    // custom letter
     clHeading:val('cl-heading','CUSTOM LETTER'),clTag:val('cl-tag','OFFICIAL LETTER'),
     clSubject:val('cl-subject',''),clName:val('cl-name',''),clSalutation:val('cl-salutation',''),
     clBody1:val('cl-body1',''),clBody2:val('cl-body2',''),clBody3:val('cl-body3',''),
@@ -1447,9 +1122,7 @@ function getFormData(){
   };
 }
 
-/* ===========================================
-   LIVE UPDATE
-=========================================== */
+// ─── LIVE UPDATE ──────────────────────────────────────────────
 function liveUpdate(){
   const data=getFormData();
   const cfg=DOC_TYPES[currentType];
@@ -1463,17 +1136,14 @@ function liveUpdate(){
   if(wrap){
     wrap.innerHTML=html;
     renderAllQRCodes(data.id);
-    updateLiveDateTime();
+    updateLiveDateTime(); // FIX #4: guarded inside the function
   }
-  // Show bg image upload based on bg-type selection
   const bgType=document.getElementById('cc-bg-type');
   const bgWrap=document.getElementById('cc-bg-img-wrap');
   if(bgType&&bgWrap)bgWrap.style.display=bgType.value==='image'?'block':'none';
 }
 
-/* ===========================================
-   FIX #3: QR CODE — correct URL
-=========================================== */
+// ─── QR CODE ─────────────────────────────────────────────────
 function renderAllQRCodes(certId){
   document.querySelectorAll('[id^="qr-container-"]').forEach(container=>{
     container.innerHTML='';
@@ -1488,17 +1158,27 @@ function renderAllQRCodes(certId){
   });
 }
 
-/* ===========================================
-   CORNER SVG
-=========================================== */
+// FIX #5: Render QR codes into a given container element (used for PDF/PNG clones)
+function renderQRIntoClone(cloneEl,certId){
+  cloneEl.querySelectorAll('[id^="qr-container-"]').forEach(container=>{
+    container.innerHTML='';
+    try{
+      new QRCode(container,{
+        text:`${QR_BASE_URL}${certId}`,
+        width:54,height:54,
+        colorDark:'#0f172a',colorLight:'#ffffff',
+        correctLevel:QRCode.CorrectLevel.M
+      });
+    }catch(e){container.innerHTML='<div style="font-size:8px;color:#94a3b8;padding:4px;">QR</div>';}
+  });
+}
+
+// ─── CORNER SVG ───────────────────────────────────────────────
 function cornerSVG(color='#16a34a'){
   return`<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 2 L22 2 L22 6 L6 6 L6 22 L2 22 Z" fill="${color}" opacity="0.75"/><path d="M2 2 L9 2 L9 9 L2 9 Z" fill="${color}"/><circle cx="2" cy="2" r="2.5" fill="${color}"/></svg>`;
 }
 
-/* ===========================================
-   FIX #1 & #2: CERT HTML — proper aspect ratio,
-   no overflow, clean border (no unwanted lines)
-=========================================== */
+// ─── CERT HTML ────────────────────────────────────────────────
 function buildCertHTML(data,cfg){
   const heading=data.certHeading||cfg.heading||'CERTIFICATE';
   const tag=data.certTag||cfg.tag||'OFFICIAL CERTIFICATE';
@@ -1508,17 +1188,13 @@ function buildCertHTML(data,cfg){
   const themeColors={corporate:'#16a34a',royal:'#7c3aed',academic:'#1d4ed8',gold:'#d97706',ai:'#818cf8',minimal:'#1e293b',tech:'#0e7490',startup:'#be123c',leadership:'#92400e',global:'#1e3a5f'};
   const tc=themeColors[currentCertTheme]||'#16a34a';
   const showDates=['experience-cert','relieving-letter','experience-letter'].includes(currentType);
-
   return`<div class="cert-doc theme-${currentCertTheme}">
-  <!-- FIX #2: Separate border elements, no ::before/::after causing rogue lines -->
   <div class="cert-border-frame" style="color:${tc};border-style:solid;border-width:2px;"></div>
   <div class="cert-border-inner" style="color:${tc};"></div>
-  <!-- Corner ornaments -->
   <div class="cert-corner tl">${cornerSVG(tc)}</div>
   <div class="cert-corner tr">${cornerSVG(tc)}</div>
   <div class="cert-corner bl">${cornerSVG(tc)}</div>
   <div class="cert-corner br">${cornerSVG(tc)}</div>
-  <!-- Header -->
   <div class="cert-header">
     <div class="cert-logo-area">
       <div class="cert-logo-box"><img src="AF LOGO 2.jpeg" alt="${orgName}" onerror="this.style.display='none';this.parentNode.textContent='AF'"/></div>
@@ -1526,9 +1202,7 @@ function buildCertHTML(data,cfg){
     </div>
     <div class="cert-msme-box"><img src="MSME-logo.png" alt="MSME" onerror="this.style.display='none'"/></div>
   </div>
-  <!-- Accent bar -->
   <div class="cert-accent-bar"></div>
-  <!-- Main content -->
   <div class="cert-content">
     <div class="cert-tag">${tag}</div>
     <div class="cert-heading">${heading}</div>
@@ -1546,7 +1220,6 @@ function buildCertHTML(data,cfg){
       ${showDates&&data.end?`<div class="cert-info-card"><h4>End Date</h4><p>${data.end}</p></div>`:''}
     </div>
   </div>
-  <!-- Footer -->
   <div class="cert-footer">
     <div class="cert-sig-area">
       <img src="devraj-sign.png" class="cert-sig-img" alt="Signature" onerror="this.style.display='none'"/>
@@ -1568,16 +1241,13 @@ function buildCertHTML(data,cfg){
 </div>`;
 }
 
-/* ===========================================
-   CUSTOM CERT BUILDER
-=========================================== */
+// ─── CUSTOM CERT ──────────────────────────────────────────────
 function hexToRgba(hex,alpha=1){
   hex=hex.replace('#','');
   if(hex.length===3)hex=hex.split('').map(c=>c+c).join('');
   const r=parseInt(hex.substring(0,2),16),g=parseInt(hex.substring(2,4),16),b=parseInt(hex.substring(4,6),16);
   return`rgba(${r},${g},${b},${alpha})`;
 }
-
 function buildBgStyle(d){
   if(d.ccBgType==='solid')return`background:${d.ccBgColor1};`;
   if(d.ccBgType==='gradient-radial')return`background:radial-gradient(circle at 15% 15%,${hexToRgba(d.ccBgColor2,0.5)},transparent 50%),radial-gradient(circle at 85% 85%,${hexToRgba(d.ccColorPrimary,0.1)},transparent 50%),${d.ccBgColor1};`;
@@ -1585,7 +1255,6 @@ function buildBgStyle(d){
   if(d.ccBgType==='image'&&uploadedAssets['bg'])return`background:url(${uploadedAssets['bg']}) center/cover;`;
   return`background:${d.ccBgColor1};`;
 }
-
 function buildCustomCertHTML(d){
   const logoSrc=uploadedAssets['logo']||'AF LOGO 2.jpeg';
   const signSrc=uploadedAssets['sign']||'devraj-sign.png';
@@ -1594,20 +1263,16 @@ function buildCustomCertHTML(d){
   const org=d.ccOrg||'AcademeForge';
   const tagline=d.ccTagline||'Building Skills. Creating Opportunities.';
   const bgStyle=buildBgStyle(d);
-
   const nameStyles={
     large:`font-size:${d.ccSizeName}px;font-weight:800;color:#0f172a;`,
     elegant:`font-size:${d.ccSizeName}px;font-weight:700;color:#0f172a;font-style:italic;font-family:'Playfair Display',serif;`,
     outlined:`font-size:${d.ccSizeName}px;font-weight:800;color:transparent;-webkit-text-stroke:2px #0f172a;`,
   };
-
   return`<div class="cert-doc" style="${bgStyle};font-family:${d.ccFontBody};display:flex;flex-direction:column;overflow:hidden;aspect-ratio:1122/794;padding:40px 48px;position:relative;">
-  <!-- FIX #2: Clean border elements, no pseudo-element rogue lines -->
   <div style="position:absolute;inset:12px;border-radius:${d.ccBorderRadius}px;border:${d.ccBorderWidth}px ${d.ccBorderStyle} ${color};pointer-events:none;z-index:1;"></div>
   ${d.ccShowInnerBorder?`<div style="position:absolute;inset:${12+d.ccBorderWidth+6}px;border-radius:${Math.max(0,d.ccBorderRadius-6)}px;border:1px dashed ${hexToRgba(color,0.3)};pointer-events:none;z-index:1;"></div>`:''}
   ${d.ccShowCorners?`<div class="cert-corner tl">${cornerSVG(color)}</div><div class="cert-corner tr">${cornerSVG(color)}</div><div class="cert-corner bl">${cornerSVG(color)}</div><div class="cert-corner br">${cornerSVG(color)}</div>`:''}
   ${d.ccShowWatermark?`<div class="cert-watermark" style="color:${hexToRgba(color,0.04)};">${org.toUpperCase()}</div>`:''}
-  <!-- Header -->
   <div class="cert-header" style="position:relative;z-index:5;">
     <div class="cert-logo-area">
       <div class="cert-logo-box"><img src="${logoSrc}" alt="${org}" onerror="this.style.display='none';this.parentNode.textContent='${org.substring(0,2).toUpperCase()}'"/></div>
@@ -1615,9 +1280,7 @@ function buildCustomCertHTML(d){
     </div>
     ${d.ccShowMsme?`<div class="cert-msme-box"><img src="MSME-logo.png" alt="MSME" onerror="this.style.display='none'"/></div>`:''}
   </div>
-  <!-- Accent bar -->
   <div style="height:4px;border-radius:2px;margin:14px 0 18px;background:linear-gradient(90deg,${d.ccColorPrimary},${d.ccColorAccent},${hexToRgba(d.ccColorAccent,0.3)},transparent);position:relative;z-index:5;"></div>
-  <!-- Content -->
   <div style="position:relative;z-index:5;text-align:${d.ccTextAlign};flex:1;display:flex;flex-direction:column;justify-content:center;">
     <div style="font-size:9px;letter-spacing:${d.ccLetterSpacing}px;font-weight:700;color:${hexToRgba(d.ccColorPrimary,0.7)};text-transform:uppercase;">${d.ccCategory||'CERTIFICATE OF ACHIEVEMENT'}</div>
     <div style="font-family:${d.ccFontHeading};font-size:${d.ccSizeHeading}px;font-weight:800;color:${d.ccColorHeading};margin-top:8px;line-height:1.1;">${d.ccTitle||'Certificate of Achievement'}</div>
@@ -1635,7 +1298,6 @@ function buildCustomCertHTML(d){
       ${d.ccDuration?`<div class="cert-info-card"><h4>Duration</h4><p>${d.ccDuration}</p></div>`:''}
     </div>
   </div>
-  <!-- Footer -->
   <div class="cert-footer" style="position:relative;z-index:5;margin-top:14px;">
     <div class="cert-sig-area">
       <img src="${signSrc}" class="cert-sig-img" alt="Signature" onerror="this.style.display='none'"/>
@@ -1656,9 +1318,7 @@ function buildCustomCertHTML(d){
 </div>`;
 }
 
-/* ===========================================
-   LETTER HTML BUILDER
-=========================================== */
+// ─── LETTER HTML ──────────────────────────────────────────────
 function buildLetterHTML(data,cfg){
   const descFn=LETTER_DESCRIPTIONS[currentType]||(()=>'');
   const bodyDesc=data.letterDesc||descFn(data);
@@ -1696,8 +1356,6 @@ function buildLetterHTML(data,cfg){
   <div class="letter-body">
     <p>This letter is officially issued by AcademeForge and is valid as a supporting document for professional and academic purposes.</p>
     <p>For verification: <strong>contact@academeforge.in</strong> | <strong>cert.academeforge.in/verify</strong></p>
-    <p>${data.signname?' '+ data.signrole ||'':''}</p>
-    <p>${data.signname||'Devraj Kumar'}</p>
   </div>
   <div class="letter-footer">
     <div>
@@ -1718,9 +1376,7 @@ function buildLetterHTML(data,cfg){
 </div>`;
 }
 
-/* ===========================================
-   CUSTOM LETTER BUILDER
-=========================================== */
+// ─── CUSTOM LETTER ────────────────────────────────────────────
 function buildCustomLetterHTML(d){
   const logoSrc=uploadedAssets['cl-logo']||'AF LOGO 2.jpeg';
   const signSrc=uploadedAssets['cl-sign']||'devraj-sign.png';
@@ -1765,9 +1421,7 @@ function buildCustomLetterHTML(d){
 </div>`;
 }
 
-/* ===========================================
-   FILE UPLOAD
-=========================================== */
+// ─── FILE UPLOAD ──────────────────────────────────────────────
 function handleUpload(inputId,previewId,assetKey){
   const input=document.getElementById(inputId);
   const preview=document.getElementById(previewId);
@@ -1781,9 +1435,7 @@ function handleUpload(inputId,previewId,assetKey){
   reader.readAsDataURL(input.files[0]);
 }
 
-/* ===========================================
-   FIX #1: PDF EXPORT — no clipping, exact A4 fit
-=========================================== */
+// ─── PDF EXPORT (FIX #5: QR rendered in clone) ───────────────
 async function downloadPDF(){
   const wrap=document.getElementById('previewWrap');
   if(!wrap||!wrap.innerHTML.trim()){toast('Please generate a document first.','error');return;}
@@ -1793,23 +1445,21 @@ async function downloadPDF(){
   const pf=showProgress('Generating PDF…','Rendering high-resolution document…');
   setProgress(pf,10);
   try{
-    /* FIX: Clone the inner document element only, not the preview wrapper */
     const original=wrap.querySelector('.cert-doc,.letter-doc');
     if(!original){toast('Preview not ready. Generate a document first.','error');hideProgress();return;}
     const clone=original.cloneNode(true);
-    /* FIX: Set exact A4 pixel dimensions. 96dpi: A4 = 794x1122px, A4 landscape = 1122x794px */
     const W=isLandscape?1122:794;
     const H=isLandscape?794:1122;
     clone.style.cssText=`width:${W}px!important;height:${H}px!important;min-height:${H}px!important;max-height:${H}px!important;position:fixed;left:-9999px;top:0;z-index:-1;overflow:hidden!important;aspect-ratio:unset!important;`;
     document.body.appendChild(clone);
+    // FIX #5: Render QR codes into the clone so they appear in the PDF
+    renderQRIntoClone(clone,certId);
     setProgress(pf,30);
-    /* FIX: Wait for images and fonts to render */
-    await new Promise(r=>setTimeout(r,300));
+    await new Promise(r=>setTimeout(r,400));
     const canvas=await html2canvas(clone,{
       scale:2,useCORS:true,allowTaint:true,
       backgroundColor:'#ffffff',logging:false,
-      width:W,height:H,
-      windowWidth:W,windowHeight:H,
+      width:W,height:H,windowWidth:W,windowHeight:H,
     });
     document.body.removeChild(clone);
     setProgress(pf,75);
@@ -1818,7 +1468,6 @@ async function downloadPDF(){
     const imgData=canvas.toDataURL('image/jpeg',0.98);
     const pageW=doc.internal.pageSize.getWidth();
     const pageH=doc.internal.pageSize.getHeight();
-    /* FIX: Fit image to full page with no margins */
     doc.addImage(imgData,'JPEG',0,0,pageW,pageH);
     setProgress(pf,95);
     doc.save(`${certId}.pdf`);
@@ -1832,9 +1481,7 @@ async function downloadPDF(){
   }
 }
 
-/* ===========================================
-   PNG EXPORT
-=========================================== */
+// ─── PNG EXPORT (FIX #5: QR rendered in clone) ───────────────
 async function downloadPNG(){
   const wrap=document.getElementById('previewWrap');
   if(!wrap||!wrap.innerHTML.trim()){toast('Please generate a document first.','error');return;}
@@ -1851,8 +1498,10 @@ async function downloadPNG(){
     const H=isLandscape?794:1122;
     clone.style.cssText=`width:${W}px!important;height:${H}px!important;min-height:${H}px!important;max-height:${H}px!important;position:fixed;left:-9999px;top:0;z-index:-1;overflow:hidden!important;aspect-ratio:unset!important;`;
     document.body.appendChild(clone);
+    // FIX #5: Render QR codes into clone
+    renderQRIntoClone(clone,certId);
     setProgress(pf,40);
-    await new Promise(r=>setTimeout(r,300));
+    await new Promise(r=>setTimeout(r,400));
     const canvas=await html2canvas(clone,{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',logging:false,width:W,height:H,windowWidth:W,windowHeight:H});
     document.body.removeChild(clone);
     setProgress(pf,85);
@@ -1866,55 +1515,86 @@ async function downloadPNG(){
   }catch(e){hideProgress();toast('PNG export failed.','error');}
 }
 
-/* ===========================================
-   DUPLICATE
-=========================================== */
+// ─── DUPLICATE ────────────────────────────────────────────────
 function duplicateDoc(){
   toast('Duplicate: edit fields and click Generate & Save to create a new copy.','info');
   showPage('generator',null);
 }
 
-/* ===========================================
-   GENERATE & SAVE
-=========================================== */
+// ─── GENERATE & SAVE (FIX #1 via apiCall, FIX #3 counter guard)
 async function generateDocument(){
   const cfg=DOC_TYPES[currentType];
-  /* Gather name/role from correct fields based on template type */
   let rawName,rawRole,rawDept,rawDate,rawStart,rawEnd,rawDuration,rawStipend,rawSignname,rawSignrole,rawDesc;
   if(cfg.template==='custom-cert'){
     rawName=val('cc-name','');rawRole=val('cc-role','');rawDept=val('cc-dept','');
     rawDate=val('cc-date','');rawStart=val('cc-start','');rawEnd=val('cc-end','');
     rawDuration=val('cc-duration','');rawStipend='';rawSignname=val('cc-signname','');rawSignrole=val('cc-signrole','');rawDesc=val('cc-desc','');
-  } else if(cfg.template==='custom-letter'){
+  }else if(cfg.template==='custom-letter'){
     rawName=val('cl-name','');rawRole='Custom Letter';rawDept='';
     rawDate=val('cl-date','');rawStart='';rawEnd='';rawDuration='';rawStipend='';
     rawSignname=val('cl-signname','');rawSignrole=val('cl-signrole','');rawDesc=val('cl-body1','');
-  } else{
+  }else{
     rawName=val('f-name','');rawRole=val('f-role','');rawDept=val('f-dept','');
     rawDate=val('f-date','');rawStart=val('f-start','');rawEnd=val('f-end','');
     rawDuration=val('f-duration','');rawStipend=val('f-stipend','');
     rawSignname=val('f-signname','');rawSignrole=val('f-signrole','');rawDesc=val('f-desc','');
   }
   if(!rawName){toast('Full Name is required.','error');return;}
+
   const certId=getAutoId();
   const record={
-    action:'save-certificate',certificate_id:certId,full_name:rawName,role:rawRole,department:rawDept,
-    certificate_type:cfg.label,category:cfg.cat,doc_key:currentType,issue_date:rawDate,
-    start_date:rawStart,end_date:rawEnd,work_type:rawDuration,stipend:rawStipend,
-    signatory_name:rawSignname,signatory_role:rawSignrole,description:rawDesc,
+    action:'save-certificate',
+    certificate_id:certId,
+    full_name:rawName,
+    role:rawRole,
+    department:rawDept,
+    certificate_type:cfg.label,
+    category:cfg.cat,
+    doc_key:currentType,
+    issue_date:rawDate,
+    start_date:rawStart,
+    end_date:rawEnd,
+    work_type:rawDuration,
+    stipend:rawStipend,
+    signatory_name:rawSignname,
+    signatory_role:rawSignrole,
+    description:rawDesc,
   };
+
   const genBtns=document.querySelectorAll('.btn-primary');
   genBtns.forEach(b=>{b.disabled=true;b.textContent='⏳ Saving…';});
+
   let savedToBackend=false;
+  let backendError='';
+
   try{
     const{ok,data}=await apiCall(record);
-    if(ok&&data.success)savedToBackend=true;
-    else{const go=confirm(`⚠️ Backend save failed: ${data.message||'Unknown'}.\n\nSave locally only?`);if(!go){genBtns.forEach(b=>{b.disabled=false;b.textContent='⚡ Generate & Save';});return;}}
-  }catch(e){const go=confirm('⚠️ Network error.\n\nSave locally only?');if(!go){genBtns.forEach(b=>{b.disabled=false;b.textContent='⚡ Generate & Save';});return;}}
+    if(ok&&data.success){
+      savedToBackend=true;
+    }else{
+      backendError=data.message||'Unknown error';
+      console.error('[AF] Backend save failed:',backendError,data);
+    }
+  }catch(e){
+    backendError='Network error: '+e.message;
+    console.error('[AF] apiCall exception:',e);
+  }
+
+  // FIX #3: Only ask to proceed if backend failed; always increment counter on confirmed save
+  if(!savedToBackend){
+    const go=confirm(`⚠️ Backend save failed: ${backendError}\n\nSave locally only?\n\n(Check browser console for details)`);
+    if(!go){
+      genBtns.forEach(b=>{b.disabled=false;b.textContent='⚡ Generate & Save';});
+      return;
+    }
+  }
+
+  // Increment counter and persist
   const year=new Date().getFullYear();
   const ck=cfg.prefix+'-'+year;
   docCounters[ck]=(docCounters[ck]||0)+1;
   localStorage.setItem('af_doc_counters',JSON.stringify(docCounters));
+
   const localRec={
     id:certId,name:rawName,role:rawRole,dept:rawDept,type:cfg.label,cat:cfg.cat,docKey:currentType,
     date:rawDate,start:rawStart,end:rawEnd,duration:rawDuration,stipend:rawStipend,
@@ -1923,14 +1603,16 @@ async function generateDocument(){
   };
   documentHistory.unshift(localRec);
   localStorage.setItem('af_doc_history',JSON.stringify(documentHistory));
-  updateStats();renderHistory();generateAutoId(currentType);
+
+  updateStats();
+  renderHistory();
+  generateAutoId(currentType); // Advance to next ID
+
   genBtns.forEach(b=>{b.disabled=false;b.textContent='⚡ Generate & Save';});
-  toast(`Saved! ID: ${certId}${savedToBackend?' (server)':' (local)'}`,savedToBackend?'success':'info');
+  toast(`Saved! ID: ${certId}${savedToBackend?' ✅ (Supabase)':' ⚠️ (local only)'}`,savedToBackend?'success':'info');
 }
 
-/* ===========================================
-   HISTORY
-=========================================== */
+// ─── HISTORY ──────────────────────────────────────────────────
 function renderHistory(){
   const search=(document.getElementById('historySearch')?.value||'').toLowerCase();
   const filter=document.getElementById('historyFilter')?.value||'all';
@@ -1966,8 +1648,8 @@ function renderHistory(){
       const action=btn.getAttribute('data-action');
       if(action==='load')loadDoc(idx);
       else if(action==='delete')deleteDoc(idx);
-      else if(action==='pdf'){loadDoc(idx);setTimeout(downloadPDF,400);}
-      else if(action==='png'){loadDoc(idx);setTimeout(downloadPNG,400);}
+      else if(action==='pdf'){loadDoc(idx);setTimeout(downloadPDF,500);}
+      else if(action==='png'){loadDoc(idx);setTimeout(downloadPNG,500);}
     });
   });
   updateHistoryBadge();
@@ -2018,9 +1700,7 @@ async function clearHistory(){
 }
 function updateHistoryBadge(){const b=document.getElementById('historyBadge');if(b)b.textContent=documentHistory.length;}
 
-/* ===========================================
-   STATS
-=========================================== */
+// ─── STATS ────────────────────────────────────────────────────
 function updateStats(){
   const s=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
   s('stat-total',documentHistory.length);
@@ -2031,9 +1711,7 @@ function updateStats(){
   updateHistoryBadge();
 }
 
-/* ===========================================
-   VERIFY
-=========================================== */
+// ─── VERIFY ───────────────────────────────────────────────────
 async function verifyDocument(){
   const inputEl=document.getElementById('verifyInput');
   const resultDiv=document.getElementById('verifyResult');
@@ -2065,7 +1743,7 @@ async function verifyDocument(){
       <div class="verify-detail-row"><span>Document Type</span><span>${record.certificate_type||record.type||'—'}</span></div>
       <div class="verify-detail-row"><span>Issue Date</span><span>${record.issue_date||record.date||'—'}</span></div>
       <div class="verify-detail-row"><span>Issued By</span><span>AcademeForge</span></div>`;
-  } else{
+  }else{
     resultDiv.className='verify-result invalid';
     resultDiv.innerHTML=`
       <div class="verify-status invalid">❌ INVALID — Document Not Found</div>
@@ -2073,10 +1751,9 @@ async function verifyDocument(){
   }
 }
 
-/* ===========================================
-   LIVE DATE TIME
-=========================================== */
+// ─── LIVE DATE TIME (FIX #4: null guard) ─────────────────────
 function updateLiveDateTime(){
+  // FIX: guard — only certs have #liveDT, letters don't
   const el=document.getElementById('liveDT');
   if(!el)return;
   const now=new Date();
